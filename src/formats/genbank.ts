@@ -1,6 +1,7 @@
 import type { SeqRecord, Topology } from '../engine/types';
 import { formatFeatureTable, parseFeatureTable } from './feature-table';
 import {
+  appendAll,
   chunk,
   cleanSequence,
   detectAlphabet,
@@ -87,7 +88,7 @@ export function readGenBank(lines: readonly string[], warnings: Warnings): SeqRe
     }
     const begin = i;
     const header = parseLocus(lines[i++] as string);
-    let featureLines: string[] = [];
+    const featureLines: string[] = [];
     let featureStart = 0;
     const seqParts: string[] = [];
     let hasOrigin = false;
@@ -143,7 +144,6 @@ export function readGenBank(lines: readonly string[], warnings: Warnings): SeqRe
       topology,
       warnings,
     });
-    featureLines = [];
     const description = header.definition.join(' ');
     records.push({
       id: header.version ?? header.accession ?? header.name,
@@ -211,7 +211,7 @@ function formatRecord(record: SeqRecord): string {
   lines.push(...field('SOURCE', organism));
   lines.push(...field('  ORGANISM', organism), `${' '.repeat(12)}.`);
   lines.push('FEATURES             Location/Qualifiers');
-  lines.push(...formatFeatureTable(record.features, { lead: '' }));
+  appendAll(lines, formatFeatureTable(record.features, { lead: '' }));
   lines.push('ORIGIN');
   const seq = record.seq.toLowerCase();
   for (let i = 0; i < seq.length; i += 60) {

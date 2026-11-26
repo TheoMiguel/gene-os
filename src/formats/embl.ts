@@ -1,6 +1,14 @@
 import type { SeqRecord, Topology } from '../engine/types';
 import { formatFeatureTable, parseFeatureTable } from './feature-table';
-import { chunk, cleanSequence, detectAlphabet, FormatError, type Warnings, wrap } from './internal';
+import {
+  appendAll,
+  chunk,
+  cleanSequence,
+  detectAlphabet,
+  FormatError,
+  type Warnings,
+  wrap,
+} from './internal';
 
 interface IdLine {
   name: string;
@@ -176,7 +184,8 @@ function formatRecord(record: SeqRecord): string {
   if (record.metadata.organism) lines.push(...lineBlock('OS', record.metadata.organism), 'XX');
   if (record.features.length > 0) {
     lines.push('FH   Key             Location/Qualifiers', 'FH');
-    lines.push(...formatFeatureTable(record.features, { lead: 'FT' }), 'XX');
+    appendAll(lines, formatFeatureTable(record.features, { lead: 'FT' }));
+    lines.push('XX');
   }
   lines.push(`SQ   Sequence ${record.seq.length} ${unit};${protein ? '' : ` ${baseCounts(record.seq)}`}`);
   const seq = protein ? record.seq : record.seq.toLowerCase();

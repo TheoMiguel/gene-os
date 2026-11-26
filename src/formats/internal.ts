@@ -126,9 +126,16 @@ export function insdcDate(year: number, month: number, day: number): string {
   return `${String(day).padStart(2, '0')}-${MONTHS[month - 1] ?? 'JAN'}-${year}`;
 }
 
+/** The calendar date of a GenBank/EMBL style date (`07-JUL-2021`), if the text is one. */
+export function parseInsdcDate(text: string): { year: number; month: number; day: number } | undefined {
+  const match = /^(\d{2})-([A-Z]{3})-(\d{4})$/.exec(text);
+  const month = match ? MONTHS.indexOf(match[2] as string) + 1 : 0;
+  return match && month > 0 ? { year: Number(match[3]), month, day: Number(match[1]) } : undefined;
+}
+
 /** True for a GenBank/EMBL style date (`07-JUL-2021`). */
 export function isInsdcDate(text: string): boolean {
-  return /^\d{2}-[A-Z]{3}-\d{4}$/.test(text);
+  return parseInsdcDate(text) !== undefined;
 }
 
 /** A record that holds only a sequence and its names (FASTA, raw text): linear, no features. */
@@ -152,4 +159,9 @@ export function latin1(bytes: Uint8Array): string {
     parts.push(String.fromCharCode(...bytes.subarray(i, i + 0x8000)));
   }
   return parts.join('');
+}
+
+/** Appends items one by one; `push(...items)` overflows the call stack for very long arrays. */
+export function appendAll<T>(target: T[], items: Iterable<T>): void {
+  for (const item of items) target.push(item);
 }

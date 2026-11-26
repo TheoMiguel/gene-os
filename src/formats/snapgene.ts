@@ -1,6 +1,15 @@
 import type { Feature, SeqRecord, Span, Strand } from '../engine/types';
 import { keyOf, nameFromQualifiers, qualifiersToWrite, typeForKey } from './feature-keys';
-import { detectAlphabet, FormatError, fallbackName, insdcDate, latin1, type Warnings } from './internal';
+import {
+  appendAll,
+  detectAlphabet,
+  FormatError,
+  fallbackName,
+  insdcDate,
+  latin1,
+  parseInsdcDate,
+  type Warnings,
+} from './internal';
 import { descendants, escapeXml, parseXml, type XmlElement } from './xml';
 
 /**
@@ -200,11 +209,12 @@ export function readSnapGene(
   let notes: XmlElement | undefined;
   for (const packet of all) {
     if (packet.type === PACKET.features) {
-      features.push(
-        ...readFeatures(parseXml(utf8.decode(packet.data)), seq.length, warnings, features.length),
+      appendAll(
+        features,
+        readFeatures(parseXml(utf8.decode(packet.data)), seq.length, warnings, features.length),
       );
     } else if (packet.type === PACKET.primers) {
-      features.push(...readPrimers(parseXml(utf8.decode(packet.data)), seq.length, features.length));
+      appendAll(features, readPrimers(parseXml(utf8.decode(packet.data)), seq.length, features.length));
     } else if (packet.type === PACKET.notes) {
       notes = parseXml(utf8.decode(packet.data));
     }
@@ -288,10 +298,8 @@ function featureXml(feature: Feature, index: number, length: number): string {
 }
 
 function snapGeneDate(date: string | undefined): string | undefined {
-  const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-  const match = date && /^(\d{2})-([A-Z]{3})-(\d{4})$/.exec(date);
-  if (!match) return undefined;
-  return `${match[3]}.${months.indexOf(match[2] as string) + 1}.${Number(match[1])}`;
+  const parts = date === undefined ? undefined : parseInsdcDate(date);
+  return parts && `${parts.year}.${parts.month}.${parts.day}`;
 }
 
 function notesXml(record: SeqRecord): string {

@@ -1,5 +1,5 @@
 import type { SeqRecord } from '../engine/types';
-import { chunk, cleanSequence, FormatError, plainRecord, type Warnings } from './internal';
+import { appendAll, chunk, cleanSequence, FormatError, plainRecord, type Warnings } from './internal';
 
 /**
  * Reads every record of a FASTA file. As in Biopython, `id` and `name` are the first word of the title line
@@ -48,7 +48,8 @@ function title(record: SeqRecord): string {
 export function writeFasta(records: readonly SeqRecord[]): string {
   const lines: string[] = [];
   for (const record of records) {
-    lines.push(`>${title(record)}`, ...chunk(record.seq, 60));
+    lines.push(`>${title(record)}`);
+    appendAll(lines, chunk(record.seq, 60));
   }
   return `${lines.join('\n')}\n`;
 }
