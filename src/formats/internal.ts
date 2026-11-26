@@ -97,20 +97,16 @@ export function chunk(text: string, size: number): string[] {
  */
 export function wrap(text: string, width: number, breakAfter = ' '): string[] {
   const lines: string[] = [];
-  let rest = text;
-  while (rest.length > width) {
-    let cut = -1;
-    for (let i = width; i > 0; i--) {
-      if (breakAfter.includes(rest[i - 1] as string)) {
-        cut = i;
-        break;
-      }
-    }
-    if (cut <= 0) cut = width;
-    lines.push(rest.slice(0, cut).trimEnd());
-    rest = rest.slice(cut).trimStart();
+  let start = 0;
+  while (text.length - start > width) {
+    let cut = start + width;
+    while (cut > start && !breakAfter.includes(text[cut - 1] as string)) cut--;
+    if (cut === start) cut = start + width;
+    lines.push(text.slice(start, cut).trimEnd());
+    start = cut;
+    while (text[start] === ' ') start++;
   }
-  lines.push(rest);
+  lines.push(text.slice(start));
   return lines;
 }
 
