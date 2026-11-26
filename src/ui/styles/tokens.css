@@ -1,0 +1,139 @@
+/*
+ * GENE_OS design tokens: every color and font family the UI uses.
+ * Values are ported from the V1.2.0 stylesheet (docs/reference/v1.2.0-main.css).
+ * `<html>` carries `data-luminosity` (dark | dusk | light) and `data-palette` (the accent family).
+ * V1.2.0 "dim" is the spec's "dusk". Light mode uses a deeper shade of each accent so accent text
+ * keeps WCAG AA contrast; src/ui/styles/tokens.test.ts checks every combination.
+ */
+
+:root {
+  --hero-font: "Chakra Petch", "Rajdhani", "Eurostile", "Arial Narrow", sans-serif;
+  --mono: "JetBrains Mono", "Consolas", monospace;
+  --sans: "Inter", system-ui, -apple-system, sans-serif;
+
+  --accent: var(--pal-bright);
+  --accent-rgb: var(--pal-bright-rgb);
+  --accent-soft: rgba(var(--accent-rgb), 0.16);
+  --gel-bg: #050b10;
+  --shadow: rgba(0, 0, 0, 0.55);
+  --backdrop: rgba(4, 9, 13, 0.5);
+}
+
+:root[data-luminosity="dark"] {
+  --bg: #08121a;
+  --bg-topbar: rgba(8, 18, 26, 0.8);
+  --bg-panel: rgba(11, 24, 34, 0.3);
+  --bg-card: rgba(14, 30, 42, 0.36);
+  --bg-solid-header: #0d1c27;
+  --bg-hover: rgba(20, 42, 58, 0.78);
+  --fg: #e4eef4;
+  --fg-muted: #829bae;
+  --fg-dim: #4c6679;
+  --accent-contrast: #08121a;
+  --cyan: #58b4d1;
+  --cyan-rgb: 88, 180, 209;
+  --warn: #d9a75b;
+  --purple: #9b8ec7;
+  --danger: #e07a7a;
+  --border: rgba(58, 87, 107, 0.45);
+  --border-bright: rgba(95, 134, 160, 0.65);
+  --wire-stroke: #496375;
+  --wire-bright: #8ea8ba;
+}
+
+:root[data-luminosity="dusk"] {
+  --bg: #1e2934;
+  --bg-topbar: rgba(30, 41, 52, 0.86);
+  --bg-panel: rgba(41, 56, 71, 0.44);
+  --bg-card: rgba(47, 64, 81, 0.52);
+  --bg-solid-header: #253442;
+  --bg-hover: rgba(58, 79, 100, 0.86);
+  --fg: #eef4f8;
+  --fg-muted: #9eb4c6;
+  --fg-dim: #6e8699;
+  --accent-contrast: #141e27;
+  --cyan: #58b4d1;
+  --cyan-rgb: 88, 180, 209;
+  --warn: #d9a75b;
+  --purple: #a99dd6;
+  --danger: #ec8d8d;
+  --border: rgba(98, 126, 148, 0.48);
+  --border-bright: rgba(132, 164, 189, 0.68);
+  --wire-stroke: #6f8ca1;
+  --wire-bright: #acc3d4;
+}
+
+:root[data-luminosity="light"] {
+  --bg: #edf2f5;
+  --bg-topbar: rgba(237, 242, 245, 0.82);
+  --bg-panel: rgba(255, 255, 255, 0.38);
+  --bg-card: rgba(245, 249, 252, 0.45);
+  --bg-solid-header: #e3ebf0;
+  --bg-hover: rgba(230, 238, 244, 0.9);
+  --fg: #0e1d29;
+  --fg-muted: #465f70;
+  --fg-dim: #7990a1;
+  --accent: var(--pal-deep);
+  --accent-rgb: var(--pal-deep-rgb);
+  --accent-contrast: #ffffff;
+  --cyan: #0b6a8a;
+  --cyan-rgb: 11, 106, 138;
+  --warn: #8a5a10;
+  --purple: #5b4ba6;
+  --danger: #a32d2d;
+  --border: rgba(147, 170, 185, 0.55);
+  --border-bright: rgba(105, 132, 150, 0.75);
+  --wire-stroke: #93aab9;
+  --wire-bright: #4a6273;
+  --shadow: rgba(14, 29, 41, 0.22);
+  --backdrop: rgba(14, 29, 41, 0.25);
+}
+
+[data-palette="teal"] {
+  --pal-bright: #63c7b2;
+  --pal-bright-rgb: 99, 199, 178;
+  --pal-deep: #0a6356;
+  --pal-deep-rgb: 10, 99, 86;
+}
+
+[data-palette="cyan"] {
+  --pal-bright: #58b4d1;
+  --pal-bright-rgb: 88, 180, 209;
+  --pal-deep: #095f7c;
+  --pal-deep-rgb: 9, 95, 124;
+}
+
+[data-palette="violet"] {
+  --pal-bright: #b4a9df;
+  --pal-bright-rgb: 180, 169, 223;
+  --pal-deep: #5b4ba6;
+  --pal-deep-rgb: 91, 75, 166;
+}
+
+[data-palette="amber"] {
+  --pal-bright: #d9a75b;
+  --pal-bright-rgb: 217, 167, 91;
+  --pal-deep: #7a4f0c;
+  --pal-deep-rgb: 122, 79, 12;
+}
+
+[data-palette="rose"] {
+  --pal-bright: #e893a7;
+  --pal-bright-rgb: 232, 147, 167;
+  --pal-deep: #a3334f;
+  --pal-deep-rgb: 163, 51, 79;
+}
+
+[data-palette="lime"] {
+  --pal-bright: #9ccc65;
+  --pal-bright-rgb: 156, 204, 101;
+  --pal-deep: #425f16;
+  --pal-deep-rgb: 66, 95, 22;
+}
+
+[data-palette="ice"] {
+  --pal-bright: #a9c8e0;
+  --pal-bright-rgb: 169, 200, 224;
+  --pal-deep: #3d6380;
+  --pal-deep-rgb: 61, 99, 128;
+}

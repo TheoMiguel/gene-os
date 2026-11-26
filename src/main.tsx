@@ -1,3 +1,14 @@
+import '@fontsource/chakra-petch/600.css';
+import '@fontsource/chakra-petch/700.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import './ui/styles/tokens.css';
+import './ui/styles/app.css';
 import { render } from 'preact';
+import { bindThemeToDocument } from './state/settings';
+import { App } from './ui/App';
 
-render(<h1>GENE_OS</h1>, document.getElementById('app') as HTMLElement);
+bindThemeToDocument(document.documentElement);
+render(<App />, document.getElementById('app') as HTMLElement);
