@@ -344,3 +344,8 @@
 .pv-frame-card {
   padding: 12px 16px;
 }
+
+.pv-controls .seg-group {
+  display: flex;
+  flex-wrap: wrap;
+}

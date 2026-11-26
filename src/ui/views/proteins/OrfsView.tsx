@@ -55,8 +55,8 @@ function useColumns(): readonly TableColumn<OrfRow>[] {
         header: t('proteins.col.weight'),
         type: 'number',
         value: (row) => row.weight,
-        format: grouped,
-        width: 130,
+        format: (value) => Math.round(Number(value)).toLocaleString(),
+        width: 160,
       },
       {
         id: 'pI',
