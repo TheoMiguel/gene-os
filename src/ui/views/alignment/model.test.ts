@@ -25,15 +25,18 @@ const setup = (patch: Partial<typeof DEFAULT_SETUP> & { picked: string[] }) => (
 
 describe('pasted text', () => {
   it('reads plain letters and drops numbers, spaces and gaps', () => {
-    expect(parsePasted('acg t\n12 gg-a*')).toEqual({ label: 'Pasted', seq: 'ACGTGGA' });
+    expect(parsePasted('acg t\n12 gg-a*', 'Pasted')).toEqual({ label: 'Pasted', seq: 'ACGTGGA' });
   });
 
   it('names the sequence after the first FASTA header word', () => {
-    expect(parsePasted('>seq1 some description\nACGT\nACGT')).toEqual({ label: 'seq1', seq: 'ACGTACGT' });
+    expect(parsePasted('>seq1 some description\nACGT\nACGT', 'Pasted')).toEqual({
+      label: 'seq1',
+      seq: 'ACGTACGT',
+    });
   });
 
   it('gives nothing for text without letters', () => {
-    expect(parsePasted('  123 \n')).toBeNull();
+    expect(parsePasted('  123 \n', 'Pasted')).toBeNull();
   });
 });
 
@@ -50,17 +53,17 @@ describe('buildItems', () => {
   ];
 
   it('lists the picked documents in order, then the pasted sequence', () => {
-    const items = buildItems(setup({ picked: ['b', 'a'], pasted: 'ACGT' }), sources);
+    const items = buildItems(setup({ picked: ['b', 'a'], pasted: 'ACGT' }), sources, 'Pasted');
     expect(items.map((i) => i.label)).toEqual(['Beta', 'Alpha', 'Pasted']);
   });
 
   it('cuts a document to its selection when asked, and names the range', () => {
-    const items = buildItems(setup({ picked: ['a'], regionOnly: ['a'] }), sources);
+    const items = buildItems(setup({ picked: ['a'], regionOnly: ['a'] }), sources, 'Pasted');
     expect(items).toEqual([{ key: 'a', label: 'Alpha:5-8', seq: 'CCCC' }]);
   });
 
   it('skips a document that was closed', () => {
-    expect(buildItems(setup({ picked: ['gone', 'b'] }), sources)).toHaveLength(1);
+    expect(buildItems(setup({ picked: ['gone', 'b'] }), sources, 'Pasted')).toHaveLength(1);
   });
 });
 

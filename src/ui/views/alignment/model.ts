@@ -66,21 +66,23 @@ export interface AlignSource {
   readonly selection: SelectionRange | null;
 }
 
-const PASTED_LABEL = 'Pasted';
-
 /** Residues of a pasted block: the first FASTA header names it, every other character that is not a letter is dropped. */
-export function parsePasted(raw: string): { label: string; seq: string } | null {
+export function parsePasted(raw: string, fallbackLabel: string): { label: string; seq: string } | null {
   const lines = raw.split(/\r?\n/);
   const header = lines.find((line) => line.startsWith('>'));
   const body = lines.filter((line) => !line.startsWith('>')).join('\n');
   const seq = cleanSequence(body).replace(/[-*]/g, '');
   if (seq === '') return null;
   const label = header?.slice(1).trim().split(/\s+/)[0];
-  return { label: label || PASTED_LABEL, seq };
+  return { label: label || fallbackLabel, seq };
 }
 
 /** The sequences to align, in the order the user picked them, pasted text last. */
-export function buildItems(setup: AlignSetup, sources: readonly AlignSource[]): AlignItem[] {
+export function buildItems(
+  setup: AlignSetup,
+  sources: readonly AlignSource[],
+  pastedLabel: string,
+): AlignItem[] {
   const items: AlignItem[] = [];
   for (const id of setup.picked) {
     const source = sources.find((s) => s.id === id);
@@ -95,7 +97,7 @@ export function buildItems(setup: AlignSetup, sources: readonly AlignSource[]): 
       seq,
     });
   }
-  const pasted = parsePasted(setup.pasted);
+  const pasted = parsePasted(setup.pasted, pastedLabel);
   if (pasted) items.push({ key: 'pasted', label: pasted.label, seq: pasted.seq });
   return items;
 }
@@ -285,7 +287,7 @@ const FASTA_LINE = 60;
 export function uniqueNames(labels: readonly string[]): string[] {
   const seen = new Map<string, number>();
   return labels.map((label) => {
-    const base = (label.replace(/\s+/g, '_').slice(0, 30) || 'seq').replace(/[(),:;]/g, '_');
+    const base = (label.replace(/\s+/g, '_').slice(0, 30) || 'seq').replace(/[()[\],:;']/g, '_');
     const count = seen.get(base) ?? 0;
     seen.set(base, count + 1);
     return count === 0 ? base : `${base.slice(0, 27)}_${count + 1}`;

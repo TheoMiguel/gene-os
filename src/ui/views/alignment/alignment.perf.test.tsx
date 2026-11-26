@@ -47,9 +47,11 @@ describe('alignment view on a 5 Mb sequence', { timeout: 60_000 }, () => {
   });
 
   it('prepares the inputs, the column map and the exports in linear time', () => {
-    const items = buildItems({ ...DEFAULT_SETUP, picked: ['a'], pasted: seq }, [
-      { id: 'a', name: 'a', seq, protein: false, selection: null },
-    ]);
+    const items = buildItems(
+      { ...DEFAULT_SETUP, picked: ['a'], pasted: seq },
+      [{ id: 'a', name: 'a', seq, protein: false, selection: null }],
+      'Pasted',
+    );
     expect(items.map((i) => i.seq.length)).toEqual([size, size]);
     expect(residueColumns(seq)).toHaveLength(size);
     expect(toFasta(['a'], [seq]).length).toBeGreaterThan(size);

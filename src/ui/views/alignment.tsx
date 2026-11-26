@@ -75,7 +75,10 @@ export function Panel({ doc }: { readonly doc: SeqDocument }) {
   }));
   const current = setup.value;
   const selections = sources.map((s) => `${s.selection?.start}-${s.selection?.end}`).join();
-  const items = useMemo(() => buildItems(current, sources), [current, documents, selections]);
+  const items = useMemo(
+    () => buildItems(current, sources, t('align.pastedName')),
+    [current, documents, selections],
+  );
   const alphabet = useMemo(() => (items.length > 0 ? alphabetOf(items) : 'dna'), [items]);
   const scores = parseScores(current, alphabet === 'protein' ? 'protein' : 'dna');
   const invalid = scores.ok ? [] : scores.invalid;

@@ -15,6 +15,7 @@ import { ENZYME_CATALOG } from '../../../engine/restriction';
 import type { SeqRecord, Topology } from '../../../engine/types';
 import type { SeqDocument } from '../../../state/documents';
 import type { SelectionRange } from '../../../state/view';
+import { t } from '../../i18n';
 import { parsePasted } from '../alignment/model';
 
 /** The cloning methods the engine designs, in the order the chooser lists them, and what each one allows. */
@@ -124,12 +125,11 @@ export interface CloningSource {
   readonly selection: SelectionRange | null;
 }
 
-const PASTED_NAME = { insert: 'Pasted insert', vector: 'Pasted vector' } as const;
-
 function pastedRecord(text: string, topology: Topology, role: PartRole): SeqRecord | null {
-  const parsed = parsePasted(text);
+  const fallback = t(role === 'vector' ? 'clone.pasted.vector' : 'clone.pasted.insert');
+  const parsed = parsePasted(text, fallback);
   if (!parsed) return null;
-  const name = parsed.label === 'Pasted' ? PASTED_NAME[role] : parsed.label;
+  const name = parsed.label;
   return {
     id: name,
     name,
