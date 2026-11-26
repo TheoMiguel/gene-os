@@ -1,0 +1,16 @@
+{
+  "source": "attB site sequences as printed in the Invitrogen MultiSite Gateway Three-Fragment and Pro user guides (Thermo Fisher): attB1, attB2, attB3, attB4 in the primer tables (three-fragment guide, pages vi, 16 and 17); attB5 read from the attL5 junction figure of the MultiSite Gateway Pro user guide (page 38), flanked like attB3 and attB4. Hartley JL, Temple GF, Brasch MA (2000) Genome Res 10:1788-1795 describes the att sites and the 7 bp overlap region.",
+  "crossover": {
+    "start": 9,
+    "length": 9,
+    "note": "Modelling choice: recombination swaps the two sides of this 9 bp window of the site. It lies inside the 15 bp core that attB, attP, attL and attR share and holds the 7 bp overlap region that gives each variant its specificity, so both reactants carry it unchanged. The window is a position in the attB sequence, not a published boundary."
+  },
+  "primerPrefix": "GGGG",
+  "sites": [
+    { "variant": 1, "attB": "ACAAGTTTGTACAAAAAAGCAGGCT" },
+    { "variant": 2, "attB": "ACCACTTTGTACAAGAAAGCTGGGT" },
+    { "variant": 3, "attB": "ACAACTTTGTATAATAAAGTTG" },
+    { "variant": 4, "attB": "ACAACTTTGTATAGAAAAGTTG" },
+    { "variant": 5, "attB": "ACAACTTTGTATACAAAAGTTG" }
+  ]
+}
