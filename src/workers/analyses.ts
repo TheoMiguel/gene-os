@@ -1,9 +1,11 @@
 import { codonUsage, cumulativeGcSkew, nucleotideSeries } from '../engine/composition';
 import { detectFeatures } from '../engine/features';
 import { findOrfs } from '../engine/orf';
+import { inferOrganism } from '../engine/organism';
 import { hydropathyProfile } from '../engine/protein';
 import { ENZYME_CATALOG, scanSites } from '../engine/restriction';
 import { searchSequence } from '../engine/search';
+import { summarizeSequence } from '../engine/summary';
 import { translateFrame } from '../engine/translate';
 import type { AnalysisInput, AnalysisKind, ParamsOf, ResultOf } from './protocol';
 
@@ -34,6 +36,10 @@ const RUNNERS: { readonly [K in AnalysisKind]: Runner<K> } = {
 
   search: (input, { query, ...options }) =>
     searchSequence(input.seq, query, { alphabet: input.alphabet, circular: circular(input), ...options }),
+
+  summary: (input) => summarizeSequence(input.seq, input.alphabet, input.topology),
+
+  organism: (input) => inferOrganism(input.seq, { alphabet: input.alphabet, topology: input.topology }),
 };
 
 /** Runs one analysis on the calling thread. The worker calls this; tests and the inline backend call it too. */
