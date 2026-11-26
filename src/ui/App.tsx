@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'preact/hooks';
 import { workspace } from '../state/documents';
 import { settings } from '../state/settings';
+import { redo, undo } from '../state/view';
 import {
   closeActiveDocument,
   loadInputs,
@@ -59,6 +60,9 @@ function useAppShortcuts(): void {
       shortcuts.on('newTab', showNewSequence),
       shortcuts.on('closeTab', closeActiveDocument),
       shortcuts.on('openFile', () => void openFilesFromPicker()),
+      shortcuts.on('undo', () => void undo()),
+      shortcuts.on('redo', () => void redo()),
+      shortcuts.on('redoAlt', () => void redo()),
     ];
     const onKeyDown = (event: KeyboardEvent) => shortcuts.handle(event);
     window.addEventListener('keydown', onKeyDown);

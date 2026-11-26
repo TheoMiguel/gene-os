@@ -72,6 +72,11 @@ export function createDocumentStore() {
     setActiveTab(id: string, tab: AnalysisTab): void {
       patch(id, { activeTab: tab });
     },
+
+    /** Replaces a document's record, e.g. after an annotation edit. */
+    setRecord(id: string, record: SeqRecord): void {
+      patch(id, { record });
+    },
   };
 }
 
