@@ -1,7 +1,7 @@
 import { signal } from '@preact/signals';
 import type { CutCountClass } from '../../../engine/restriction';
 import type { EndType } from '../../../engine/types';
-import { perDocument } from '../gel/documentState';
+import { perDocument } from '../../../state/perDocument';
 import { createGelSettingsStore } from '../gel/GelPanel';
 
 /** What the Digest view remembers per document while the user visits other tabs. */

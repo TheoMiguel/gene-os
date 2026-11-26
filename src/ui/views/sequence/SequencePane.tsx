@@ -13,6 +13,7 @@ import { type MessageKey, t } from '../../i18n';
 import { shortcuts } from '../../shortcuts';
 import { featureOverlays, primerOverlays, restrictionOverlays, searchOverlays } from '../../viz/overlays';
 import { SequenceRenderer } from '../../viz/SequenceRenderer';
+import { useElementSize } from '../../viz/useContainerSize';
 import { longestSpan } from './mapModel';
 import { PaneFrame } from './PaneFrame';
 import { Segmented } from './Segmented';
@@ -24,7 +25,6 @@ import {
   selectionTranslation,
 } from './selection';
 import { prefsOf, type ReadMode } from './state';
-import { useElementSize } from './useElementSize';
 
 const BLOCK_SIZE = 10;
 const CHAR_PX = 8.4;

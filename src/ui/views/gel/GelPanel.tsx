@@ -1,9 +1,9 @@
 import { type Signal, signal } from '@preact/signals';
 import { useId, useMemo, useRef } from 'preact/hooks';
 import { LADDERS } from '../../../engine/gel';
+import { perDocument } from '../../../state/perDocument';
 import { ImageExportButtons } from '../../export';
 import { t } from '../../i18n';
-import { perDocument } from './documentState';
 import { GelFigure, type GelLaneInput, type GelSelection } from './Gel';
 import {
   AGAROSE_MAX,

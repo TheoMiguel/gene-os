@@ -1,9 +1,9 @@
 import { type Signal, signal } from '@preact/signals';
 import type { Orf, OrfOptions, StartCodonSet } from '../../../engine/orf';
 import { ALL_FRAMES, type Frame } from '../../../engine/translate';
+import { perDocument } from '../../../state/perDocument';
 import { type SelectionRange, viewOf } from '../../../state/view';
 import { type OrfSpan, orfKey, orfSpan } from './orfRows';
-import { perDocument } from './perDocument';
 
 /** What the user sets for the ORF search. */
 export interface OrfSettings {

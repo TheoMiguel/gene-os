@@ -1,6 +1,6 @@
 import { type Signal, signal } from '@preact/signals';
 import type { Frame } from '../../../engine/translate';
-import { perDocument } from '../proteins/perDocument';
+import { perDocument } from '../../../state/perDocument';
 
 export type CodonScope = 'orf' | 'all' | 'frame';
 export type CodonMetric = 'count' | 'perThousand' | 'rscu';

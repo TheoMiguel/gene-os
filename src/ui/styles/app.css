@@ -576,9 +576,6 @@ input:disabled {
   overflow-y: auto;
   padding-right: 4px;
 }
-.placeholder-card {
-  padding: 16px 18px;
-}
 .stage-label {
   font-family: var(--mono);
   font-size: 0.7rem;
@@ -590,11 +587,6 @@ input:disabled {
   font-size: 0.95rem;
   font-weight: 500;
   margin-bottom: 8px;
-}
-.placeholder-text {
-  font-family: var(--mono);
-  font-size: 0.74rem;
-  color: var(--fg-muted);
 }
 
 /* ---------------------------------------------------------------- settings */
