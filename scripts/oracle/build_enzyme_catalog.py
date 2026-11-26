@@ -27,15 +27,21 @@ def reverse_complement(site: str) -> str:
     return site.translate(COMPLEMENT)[::-1]
 
 
+# Enzymes that cut only methylated or hydroxymethylated cytosine next to a short, highly degenerate site.
+# On the unmodified DNA the app models they would "cut" every few bases. (DpnI and MalI also need methylated
+# DNA but have a defined GATC site and are kept: users expect DpnI in site-directed mutagenesis.)
+MODIFICATION_DEPENDENT = {"AbaSI", "FspEI", "LpnPI", "MspJI", "SgeI"}
+
+
 def exclusion_reason(enzyme) -> str | None:
+    if str(enzyme) in MODIFICATION_DEPENDENT:
+        return f"modification-dependent (site {enzyme.site} on methylated or hydroxymethylated cytosine only)"
     if not enzyme.cut_once():
         return "two cuts per site"
     if not enzyme.is_defined() and enzyme.fst5 is None:
         return "unknown cut position"
     if enzyme.fst5 is None or enzyme.fst3 is None:
         return "unknown cut position"
-    if enzyme.size < 4:
-        return f"site {enzyme.site} is shorter than 4 bp (modification-dependent enzyme; it would cut at every C)"
     top, bottom = enzyme.fst5, enzyme.size + enzyme.fst3
     if reverse_complement(enzyme.site) == enzyme.site and top + bottom != enzyme.size:
         return "palindromic site with asymmetric cut offsets (cuts on both sides of the site)"
