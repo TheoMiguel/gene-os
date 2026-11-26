@@ -54,6 +54,8 @@ export interface Feature {
   readonly name: string;
   readonly location: Location;
   readonly origin: FeatureOrigin;
+  /** Original INSDC feature key (`mRNA`, `exon`, `source`, ...) when `type` cannot hold it, for lossless export. */
+  readonly sourceKey?: string;
   /** CSS color. Absent means the theme color for `type`. */
   readonly color?: string;
   readonly description?: string;
