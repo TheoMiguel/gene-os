@@ -1,0 +1,103 @@
+/* Search & Motifs view. */
+
+.search-view {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  min-height: 0;
+}
+
+.search-controls,
+.search-results {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 14px 16px;
+}
+
+.search-results {
+  flex: 1;
+  min-height: 300px;
+}
+
+.search-view .field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.search-view .field.inline {
+  flex: 0 0 auto;
+}
+
+.search-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.search-box {
+  flex: 1 1 320px;
+}
+
+.search-box input {
+  font-size: 0.9rem;
+}
+
+.search-options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 16px;
+}
+
+.search-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.search-view :is(.note, .empty-state) {
+  font: 400 0.72rem / 1.45 var(--mono);
+  color: var(--fg-muted);
+}
+
+.search-view .form-error {
+  font: 500 0.74rem var(--mono);
+  color: var(--danger);
+}
+
+.search-view [aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.search-view button.danger {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.search-view :is(input, select, button):focus-visible,
+.search-view .seg-btn:has(:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.search-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  min-height: 24px;
+  font: 400 0.76rem var(--mono);
+  color: var(--fg);
+}
+
+.search-table {
+  flex: 1;
+  min-height: 220px;
+}
