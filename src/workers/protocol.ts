@@ -7,8 +7,10 @@ import type {
 } from '../engine/composition';
 import type { DetectedFeature } from '../engine/features';
 import type { Orf, OrfOptions } from '../engine/orf';
+import type { OrganismInference } from '../engine/organism';
 import type { RestrictionScan } from '../engine/restriction';
 import type { SearchOptions, SearchResult } from '../engine/search';
+import type { SequenceSummary } from '../engine/summary';
 import type { Frame } from '../engine/translate';
 import type { Alphabet, Topology } from '../engine/types';
 
@@ -46,6 +48,10 @@ export interface AnalysisDefinitions {
   };
   /** Substring, motif or regex search (`searchSequence`). */
   search: { params: { readonly query: string } & SearchOptions; result: SearchResult };
+  /** Counts, GC, skew, weight and protein properties of the whole sequence (`summarizeSequence`). */
+  summary: { params: Record<string, never>; result: SequenceSummary };
+  /** Likely kind of source of the sequence, from its composition (`inferOrganism`). */
+  organism: { params: Record<string, never>; result: OrganismInference };
 }
 
 export type AnalysisKind = keyof AnalysisDefinitions;
