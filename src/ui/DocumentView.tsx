@@ -4,40 +4,11 @@ import { sfx } from './actions';
 import { docTabId, WORKSPACE_PANEL_ID } from './Header';
 import { t } from './i18n';
 import { eventTabIndex, nextTabIndex } from './tablist';
+import { PANELS, type PanelProps } from './views';
 
 const tabNumber = (tab: AnalysisTab) => String(ANALYSIS_TABS.indexOf(tab) + 1).padStart(2, '0');
 const subTabId = (docId: string, tab: AnalysisTab) => `${docId}-tab-${tab}`;
 const subPanelId = (docId: string) => `${docId}-panel`;
-
-interface PanelProps {
-  readonly doc: SeqDocument;
-}
-
-function PlaceholderPanel({ doc }: PanelProps) {
-  return (
-    <div class="bracket-box placeholder-card">
-      <div class="bracket-inner" />
-      <div class="stage-label">{tabNumber(doc.activeTab)}</div>
-      <h2 class="stage-title">{t(`tab.${doc.activeTab}`)}</h2>
-      <p class="placeholder-text">{t('doc.placeholder')}</p>
-    </div>
-  );
-}
-
-/** The panel for each analysis tab. Later phases replace the placeholders here. */
-const PANELS: Readonly<Record<AnalysisTab, ComponentType<PanelProps>>> = {
-  summary: PlaceholderPanel,
-  sequence: PlaceholderPanel,
-  proteins: PlaceholderPanel,
-  primers: PlaceholderPanel,
-  digest: PlaceholderPanel,
-  features: PlaceholderPanel,
-  search: PlaceholderPanel,
-  codons: PlaceholderPanel,
-  alignment: PlaceholderPanel,
-  cloning: PlaceholderPanel,
-  libraries: PlaceholderPanel,
-};
 
 /** One open sequence: its title line, the numbered analysis tabs and the active tab's panel. */
 export function DocumentView({ doc }: PanelProps) {
