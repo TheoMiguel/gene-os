@@ -66,10 +66,10 @@ describe('sliding-window series', () => {
         circular: c.circular,
       });
       expect(series.values).toHaveLength(c.points.length);
-      c.points.forEach(([start, value], i) => {
+      for (const [i, [start, value]] of c.points.entries()) {
         expect(series.starts[i]).toBe(start);
         expect(series.values[i]).toBeCloseTo(value, 9);
-      });
+      }
     }
   });
 
@@ -91,10 +91,10 @@ describe('sliding-window series', () => {
   it('matches Biopython cumulative GC skew, including the short last window', () => {
     for (const c of goldens.partialSkew) {
       const skew = nucleotideSeries(c.seq, 'gcSkew', { window: c.window, step: c.window, partial: true });
-      expect([...skew.values].map((v) => v)).toHaveLength(c.skew.length);
-      c.skew.forEach((v, i) => expect(skew.values[i]).toBeCloseTo(v, 12));
+      expect(skew.values).toHaveLength(c.skew.length);
+      for (const [i, v] of c.skew.entries()) expect(skew.values[i]).toBeCloseTo(v, 12);
       const cumulative = cumulativeGcSkew(c.seq, c.window);
-      c.cumulative.forEach((v, i) => expect(cumulative.values[i]).toBeCloseTo(v, 12));
+      for (const [i, v] of c.cumulative.entries()) expect(cumulative.values[i]).toBeCloseTo(v, 12);
     }
   });
 

@@ -3,6 +3,7 @@ import { bytesToString, encodeBaseMasks, reverseComplement } from './alphabet';
 /** Reading frame: +1..+3 read the top strand from offset 0..2, -1..-3 read the reverse complement. */
 export type Frame = 1 | 2 | 3 | -1 | -2 | -3;
 
+/** The six reading frames in the order +1, +2, +3, -1, -2, -3. */
 export const ALL_FRAMES: readonly Frame[] = [1, 2, 3, -1, -2, -3];
 
 /** An NCBI genetic code table. `aa` lists the residue for each of the 64 codons in TCAG order (`*` is stop). */

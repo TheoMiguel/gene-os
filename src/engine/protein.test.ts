@@ -56,7 +56,7 @@ describe('ProteinAnalysis agreement (Bio.SeqUtils.ProtParam)', () => {
     for (const c of goldens.profiles) {
       const profile = hydropathyProfile(c.seq, c.window);
       expect(profile.values).toHaveLength(c.values.length);
-      c.values.forEach((v, i) => expect(profile.values[i]).toBeCloseTo(v, 9));
+      for (const [i, v] of c.values.entries()) expect(profile.values[i]).toBeCloseTo(v, 9);
     }
   });
 });
