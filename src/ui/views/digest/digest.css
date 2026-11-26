@@ -1,0 +1,130 @@
+/* Digest & Gel view. The page never scrolls; the panel scrolls inside itself. */
+
+.digest-view {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+  gap: 14px;
+  align-items: start;
+  min-width: 0;
+}
+.digest-card {
+  padding: 14px 16px;
+  min-width: 0;
+}
+.digest-fragments-card {
+  grid-column: 1 / -1;
+}
+.digest-gel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.digest-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.digest-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+}
+.digest-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.digest-filter select {
+  max-width: 220px;
+}
+.digest-chosen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+}
+.digest-chip {
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  color: var(--accent);
+  border-color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.08);
+  cursor: pointer;
+}
+.digest-chip:hover,
+.digest-chip:focus-visible {
+  background: rgba(var(--accent-rgb), 0.2);
+}
+.digest-clear {
+  padding: 3px 8px;
+  font-size: 0.66rem;
+}
+.digest-hint {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+.digest-error {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--danger);
+}
+.digest-table-frame {
+  height: 320px;
+  min-width: 0;
+}
+.digest-fragment-table {
+  height: 220px;
+}
+.digest-fragments {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.digest-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.digest-detail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.digest-sequence {
+  display: block;
+  width: 100%;
+  resize: vertical;
+  max-height: 120px;
+  overflow: auto;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-solid-header);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  word-break: break-all;
+  user-select: all;
+}
+.digest-sequence:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.digest-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--fg-muted);
+}
+.digest-toggle input {
+  padding: 0;
+  accent-color: var(--accent);
+}
