@@ -1,0 +1,406 @@
+/* Alignment view. Colors come from the theme tokens in tokens.css. */
+
+.aln-view {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.aln-setup {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 14px;
+}
+
+.aln-card {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.aln-docs {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.aln-docs input,
+.aln-check input {
+  padding: 0;
+}
+
+.aln-check {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font: 400 0.76rem var(--mono);
+  cursor: pointer;
+}
+
+.aln-sub {
+  margin: 4px 0 0 24px;
+  color: var(--fg-muted);
+}
+
+.aln-doc-name {
+  overflow-wrap: anywhere;
+}
+
+.aln-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.aln-paste {
+  min-height: 5rem;
+}
+
+.aln-hint {
+  font: 400 0.72rem var(--mono);
+  color: var(--fg-muted);
+}
+
+.aln-count {
+  font: 500 0.76rem var(--mono);
+  color: var(--accent);
+}
+
+.aln-warning {
+  font: 500 0.76rem var(--mono);
+  color: var(--danger);
+}
+
+.aln-empty {
+  font: 400 0.76rem var(--mono);
+  color: var(--fg-muted);
+}
+
+.aln-modes {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.aln-choice {
+  display: block;
+  padding: 8px 10px;
+  border: 1px solid var(--border-bright);
+  background: var(--bg-card);
+  cursor: pointer;
+  font: 400 0.74rem var(--mono);
+}
+
+.aln-choice strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.aln-choice p {
+  color: var(--fg-muted);
+}
+
+.aln-choice:hover {
+  border-color: var(--accent);
+}
+
+.aln-choice.selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.aln-choice.selected strong {
+  color: var(--accent);
+}
+
+.aln-choice:has(:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.aln-scores {
+  border: 1px solid var(--border);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+}
+
+.aln-scores legend,
+.aln-scores .aln-hint {
+  grid-column: 1 / -1;
+}
+
+.aln-scores input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.aln-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.aln-run {
+  padding: 2px 0;
+}
+
+.aln-notice {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font: 400 0.76rem var(--mono);
+}
+
+.aln-notice ul {
+  padding-left: 18px;
+  color: var(--fg-muted);
+}
+
+.aln-notice button {
+  align-self: flex-start;
+}
+
+.aln-result {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.aln-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.aln-kpi {
+  padding: 10px 12px;
+}
+
+.aln-kpi-value {
+  font: 600 1.25rem var(--hero-font);
+  color: var(--accent);
+}
+
+.aln-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aln-diff-table {
+  height: 340px;
+}
+
+/* ---------------------------------------------------------------- alignment grid */
+
+.aln-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.aln-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 14px;
+}
+
+.aln-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  list-style: none;
+  font: 400 0.72rem var(--mono);
+  color: var(--fg-muted);
+}
+
+.aln-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.aln-swatch {
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--border-bright);
+}
+
+.aln-image {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aln-frame {
+  display: flex;
+  max-height: 60vh;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+}
+
+.aln-labels {
+  flex: 0 0 auto;
+  width: 150px;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--bg-solid-header);
+  border-right: 1px solid var(--border);
+}
+
+.aln-label {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  font: 500 12px var(--mono);
+  color: var(--fg-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.aln-scroll {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior: contain;
+}
+
+.aln-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.aln-probe {
+  position: absolute;
+  visibility: hidden;
+  white-space: pre;
+  font: 400 13px var(--mono);
+}
+
+.aln-body {
+  position: relative;
+}
+
+.aln-layer {
+  position: sticky;
+  left: 0;
+  overflow: hidden;
+  cursor: crosshair;
+  font: 400 13px var(--mono);
+}
+
+.aln-tick {
+  position: absolute;
+  top: 2px;
+  font: 400 10px var(--mono);
+  color: var(--fg-muted);
+  text-align: center;
+  overflow: visible;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--fg-dim);
+  padding-bottom: 2px;
+  pointer-events: none;
+}
+
+.aln-row {
+  position: absolute;
+  white-space: pre;
+  line-height: 20px;
+  color: var(--fg);
+}
+
+.aln-row-match,
+.aln-row-consensus {
+  color: var(--fg-muted);
+}
+
+.aln-row-consensus {
+  font-weight: 600;
+}
+
+.aln-c0 {
+  background: rgba(var(--accent-rgb), 0.22);
+}
+
+.aln-c1 {
+  background: rgba(var(--cyan-rgb), 0.28);
+}
+
+.aln-c2 {
+  background: color-mix(in srgb, var(--danger) 36%, transparent);
+}
+
+.aln-c3 {
+  background: color-mix(in srgb, var(--warn) 30%, transparent);
+  color: var(--fg-muted);
+}
+
+.aln-bars {
+  position: absolute;
+  fill: var(--accent);
+  pointer-events: none;
+}
+
+.aln-focus {
+  position: absolute;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 1px var(--bg);
+  pointer-events: none;
+}
+
+.aln-picked {
+  font: 400 0.72rem var(--mono);
+  color: var(--fg-muted);
+  min-height: 1.2em;
+}
+
+/* ---------------------------------------------------------------- guide tree */
+
+.aln-tree-box {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  background: var(--bg-panel);
+  padding: 4px;
+}
+
+.aln-tree-line {
+  fill: none;
+  stroke: var(--wire-bright);
+  stroke-width: 1.5;
+}
+
+.aln-tree-label {
+  fill: var(--fg);
+  font: 400 12px var(--mono);
+}
+
+.aln-newick {
+  font: 400 0.72rem var(--mono);
+  color: var(--fg-muted);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  user-select: all;
+}
+
+.aln-fieldset {
+  border: 0;
+}
