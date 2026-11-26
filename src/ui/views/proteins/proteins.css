@@ -1,0 +1,346 @@
+/* Proteins view (ORFs, six-frame translation) and the pieces the Codons view shares. */
+
+.pv {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.pv-card {
+  padding: 14px 16px;
+  min-width: 0;
+}
+
+.pv-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  align-items: flex-start;
+}
+
+.pv-params {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  align-items: flex-start;
+}
+
+.view-field {
+  min-width: 0;
+}
+
+.pv-controls input[type="number"] {
+  width: 110px;
+}
+
+.pv-check-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.view-check:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.pv-status {
+  padding: 14px 16px;
+  font: 400 0.76rem var(--mono);
+  color: var(--fg-muted);
+  background: var(--bg-solid-header);
+  border: 1px solid var(--border);
+}
+
+.pv-failed {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.pv-note {
+  margin: 6px 0 0;
+  font: 400 0.7rem var(--mono);
+  color: var(--fg-muted);
+  line-height: 1.45;
+}
+
+/* Two-stage schematic: DNA with its six frames, an arrow, the translated protein. */
+
+.pv-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) 104px minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+  padding: 16px 18px;
+}
+
+@media (max-width: 920px) {
+  .pv-stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .pv-bridge {
+    flex-direction: row;
+  }
+}
+
+.pv-stage-col {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pv-bridge {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  font: 400 0.68rem var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--fg-muted);
+  text-align: center;
+}
+
+.pv-bridge-pill {
+  border: 1px solid var(--border-bright);
+  padding: 5px 9px;
+  background: var(--bg-card);
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.pv-caption {
+  margin: 0 0 6px;
+  font: 400 0.7rem var(--mono);
+  color: var(--cyan);
+}
+
+/* Map */
+
+.pv-map {
+  min-width: 0;
+}
+
+.pv-map-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.pv-map-frame {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  min-width: 0;
+}
+
+.pv-map-frame:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.pv-map-svg {
+  display: block;
+  max-width: 100%;
+}
+
+.pv-orf {
+  fill: #4cc3a4;
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+.pv-orf:hover {
+  opacity: 1;
+  stroke: var(--fg);
+  stroke-width: 1;
+}
+
+.pv-orf-selected {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  pointer-events: none;
+}
+
+.pv-feature {
+  opacity: 0.9;
+}
+
+.pv-lane-line,
+.pv-tick {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+
+.pv-axis {
+  stroke: var(--wire-bright);
+  stroke-width: 1;
+}
+
+.pv-lane-label,
+.pv-tick-label {
+  fill: var(--fg-muted);
+  font: 400 10px var(--mono);
+}
+
+.pv-map-readout {
+  margin: 6px 0 0;
+  min-height: 1.2em;
+  font: 400 0.68rem var(--mono);
+  color: var(--fg-muted);
+}
+
+/* Table */
+
+.pv-table {
+  height: 340px;
+  min-width: 0;
+}
+
+/* Translation and residue strip */
+
+.pv-translation {
+  max-height: 120px;
+  overflow-y: auto;
+  padding: 8px;
+  font: 400 0.76rem / 1.5 var(--mono);
+  letter-spacing: 0.04em;
+  word-break: break-all;
+  color: var(--fg);
+  background: var(--bg-solid-header);
+  border: 1px solid var(--border);
+}
+
+.pv-translation:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.pv-strip-block {
+  margin: 12px 0;
+}
+
+.pv-strip {
+  display: flex;
+  height: 14px;
+  margin: 6px 0;
+  border: 1px solid var(--border);
+}
+
+.pv-strip-seg {
+  display: block;
+  height: 100%;
+}
+
+.pv-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 400 0.7rem var(--mono);
+  color: var(--fg-muted);
+}
+
+.pv-swatch {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 6px;
+}
+
+/* Inspector */
+
+.pv-detail-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.pv-detail-title {
+  margin: 0;
+  font: 500 0.9rem var(--mono);
+  color: var(--accent);
+}
+
+.pv-detail-sub {
+  margin: 2px 0 0;
+  font: 400 0.7rem var(--mono);
+  color: var(--fg-muted);
+}
+
+.pv-actions,
+.pv-link-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.pv-link {
+  text-decoration: none;
+}
+
+.pv-links {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pv-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.pv-kpi {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.pv-kpi-title {
+  font: 400 0.64rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--fg-muted);
+}
+
+.pv-kpi-value {
+  margin: 4px 0 2px;
+  font: 500 1.2rem var(--mono);
+  color: var(--fg);
+}
+
+.pv-kpi-sub {
+  font: 400 0.68rem var(--mono);
+  color: var(--accent);
+}
+
+/* Six-frame translation */
+
+.pv-frames {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pv-frame-card {
+  padding: 12px 16px;
+}

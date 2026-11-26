@@ -387,33 +387,27 @@ export interface CodonUsageOptions {
 }
 
 /**
- * Codon counts and RSCU for one reading frame of the top strand. All 64 codons are listed in NCBI table order.
- * Codons that hold an ambiguity code are not counted. Counts match a plain codon tally; RSCU follows Sharp & Li (1987).
+ * Turns codon counts into rows: share per thousand and RSCU (Sharp & Li 1987). `counts` lists the 64 codons in
+ * NCBI table order (see `CODON_ORDER`). Use it for counts that did not come from a sequence in hand, such as a
+ * reference organism's table.
  */
-export function codonUsage(
-  seq: string,
-  options: CodonUsageOptions = {},
+export function codonUsageFromCounts(
+  counts: ArrayLike<number>,
+  options: Pick<CodonUsageOptions, 'table'> = {},
 ): { rows: CodonUsageRow[]; total: number } {
   const code = typeof options.table === 'object' ? options.table : getGeneticCode(options.table ?? 1);
-  const codes = encodeBases(seq);
-  const tally = new Uint32Array(64);
   let total = 0;
-  for (let i = options.frame ?? 0; i + 2 < codes.length; i += 3) {
-    const [a, b, c] = [codes[i] as number, codes[i + 1] as number, codes[i + 2] as number];
-    if (a > 3 || b > 3 || c > 3) continue;
-    bump(tally, ((TCAG_OF[a] as number) << 4) | ((TCAG_OF[b] as number) << 2) | (TCAG_OF[c] as number), 1);
-    total++;
-  }
+  for (let index = 0; index < 64; index++) total += counts[index] as number;
   const familySum = new Map<string, { sum: number; size: number }>();
   for (const [index, aa] of [...code.aa].entries()) {
     const family = familySum.get(aa) ?? { sum: 0, size: 0 };
-    family.sum += tally[index] as number;
+    family.sum += counts[index] as number;
     family.size++;
     familySum.set(aa, family);
   }
   const rows = CODON_ORDER.map((codon, index) => {
     const aminoAcid = code.aa[index] as string;
-    const count = tally[index] as number;
+    const count = counts[index] as number;
     const family = familySum.get(aminoAcid) as { sum: number; size: number };
     return {
       codon,
@@ -424,4 +418,23 @@ export function codonUsage(
     };
   });
   return { rows, total };
+}
+
+/**
+ * Codon counts and RSCU for one reading frame of the top strand. All 64 codons are listed in NCBI table order.
+ * Codons that hold an ambiguity code are not counted. Counts match a plain codon tally; RSCU follows Sharp & Li (1987).
+ */
+export function codonUsage(
+  seq: string,
+  options: CodonUsageOptions = {},
+): { rows: CodonUsageRow[]; total: number } {
+  const code = typeof options.table === 'object' ? options.table : getGeneticCode(options.table ?? 1);
+  const codes = encodeBases(seq);
+  const tally = new Uint32Array(64);
+  for (let i = options.frame ?? 0; i + 2 < codes.length; i += 3) {
+    const [a, b, c] = [codes[i] as number, codes[i + 1] as number, codes[i + 2] as number];
+    if (a > 3 || b > 3 || c > 3) continue;
+    bump(tally, ((TCAG_OF[a] as number) << 4) | ((TCAG_OF[b] as number) << 2) | (TCAG_OF[c] as number), 1);
+  }
+  return codonUsageFromCounts(tally, { table: code });
 }
