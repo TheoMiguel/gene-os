@@ -67,9 +67,10 @@ export function formatPercent(fraction: number, language: Language, digits = 1):
   return `${formatFixed(fraction * 100, digits, language)}%`;
 }
 
-/** Length with its unit: `2,686 bp` for a nucleotide sequence, `286 aa` for a protein. */
+/** Length with its unit: `2,686 bp` (`pb` in Spanish and Portuguese) for a nucleotide sequence, `286 aa` for a protein. */
 export function formatLength(length: number, alphabet: Alphabet, language: Language): string {
-  return `${formatInt(length, language)} ${alphabet === 'protein' ? 'aa' : 'bp'}`;
+  const unit = alphabet === 'protein' ? 'aa' : language === 'en' ? 'bp' : 'pb';
+  return `${formatInt(length, language)} ${unit}`;
 }
 
 /** A rounded size for a long sequence (`5.39 kb`, `4.64 Mb`), or null under 1 000 bases. */

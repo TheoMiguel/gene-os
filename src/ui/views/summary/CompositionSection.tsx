@@ -11,7 +11,7 @@ import { Pending } from './Pending';
 import { Section } from './Section';
 
 const ROW_PX = 28;
-const TABLE_CHROME_PX = 32 + 44;
+const TABLE_CHROME_PX = 32 + 88;
 const MAX_TABLE_PX = 380;
 const CHART_HEIGHT = 260;
 

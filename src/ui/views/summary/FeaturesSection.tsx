@@ -13,7 +13,7 @@ import { Pending } from './Pending';
 import { Section } from './Section';
 
 const ROW_PX = 28;
-const TABLE_CHROME_PX = 32 + 44;
+const TABLE_CHROME_PX = 32 + 88;
 const MAX_TABLE_PX = 340;
 
 /** Opens the Sequence view of the document at the feature's first base. */
@@ -59,7 +59,7 @@ export function FeaturesSection({
         type: 'number',
         value: (row) => locationLength(row.feature.location),
         format: (value) => formatInt(Number(value), language),
-        width: 90,
+        width: 125,
       },
       {
         id: 'strand',

@@ -158,7 +158,7 @@ export function buildKpis(inputs: KpiInputs): KpiCardData[] {
 /** The grid of KPI cards. A card with a pending value reserves its final height and shows a quiet placeholder. */
 export function KpiGrid({ cards }: { readonly cards: readonly KpiCardData[] }) {
   return (
-    <div class="kpi-grid">
+    <div class={`kpi-grid${cards.length === 4 ? ' quad' : ''}`}>
       {cards.map((card) => {
         const pending = card.value === null;
         return (

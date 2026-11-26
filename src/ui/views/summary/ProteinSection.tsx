@@ -9,7 +9,7 @@ import { Pending } from './Pending';
 import { Section } from './Section';
 
 const ROW_PX = 28;
-const TABLE_PX = 7 * ROW_PX + 32 + 44;
+const TABLE_PX = 7 * ROW_PX + 32 + 56;
 const UNSTABLE_ABOVE = 40;
 
 interface PropertyRow {
@@ -138,7 +138,7 @@ export function ProteinSection({
         width: 120,
       },
       { id: 'unit', header: t('summary.protein.unit'), value: (row) => row.unit, width: 90 },
-      { id: 'note', header: t('summary.protein.note'), value: (row) => row.note, width: 280 },
+      { id: 'note', header: t('summary.protein.note'), value: (row) => row.note, width: 400 },
     ],
     [language],
   );

@@ -223,7 +223,7 @@ describe('Summary of a DNA record', () => {
   it('formats numbers in the interface language', () => {
     updateSettings({ language: 'es' });
     open(dna(PUC19));
-    expect(cardValue('length')).toBe('2686 pb'.replace('pb', 'bp'));
+    expect(cardValue('length')).toBe('2686 pb');
   });
 });
 
