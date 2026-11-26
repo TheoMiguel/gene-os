@@ -6,7 +6,9 @@ import {
   detectAlphabet,
   encodeBases,
   iupacMatches,
+  PATTERN_MASK,
   reverseComplement,
+  TEMPLATE_MASK,
 } from './alphabet';
 
 const goldens = loadCoreGoldens();
@@ -24,6 +26,12 @@ describe('reverse complement and complement (Biopython Seq.reverse_complement / 
       expect(reverseComplement(c.seq, 'rna')).toBe(c.rc);
       expect(complement(c.seq, 'rna')).toBe(c.complement);
     }
+  });
+
+  it('complements bases and IUPAC codes and reverses the order', () => {
+    expect(reverseComplement('GAATTCRYKMBDHVN')).toBe('NBDHVKMRYGAATTC');
+    expect(reverseComplement('ACGU')).toBe('ACGT');
+    expect(reverseComplement('')).toBe('');
   });
 
   it('keeps lower case and passes gaps through', () => {
@@ -85,6 +93,19 @@ describe('IUPAC matching', () => {
     expect(iupacMatches('A', 'N')).toBe(false);
     expect(iupacMatches('N', 'N')).toBe(false);
     expect(iupacMatches('T', 'U')).toBe(true);
+  });
+
+  it('lets a pattern N accept a template letter that is not a definite base', () => {
+    const accepts = (pattern: string, template: string) =>
+      ((PATTERN_MASK[pattern.charCodeAt(0)] as number) &
+        (TEMPLATE_MASK[template.charCodeAt(0)] as number)) !==
+      0;
+    expect(accepts('R', 'A')).toBe(true);
+    expect(accepts('R', 'c')).toBe(false);
+    expect(accepts('A', 'N')).toBe(false);
+    expect(accepts('N', 'N')).toBe(true);
+    expect(accepts('N', '-')).toBe(true);
+    expect(accepts('R', 'N')).toBe(false);
   });
 
   it('gives each IUPAC code its bases', () => {

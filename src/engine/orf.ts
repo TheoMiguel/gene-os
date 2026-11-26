@@ -55,7 +55,7 @@ interface CodonTables {
 /** Codon index in A, C, G, T order: base 4 digits, so ACG is 0*16 + 1*4 + 2. */
 function plainIndex(codon: string): number {
   let index = 0;
-  for (const ch of codon) index = index * 4 + 'ACGT'.indexOf(ch);
+  for (const base of encodeBases(codon)) index = index * 4 + base;
   return index;
 }
 

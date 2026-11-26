@@ -1,5 +1,5 @@
 import { PUC19, randomDna } from '../../tests/fixtures/restriction/fixtures';
-import { reverseComplement } from './dna-internal';
+import { reverseComplement } from './alphabet';
 import { findBindingSites, simulatePcr } from './pcr';
 import type { Primer } from './types';
 

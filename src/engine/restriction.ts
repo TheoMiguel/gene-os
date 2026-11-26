@@ -1,6 +1,6 @@
 import enzymeCatalog from '../data/enzymes.json';
 import supplierCatalog from '../data/suppliers.json';
-import { BASE_MASK, isPalindromic, PATTERN_MASK, reverseComplement } from './dna-internal';
+import { PATTERN_MASK, reverseComplement, TEMPLATE_MASK } from './alphabet';
 import type { CutSite, EndType, Enzyme, Fragment, FragmentEnd, Span, Strand, Topology } from './types';
 
 /** Every commercially available single-cut enzyme in REBASE (scripts/oracle/build_enzyme_catalog.py). */
@@ -76,7 +76,8 @@ function compilePatterns(enzymes: readonly Enzyme[]): Pattern[] {
   enzymes.forEach((enzyme, index) => {
     const site = enzyme.site.toUpperCase();
     add(site, index, 1);
-    if (!isPalindromic(site)) add(reverseComplement(site), index, -1);
+    const reverse = reverseComplement(site);
+    if (reverse !== site) add(reverse, index, -1);
   });
   return [...byText].map(([text, owners]) => ({
     masks: Uint8Array.from(text, (char) => PATTERN_MASK[char.charCodeAt(0) & 0xff] ?? 0),
@@ -169,7 +170,7 @@ export function scanSites(seq: string, topology: Topology, enzymes: readonly Enz
 
   const textLength = circular && length > 0 ? length + maxSite - 1 : length;
   const text = new Uint8Array(textLength);
-  for (let i = 0; i < textLength; i++) text[i] = BASE_MASK[seq.charCodeAt(i % length) & 0xff] ?? 0;
+  for (let i = 0; i < textLength; i++) text[i] = TEMPLATE_MASK[seq.charCodeAt(i % length) & 0xff] ?? 0;
 
   const record = (pattern: Pattern, p: number) => {
     for (const owner of pattern.owners) collectors[owner.enzyme]?.add(p, owner.strand);

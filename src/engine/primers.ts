@@ -1,5 +1,5 @@
 import thermoParameters from '../data/thermo-parameters.json';
-import { reverseComplement } from './dna-internal';
+import { encodeBases, reverseComplement } from './alphabet';
 import { findBindingSites } from './pcr';
 import type { PrimerBinding, PrimerConditions, Span, Strand, Topology } from './types';
 
@@ -18,25 +18,6 @@ const R = 1.987;
 // ---------------------------------------------------------------------------
 // Base codes and composition
 // ---------------------------------------------------------------------------
-
-/** A=0, C=1, G=2, T=3, anything else 4 (N). */
-function code(char: string | undefined): number {
-  switch (char) {
-    case 'A':
-      return 0;
-    case 'C':
-      return 1;
-    case 'G':
-      return 2;
-    case 'T':
-    case 'U':
-      return 3;
-    default:
-      return 4;
-  }
-}
-
-const codes = (seq: string) => Array.from(seq.toUpperCase(), code);
 
 /** G+C content in percent of all bases. */
 export function gcPercent(seq: string): number {
@@ -78,7 +59,7 @@ const NN_DG = [
 const at = (table: number[][], a: number, b: number) => table[a]?.[b] ?? 0;
 
 /** Nearest-neighbor enthalpy (cal/mol) and entropy (cal/(K mol)) of a perfect duplex, with terminal terms. */
-function duplexThermo(seq: number[]): { dH: number; dS: number } {
+function duplexThermo(seq: ArrayLike<number>): { dH: number; dS: number } {
   let dh = 0;
   let ds = 0;
   for (const end of [seq[0], seq[seq.length - 1]]) {
@@ -123,7 +104,7 @@ export function tmNearestNeighbor(
     const gc = gcPercent(upper) / 100;
     return 81.5 + 16.6 * Math.log10(k / 1000) + 41 * gc - 600 / upper.length;
   }
-  const { dH, dS } = duplexThermo(codes(upper));
+  const { dH, dS } = duplexThermo(encodeBases(upper));
   const symmetric = isSelfComplementary(upper);
   const entropy = dS + (symmetric ? -1.4 : 0) + 0.368 * (upper.length - 1) * Math.log(k / 1000);
   const strands = symmetric ? 1e9 : 4e9;
@@ -150,7 +131,7 @@ export function tmBiopythonNN(seq: string, salt: BiopythonSalt = {}): number {
   const clean = seq.toUpperCase().replace(/[^ACGT]/g, '');
   const { naMm = 50, kMm = 0, trisMm = 0, mgMm = 0, dntpMm = 0, dnac1Nm = 25, dnac2Nm = 25 } = salt;
   const mon = naMm + kMm + trisMm / 2 + divalentToMonovalent(mgMm, dntpMm);
-  const { dH, dS } = duplexThermo(codes(clean));
+  const { dH, dS } = duplexThermo(encodeBases(clean));
   const entropy = dS + 0.368 * (clean.length - 1) * Math.log(mon / 1000);
   return dH / (entropy + R * Math.log((dnac1Nm - dnac2Nm / 2) * 1e-9)) - T_KELVIN;
 }
@@ -172,7 +153,7 @@ export function tmGC(seq: string, naMm = 50): number {
  * `bases` nucleotides, kcal/mol. Bigger means a more stable, more sticky 3' end.
  */
 export function endStability(seq: string, bases = 5): number {
-  const tail = codes(seq.slice(-bases));
+  const tail = encodeBases(seq.slice(-bases));
   if (tail.length < 2) return 0;
   let dg = -1960;
   if (tail[0] === 0 || tail[0] === 3) dg -= 50;
@@ -403,8 +384,8 @@ export function dimer(
   second: string,
   conditions: PrimerConditions = PRIMER3_CONDITIONS,
 ): DimerStructure {
-  const a = codes(first);
-  const b = codes(second).reverse();
+  const a = encodeBases(first);
+  const b = encodeBases(second).reverse();
   const n = a.length;
   const m = b.length;
   const cells = new Helices(n * m);
@@ -484,7 +465,7 @@ export function dimer(
  * hairpin that primer3 reports, but it can report a long stable stem where primer3 reports a weaker one.
  */
 export function hairpin(seq: string, conditions: PrimerConditions = PRIMER3_CONDITIONS): HairpinStructure {
-  const a = codes(seq);
+  const a = encodeBases(seq);
   const n = a.length;
   const cells = new Helices(n * n);
 
