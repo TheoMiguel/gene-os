@@ -93,6 +93,8 @@ body {
   z-index: 1;
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
+  /* Without an explicit column the implicit one is max-content, and a wide row stretches the shell. */
+  grid-template-columns: minmax(0, 1fr);
   height: 100dvh;
   overflow: hidden;
 }
@@ -138,15 +140,19 @@ body {
   gap: 6px;
   flex: 1;
   min-width: 0;
-  overflow-x: auto;
-  scrollbar-width: thin;
+  overflow: hidden;
 }
+/* The tab list scrolls on its own, so the new-sequence button stays reachable at any tab count. */
 .seq-tabs {
   display: flex;
   gap: 4px;
+  flex: 1;
   min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
 }
 .seq-tab {
+  flex: 0 0 auto;
   display: flex;
   align-items: stretch;
   border: 1px solid var(--border);
