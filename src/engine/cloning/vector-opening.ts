@@ -23,7 +23,11 @@ export function resolveEnzymes(names: readonly string[]): Enzyme[] | CloningProb
     const found = findEnzyme(name);
     if (!found) return { code: 'enzyme_unknown', enzyme: name };
     if (!isClassicEnzyme(found))
-      return { code: 'enzyme_not_suitable', enzyme: name, reason: 'degenerate_site' };
+      return {
+        code: 'enzyme_not_suitable',
+        enzyme: name,
+        reason: isTypeIIS(found) ? 'type_iis' : 'degenerate_site',
+      };
     enzymes.push(found);
   }
   return enzymes;

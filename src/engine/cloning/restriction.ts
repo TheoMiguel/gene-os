@@ -80,6 +80,9 @@ function chooseEnzymes(vector: Part, insertSeq: string): Enzyme[] | undefined {
   return undefined;
 }
 
+/** `forward` when the piece reads like its source region, `reverse` when it reads as the reverse complement. */
+const orientationOf = (piece: Piece) => (piece.strand === 1 ? 'forward' : 'reverse');
+
 /** The ends of a ligation: for each way the insert can sit, whether both junctions anneal. */
 function orientations(vector: Piece, insert: Piece) {
   const forward = insert;
@@ -92,8 +95,8 @@ function orientations(vector: Piece, insert: Piece) {
     endsCompatible(vector.rightEnd, p.leftEnd) &&
     endsCompatible(p.rightEnd, vector.leftEnd);
   return [
-    { label: 'forward', insert: forward, ok: fits(forward) },
-    { label: 'reverse', insert: reverse, ok: fits(reverse) },
+    { label: orientationOf(forward), insert: forward, ok: fits(forward) },
+    { label: orientationOf(reverse), insert: reverse, ok: fits(reverse) },
   ] as const;
 }
 
@@ -234,8 +237,7 @@ export function designRestrictionCloning(request: RestrictionRequest): CloningRe
   }
 
   const ways = orientations(vectorPiece, insertPiece);
-  const intended =
-    ways.find((w) => w.ok && (w.label === 'forward') === (strand === 1)) ?? ways.find((w) => w.ok);
+  const intended = ways.find((w) => w.ok && w.insert.strand === strand) ?? ways.find((w) => w.ok);
   if (!intended || !insertPiece.leftEnd || !insertPiece.rightEnd) {
     const mismatch =
       !vectorPiece.rightEnd ||

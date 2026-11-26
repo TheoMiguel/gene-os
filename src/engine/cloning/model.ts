@@ -167,7 +167,6 @@ export type CloningProblem =
   | { readonly code: 'topo_site_out_of_range' }
   | { readonly code: 'att_site_unknown'; readonly variant: number }
   | { readonly code: 'att_site_not_found'; readonly part: string; readonly count: number }
-  | { readonly code: 'att_variant_mismatch'; readonly part: string }
   | { readonly code: 'att_no_route'; readonly detail: 'no_chain' | 'ambiguous_chain' | 'unused_parts' }
   | {
       readonly code: 'lic_overhang_mismatch';

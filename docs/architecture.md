@@ -53,6 +53,8 @@ src/
     gel.ts         Ladders, migration model, ladder suggestion
     primers.ts     Tm (nearest-neighbor, basic), GC, hairpin/dimer, 3' stability, primer design
     pcr.ts         Primer binding and amplicon simulation, linear and circular
+    cloning/       Cloning strategy design and construct simulation (restriction, Gibson, In-Fusion, Golden Gate,
+                   Gateway, TOPO, LIC): one piece-and-junction model, see cloning/model.ts
   data/        Catalogs: enzymes.json (generated from REBASE via Biopython), features.json, ladders.json, presets
   formats/     Readers and writers: FASTA, GenBank, EMBL, SnapGene, AB1, raw, format detection, project file
   state/       Signals store, undo/redo, session persistence (IndexedDB)
