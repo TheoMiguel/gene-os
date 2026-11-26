@@ -174,29 +174,39 @@ def write_goldens():
 WRITTEN_FORMATS = {".fasta": "fasta", ".gb": "genbank", ".embl": "embl", ".dna": "snapgene"}
 
 
-def comparable_feature(feature, fmt):
-    """What a written format can carry: remote parts and inexact positions do not survive a write."""
-    parts = [p for p in feature["parts"] if p["ref"] is None]
-    keep_fuzzy = fmt in ("genbank", "embl")
+def kept_parts(feature, length):
+    """Parts GENE_OS keeps on reading: not on another accession, not the site between the last and first base."""
+    return [p for p in feature["parts"] if p["ref"] is None and not (p["start"] == p["end"] == length)]
+
+
+def comparable_feature(feature, fmt, length):
+    """What a written format carries.
+
+    Inexact positions (one-of, within) are written as plain numbers. SnapGene has no partial ends and no
+    zero-length sites (a between-bases site is written as its two flanking bases), stores the feature name
+    outside the qualifiers, and Biopython's SnapGene reader lists the halves of a reverse-strand
+    origin-spanning feature in top-strand order, so SnapGene parts compare as a sorted list.
+    """
+    insdc = fmt in ("genbank", "embl")
     qualifiers = dict(feature["qualifiers"])
-    if fmt == "snapgene":
+    if not insdc:
         qualifiers.pop("label", None)
         qualifiers.pop("name", None)
-        qualifiers.pop("translation", None)
-    return {
-        "type": feature["type"],
-        "parts": [
+    parts = []
+    for p in kept_parts(feature, length):
+        start, end = p["start"], p["end"]
+        if not insdc and start == end:
+            start, end = start - 1, end + 1
+        parts.append(
             (
-                p["start"],
-                p["end"],
+                start,
+                end,
                 p["strand"] or 1,
-                p["startFuzzy"] if keep_fuzzy and p["startFuzzy"] != "other" else None,
-                p["endFuzzy"] if keep_fuzzy and p["endFuzzy"] != "other" else None,
+                p["startFuzzy"] if insdc and p["startFuzzy"] != "other" else None,
+                p["endFuzzy"] if insdc and p["endFuzzy"] != "other" else None,
             )
-            for p in parts
-        ],
-        "qualifiers": qualifiers,
-    }
+        )
+    return {"type": feature["type"], "parts": parts if insdc else sorted(parts), "qualifiers": qualifiers}
 
 
 def compare_written(original, written, fmt, label):
@@ -207,11 +217,9 @@ def compare_written(original, written, fmt, label):
         return problems
     if (written["topology"] or "linear") != (original["topology"] or "linear"):
         problems.append(f"topology {written['topology']} != {original['topology']}")
-    expected = [comparable_feature(f, fmt) for f in original["features"] if any(p["ref"] is None for p in f["parts"])]
-    actual = [comparable_feature(f, fmt) for f in written["features"]]
-    if fmt == "snapgene":
-        expected = sorted(expected, key=lambda f: (f["parts"], f["type"]))
-        actual = sorted(actual, key=lambda f: (f["parts"], f["type"]))
+    length = original["length"]
+    expected = [comparable_feature(f, fmt, length) for f in original["features"] if kept_parts(f, length)]
+    actual = [comparable_feature(f, fmt, length) for f in written["features"]]
     if len(expected) != len(actual):
         problems.append(f"{len(actual)} features, expected {len(expected)}")
     for i, (e, a) in enumerate(zip(expected, actual)):
