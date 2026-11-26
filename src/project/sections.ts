@@ -6,11 +6,17 @@
  * returns plain data that survives `JSON.stringify` and structured clone, or `undefined` when the document has
  * nothing to store. `write` receives the stored value, or nothing, when a document is restored; it must accept
  * values from older or damaged files and ignore what it does not recognise.
+ *
+ * A value that points at another document cannot hold that document's id, because every restored document gets a
+ * new one. `read` writes the other document's position in the workspace instead. `resolve` runs once after all the
+ * documents of a file or session are open and receives their new ids in the order they were saved, so position `n`
+ * of the saved list is `ids[n]`.
  */
 export interface ProjectSection {
   readonly key: string;
   read(docId: string): unknown;
   write(docId: string, value: unknown): void;
+  resolve?(ids: readonly string[]): void;
 }
 
 const sections = new Map<string, ProjectSection>();
@@ -38,6 +44,17 @@ export function writeSections(docId: string, values: Readonly<Record<string, unk
   for (const section of sections.values()) {
     try {
       section.write(docId, values[section.key]);
+    } catch {
+      // A damaged section value must not stop the rest of the workspace from coming back.
+    }
+  }
+}
+
+/** Tells each registered section the new ids of the documents just restored. A section that throws does not stop the others. */
+export function resolveSections(ids: readonly string[]): void {
+  for (const section of sections.values()) {
+    try {
+      section.resolve?.(ids);
     } catch {
       // A damaged section value must not stop the rest of the workspace from coming back.
     }

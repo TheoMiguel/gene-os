@@ -2,7 +2,7 @@ import { batch, signal } from '@preact/signals';
 import type { SeqRecord } from '../engine/types';
 import { type DocumentStore, type SeqDocument, workspace } from '../state/documents';
 import { viewOf } from '../state/view';
-import { readSections, writeSections } from './sections';
+import { readSections, resolveSections, writeSections } from './sections';
 import {
   PROJECT_FORMAT,
   PROJECT_VERSION,
@@ -87,6 +87,7 @@ export function openProjectDocument(doc: ProjectDocument, store: DocumentStore =
  */
 export function applyProject(data: ProjectData, store: DocumentStore = workspace): string[] {
   const ids = data.documents.map((doc) => openProjectDocument(doc, store));
+  resolveSections(ids);
   const active = data.activeIndex === null ? undefined : ids[data.activeIndex];
   if (active) store.activate(active);
   else if (ids.length === 0) store.showNewSequence();
