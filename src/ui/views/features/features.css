@@ -217,3 +217,10 @@
     overflow-y: auto;
   }
 }
+
+.color-free-label {
+  font: 400 0.65rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+}
