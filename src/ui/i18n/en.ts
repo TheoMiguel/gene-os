@@ -138,33 +138,34 @@ export const en = {
   'mode.defaultHint': 'Essential options for coursework and quick checks.',
   'mode.advancedHint': 'Every parameter and tool.',
 
+
+
+
+
   // ---- alignment view ----
+  'align.page.prev': 'Previous page',
+  'align.page.next': 'Next page',
+  'align.page.goTo': 'Go to column',
   'align.what.residues': '{length} aa',
   'align.what.title': 'What to align',
   'align.what.open': 'Open sequences',
   'align.what.region': 'Only the region selected in the Sequence view ({from}-{to})',
   'align.what.paste': 'Or paste a sequence to compare',
   'align.what.pastePlaceholder': 'Paste plain letters or FASTA text',
-  'align.what.pasteHint':
-    'Use this to compare against something that is not open yet. Numbers and spaces are ignored.',
+  'align.what.pasteHint': 'Use this to compare against something that is not open yet. Numbers and spaces are ignored.',
   'align.what.needTwo': 'Choose at least two sequences: tick another open sequence or paste one.',
   'align.what.pair': 'Two sequences chosen: a pairwise alignment. The first one is the reference.',
   'align.what.group': '{count} sequences chosen: a multiple alignment.',
-  'align.what.mixed':
-    'These sequences mix protein and DNA, which cannot be aligned with each other. Translate the DNA first or remove one kind.',
+  'align.what.mixed': 'These sequences mix protein and DNA, which cannot be aligned with each other. Translate the DNA first or remove one kind.',
   'align.method.title': 'Method',
   'align.method.global': 'Global',
-  'align.method.globalHint':
-    'Aligns both sequences from end to end. Pick it when they are about the same length and related along their whole length.',
+  'align.method.globalHint': 'Aligns both sequences from end to end; pick it when they are about the same length and related along their whole length.',
   'align.method.local': 'Local',
-  'align.method.localHint':
-    'Finds only the best matching stretch and ignores the rest. Pick it when a short piece may sit inside a longer sequence, or only one domain is shared.',
+  'align.method.localHint': 'Finds only the best matching stretch and ignores the rest; pick it when a short piece may sit inside a longer sequence, or only one domain is shared.',
   'align.method.overlap': 'Overlap',
-  'align.method.overlapHint':
-    'Lets either end hang over for free. Pick it to line up a read or a fragment against a reference, or to join two pieces that overlap at their ends.',
+  'align.method.overlapHint': 'Lets either end hang over for free; pick it to line up a read or a fragment against a reference, or to join two pieces that overlap at their ends.',
   'align.method.msa': 'Progressive multiple alignment',
-  'align.method.msaHint':
-    'Aligns the closest pair first, then adds the others in the order of a guide tree. Use it to compare three or more related sequences at once.',
+  'align.method.msaHint': 'Aligns the closest pair first, then adds the others in the order of a guide tree; use it to compare three or more related sequences at once.',
   'align.scores.title': 'Scoring',
   'align.scores.match': 'Match score',
   'align.scores.mismatch': 'Mismatch score',
@@ -175,28 +176,21 @@ export const en = {
   'align.scores.distance.auto': 'Automatic',
   'align.scores.distance.alignment': 'Align every pair (exact, slower)',
   'align.scores.distance.kmer': 'Shared short words (fast)',
-  'align.scores.hint':
-    'An empty field uses the default shown in grey. A gap of length k costs open + (k - 1) x extend.',
+  'align.scores.hint': 'An empty field uses the default shown in grey. A gap of length k costs open + (k - 1) x extend.',
   'align.scores.invalid': 'A score is not a valid number, or a gap penalty is below 0.',
   'align.run': 'Align',
   'align.cancel': 'Cancel',
   'align.running': 'Aligning {count} sequences... {seconds} s',
-  'align.runningHint':
-    'The alignment runs in the background, so you can keep using the app. Cancel it if it takes too long.',
+  'align.runningHint': 'The alignment runs in the background, so you can keep using the app. Cancel it if it takes too long.',
   'align.empty': 'Choose the sequences and a method, then press Align.',
   'align.failed': 'The alignment could not run: {message}',
   'align.elapsed': 'Finished in {seconds} s.',
   'align.tooLarge.title': 'This alignment is over the size limit',
-  'align.tooLarge.pair':
-    'A {mode} alignment of these two sequences needs about {cells} cells of work, and the limit is {limit}. The memory it needs grows with the product of the two lengths.',
-  'align.tooLarge.msa':
-    'One step of the multiple alignment needs about {cells} cells of work, and the limit is {limit}. That is roughly 10 kb per sequence.',
-  'align.tooLarge.region':
-    'Select only the part you care about in the Sequence view, then tick "Only the region selected" above.',
-  'align.tooLarge.global':
-    'Try the Global method: it handles much longer pairs, up to about 50 kb by 50 kb, and longer when the sequences are very similar.',
-  'align.tooLarge.msaAdvice':
-    'Use fewer or shorter sequences, or align each one against a single reference as a pair.',
+  'align.tooLarge.pair': 'A {mode} alignment of these two sequences needs about {cells} cells of work, and the limit is {limit}. The memory it needs grows with the product of the two lengths.',
+  'align.tooLarge.msa': 'One step of the multiple alignment needs about {cells} cells of work, and the limit is {limit}. That is roughly 10 kb per sequence.',
+  'align.tooLarge.region': 'Select only the part you care about in the Sequence view, then tick "Only the region selected" above.',
+  'align.tooLarge.global': 'Try the Global method: it handles much longer pairs, up to about 50 kb by 50 kb, and longer when the sequences are very similar.',
+  'align.tooLarge.msaAdvice': 'Use fewer or shorter sequences, or align each one against a single reference as a pair.',
   'align.kpi.score': 'Score',
   'align.kpi.identity': 'Identity',
   'align.kpi.similarity': 'Similarity',
@@ -211,8 +205,7 @@ export const en = {
   'align.kpi.meanHint': 'Average over every pair of rows.',
   'align.kpi.gapColumns': 'Columns with gaps',
   'align.localCover': 'The local alignment covers positions {a} of the first sequence and {b} of the second.',
-  'align.overlapNote':
-    'Overlap mode: an end that hangs over the other sequence is free, so it is not counted as an edit.',
+  'align.overlapNote': 'Overlap mode: an end that hangs over the other sequence is free, so it is not counted as an edit.',
   'align.gridLabel': 'Alignment: {rows} rows, {columns} columns. Scroll sideways with the arrow keys.',
   'align.legend': 'Column colours',
   'align.class.identical': 'Identical',
@@ -229,8 +222,7 @@ export const en = {
   'align.export.saveFasta': 'Save FASTA',
   'align.export.saveClustal': 'Save Clustal text',
   'align.diff.title': 'Differences ({count})',
-  'align.diff.hint':
-    'Positions count from 1 on each sequence. The first sequence is the reference. Click a row to jump to it in the alignment.',
+  'align.diff.hint': 'Positions count from 1 on each sequence. The first sequence is the reference. Click a row to jump to it in the alignment.',
   'align.diff.none': 'The two sequences are identical over the aligned region.',
   'align.diff.kind': 'Kind',
   'align.diff.substitution': 'Substitution',
@@ -246,8 +238,7 @@ export const en = {
   'align.diff.edge': 'At an end',
   'align.diff.edgeYes': 'Yes',
   'align.tree.title': 'Guide tree',
-  'align.tree.hint':
-    'Sequences that join closer to the right were more alike. The tree sets the order in which the alignment was built.',
+  'align.tree.hint': 'Sequences that join closer to the right were more alike. The tree sets the order in which the alignment was built.',
   'align.tree.newick': 'Newick text of the guide tree',
   'align.tree.copyNewick': 'Copy Newick',
   'align.tree.saveNewick': 'Save Newick',
@@ -256,30 +247,22 @@ export const en = {
   // ---- cloning view ----
   'clone.method.title': 'Cloning method',
   'clone.method.restriction': 'Restriction and ligation',
-  'clone.method.restrictionHint':
-    'The classic way: cut the vector and the insert with the same enzymes and join them with ligase. Pick it for simple, cheap cloning of one fragment.',
+  'clone.method.restrictionHint': 'The classic way: cut the vector and the insert with the same enzymes and join them with ligase; pick it for simple, cheap cloning of one fragment.',
   'clone.method.gibson': 'Gibson assembly',
-  'clone.method.gibsonHint':
-    'Joins pieces that share about 30 bases of overlap in one tube, with no enzyme sites left behind. Pick it to join several fragments in a set order.',
+  'clone.method.gibsonHint': 'Joins pieces that share about 30 bases of overlap in one tube, with no enzyme sites left behind; pick it to join several fragments in a set order.',
   'clone.method.golden_gate': 'Golden Gate',
-  'clone.method.golden_gateHint':
-    'Uses enzymes that cut outside their site, so many parts join in order with no scar of enzyme sites. Pick it to build a construct from standard parts.',
+  'clone.method.golden_gateHint': 'Uses enzymes that cut outside their site, so many parts join in order with no scar of enzyme sites; pick it to build a construct from standard parts.',
   'clone.method.gateway': 'Gateway',
-  'clone.method.gatewayHint':
-    'Moves a fragment between vectors by recombination at att sites, with no cutting. Pick it when you have Gateway entry clones and destination vectors.',
+  'clone.method.gatewayHint': 'Moves a fragment between vectors by recombination at att sites, with no cutting; pick it when you have Gateway entry clones and destination vectors.',
   'clone.method.topo': 'TOPO',
-  'clone.method.topoHint':
-    'Ligates a PCR product into a ready-made vector in minutes using an enzyme bound to it. Pick it for the fastest cloning of a single PCR product.',
+  'clone.method.topoHint': 'Ligates a PCR product into a ready-made vector in minutes using an enzyme bound to it; pick it for the fastest cloning of a single PCR product.',
   'clone.method.in_fusion': 'In-Fusion',
-  'clone.method.in_fusionHint':
-    'Like Gibson but with shorter overlaps of about 15 bases and a different enzyme. Pick it when you use the In-Fusion kit.',
+  'clone.method.in_fusionHint': 'Like Gibson but with shorter overlaps of about 15 bases and a different enzyme; pick it when you use the In-Fusion kit.',
   'clone.method.lic': 'Ligation-independent cloning (LIC)',
-  'clone.method.licHint':
-    'Makes long single-stranded ends with a polymerase that chews back one base type, so insert and vector anneal without ligase. Pick it for high-throughput cloning.',
+  'clone.method.licHint': 'Makes long single-stranded ends with a polymerase that chews back one base type, so insert and vector anneal without ligase; pick it for high-throughput cloning.',
   'clone.insert.title': 'Insert',
   'clone.insert.titleMany': 'Inserts, in construct order',
-  'clone.insert.hint':
-    'The easy way: select a region in the Sequence view of any open sequence, then choose it here. You can also use a whole sequence or paste one.',
+  'clone.insert.hint': 'The easy way: select a region in the Sequence view of any open sequence, then choose it here. You can also use a whole sequence or paste one.',
   'clone.insert.one': 'Insert source',
   'clone.insert.numbered': 'Insert {index}',
   'clone.insert.add': 'Add another insert',
@@ -295,8 +278,7 @@ export const en = {
   'clone.source.topology': 'Shape',
   'clone.source.resolved': 'Using {name}, {length} bp.',
   'clone.options.title': 'Options for {method}',
-  'clone.restriction.auto':
-    'The app picks a pair of enzymes that cut the vector once and leave the insert whole. Turn on Advanced mode in Settings to choose them yourself.',
+  'clone.restriction.auto': 'The app picks a pair of enzymes that cut the vector once and leave the insert whole. Turn on Advanced mode in Settings to choose them yourself.',
   'clone.enzyme.first': 'First enzyme',
   'clone.enzyme.second': 'Second enzyme (optional)',
   'clone.enzyme.auto': 'chosen by the app',
@@ -316,8 +298,7 @@ export const en = {
   'clone.opening.length': 'Bases to remove (0 = just open)',
   'clone.overlap': 'Overlap length (bases)',
   'clone.golden.enzyme': 'Type IIS enzyme',
-  'clone.golden.hint':
-    'Use the enzyme whose sites flank your destination vector and that does not cut inside your parts. BsaI and BsmBI are the usual choices.',
+  'clone.golden.hint': 'Use the enzyme whose sites flank your destination vector and that does not cut inside your parts. BsaI and BsmBI are the usual choices.',
   'clone.golden.vectorMode': 'The vector',
   'clone.golden.digest': 'Cut as it is',
   'clone.golden.digestHint': 'It already carries two sites of the enzyme.',
@@ -333,8 +314,7 @@ export const en = {
   'clone.gateway.bpHint': 'attB product plus a donor vector (attP) gives an attL entry clone.',
   'clone.gateway.lr': 'LR: move into a destination vector',
   'clone.gateway.lrHint': 'An attL entry clone plus a destination vector (attR) gives the expression clone.',
-  'clone.gateway.requirement':
-    'Requirement: the vector must be circular, have exactly two att sites, and carry a feature named ccdB between them. The app removes the stretch with ccdB. Without that name it guesses, and tells you.',
+  'clone.gateway.requirement': 'Requirement: the vector must be circular, have exactly two att sites, and carry a feature named ccdB between them. The app removes the stretch with ccdB. Without that name it guesses, and tells you.',
   'clone.gateway.primers': 'Add the attB sites with primers (the insert has none)',
   'clone.gateway.attLeft': 'Left att variant',
   'clone.gateway.attRight': 'Right att variant',
@@ -345,8 +325,7 @@ export const en = {
   'clone.topo.taHint': 'PCR product with a single A at each 3′ end; it can go in both directions.',
   'clone.topo.site': 'Insertion point in the vector (the insert goes before this base)',
   'clone.topo.useCaret': 'Use the caret at position {position}',
-  'clone.topo.siteHint':
-    "Enter the position of the TOPO site in your vector, counting from 1. You can also click there in the vector's Sequence view and use the caret button.",
+  'clone.topo.siteHint': 'Enter the position of the TOPO site in your vector, counting from 1. You can also click there in the vector\'s Sequence view and use the caret button.',
   'clone.topo.amplify': 'Amplify the insert with primers (adds CACC when directional)',
   'clone.topo.polymerase': 'Polymerase of the PCR',
   'clone.topo.polymeraseAuto': 'Default for this kind',
@@ -370,8 +349,7 @@ export const en = {
   'clone.opened': 'The construct is open in a new tab.',
   'clone.primers.title': 'Primers to order ({count})',
   'clone.primers.none': 'This method needs no primers.',
-  'clone.primers.hint':
-    'Each primer is written 5′ to 3′. The tail is the part that adds the junction; the annealing part binds the template. Tm is for the annealing part.',
+  'clone.primers.hint': 'Each primer is written 5′ to 3′. The tail is the part that adds the junction; the annealing part binds the template. Tm is for the annealing part.',
   'clone.primers.label': 'Primers',
   'clone.primers.copyOrder': 'Copy order list',
   'clone.primers.saveOrder': 'Save order list',
@@ -383,8 +361,7 @@ export const en = {
   'clone.primer.tm': 'Tm (°C)',
   'clone.primer.template': 'Template',
   'clone.fragments.title': 'Fragments to prepare ({count})',
-  'clone.fragments.hint':
-    'What you make in the lab before the reaction: a PCR product, a digest, or a chewed-back end.',
+  'clone.fragments.hint': 'What you make in the lab before the reaction: a PCR product, a digest, or a chewed-back end.',
   'clone.fragment.name': 'Fragment',
   'clone.fragment.kind': 'How to make it',
   'clone.fragment.kind.pcr': 'PCR product',
@@ -422,113 +399,66 @@ export const en = {
   'clone.role.vector': 'The vector',
   'clone.role.insert': 'Insert {index}',
   'clone.err.closed': '{role} points to a sequence that is no longer open. Choose it again.',
-  'clone.err.no_selection':
-    '{role} is set to the selected region, but nothing is selected. Select a region in the Sequence view first, or choose a whole sequence.',
-  'clone.err.empty_paste':
-    '{role} is a pasted sequence, but the box has no letters. Paste DNA or choose another source.',
+  'clone.err.no_selection': '{role} is set to the selected region, but nothing is selected. Select a region in the Sequence view first, or choose a whole sequence.',
+  'clone.err.empty_paste': '{role} is a pasted sequence, but the box has no letters. Paste DNA or choose another source.',
   'clone.err.protein': '{role} is a protein sequence. Cloning works on DNA; choose a DNA sequence.',
-  'clone.err.vector_linear':
-    '{role} is a linear sequence, but a vector must be circular. Choose a circular plasmid.',
-  'clone.field.opening':
-    'Name at least one enzyme that cuts the vector once, or switch to removing a stretch.',
-  'clone.field.region':
-    'Enter the position to open the vector at, and a number of bases to remove (0 or more).',
+  'clone.err.vector_linear': '{role} is a linear sequence, but a vector must be circular. Choose a circular plasmid.',
+  'clone.field.opening': 'Name at least one enzyme that cuts the vector once, or switch to removing a stretch.',
+  'clone.field.region': 'Enter the position to open the vector at, and a number of bases to remove (0 or more).',
   'clone.field.overlap': 'The overlap length must be a number of bases.',
   'clone.field.topoSite': 'Enter the insertion point in the vector as a position of 1 or more.',
   'clone.field.tm': 'The target Tm must be a number.',
-  'clone.field.anneal':
-    'The annealing lengths must be numbers, the shortest at least 10 and not above the longest.',
+  'clone.field.anneal': 'The annealing lengths must be numbers, the shortest at least 10 and not above the longest.',
   'clone.problem.no_parts': 'No insert was given. Add at least one insert.',
-  'clone.problem.region_out_of_range':
-    'The region of {part} does not fit its sequence. Select the region again inside the sequence.',
-  'clone.problem.enzyme_unknown':
-    'The enzyme {enzyme} is not in the enzyme list. Check the spelling, for example EcoRI or BamHI.',
-  'clone.problem.enzyme_not_suitable.type_iis':
-    '{enzyme} cuts outside its own site (a Type IIS enzyme), so it cannot open a vector for ordinary cloning. Choose an enzyme such as EcoRI, or use Golden Gate.',
-  'clone.problem.enzyme_not_suitable.degenerate_site':
-    '{enzyme} recognises a site with variable bases, so its ends cannot be predicted. Choose an enzyme with a fixed site.',
-  'clone.problem.enzyme_not_suitable.not_type_iis':
-    '{enzyme} is not a Type IIS enzyme, and Golden Gate needs one that cuts outside its site, such as BsaI or BsmBI.',
+  'clone.problem.region_out_of_range': 'The region of {part} does not fit its sequence. Select the region again inside the sequence.',
+  'clone.problem.enzyme_unknown': 'The enzyme {enzyme} is not in the enzyme list. Check the spelling, for example EcoRI or BamHI.',
+  'clone.problem.enzyme_not_suitable.type_iis': '{enzyme} cuts outside its own site (a Type IIS enzyme), so it cannot open a vector for ordinary cloning. Choose an enzyme such as EcoRI, or use Golden Gate.',
+  'clone.problem.enzyme_not_suitable.degenerate_site': '{enzyme} recognises a site with variable bases, so its ends cannot be predicted. Choose an enzyme with a fixed site.',
+  'clone.problem.enzyme_not_suitable.not_type_iis': '{enzyme} is not a Type IIS enzyme, and Golden Gate needs one that cuts outside its site, such as BsaI or BsmBI.',
   'clone.problem.enzyme_no_site': '{enzyme} does not cut {part}. Choose an enzyme that cuts it exactly once.',
-  'clone.problem.enzyme_cuts_insert':
-    '{enzyme} cuts inside the insert {part} ({cuts} times), so the insert would be chopped up. Choose another enzyme, or a region without that site.',
-  'clone.problem.enzyme_cuts_vector_repeatedly':
-    '{enzyme} cuts the vector {cuts} times. Choose an enzyme that cuts it only once.',
-  'clone.problem.no_enzyme_pair':
-    'No pair of enzymes cuts the vector once each and leaves the insert whole. Choose the enzymes yourself (Advanced mode in Settings), or use a method that needs no enzymes in the insert, such as Gibson.',
-  'clone.problem.incompatible_ends':
-    'The ends at {junction} cannot join: {left} meets {right}. Choose enzymes that leave matching ends, or make both ends blunt.',
-  'clone.problem.duplicate_overhang':
-    'Golden Gate junctions {junctions} use the same overhang {overhang}, so parts could join in the wrong order. Give each junction a different overhang.',
-  'clone.problem.palindromic_overhang':
-    'The overhang {overhang} at junction {junction} reads the same on both strands, so parts can join backwards. Choose an overhang that is not palindromic.',
-  'clone.problem.overhang_invalid':
-    'The overhang {overhang} at junction {junction} is not valid for this enzyme. Use a sequence of the right length made of A, C, G and T.',
-  'clone.problem.primer_design_failed.forward':
-    'No forward primer reached the target melting temperature for {part}. Lower the target Tm, allow a longer annealing part, or choose another region.',
-  'clone.problem.primer_design_failed.reverse':
-    'No reverse primer reached the target melting temperature for {part}. Lower the target Tm, allow a longer annealing part, or choose another region.',
-  'clone.problem.overlap_out_of_range':
-    'The overlap must be between {min} and {max} bases, and you gave {value}. Enter a length in that range.',
-  'clone.problem.topo_missing_cacc':
-    'Directional TOPO needs the insert to start with CACC, and {part} does not. Let the app amplify the insert (it adds CACC), or add CACC to your sequence.',
-  'clone.problem.topo_site_out_of_range':
-    'The insertion point is not inside the vector, or the vector is not circular. Enter a position from 1 to the vector length.',
+  'clone.problem.enzyme_cuts_insert': '{enzyme} cuts inside the insert {part} ({cuts} times), so the insert would be chopped up. Choose another enzyme, or a region without that site.',
+  'clone.problem.enzyme_cuts_vector_repeatedly': '{enzyme} cuts the vector {cuts} times. Choose an enzyme that cuts it only once.',
+  'clone.problem.no_enzyme_pair': 'No pair of enzymes cuts the vector once each and leaves the insert whole. Choose the enzymes yourself (Advanced mode in Settings), or use a method that needs no enzymes in the insert, such as Gibson.',
+  'clone.problem.incompatible_ends': 'The ends at {junction} cannot join: {left} meets {right}. Choose enzymes that leave matching ends, or make both ends blunt.',
+  'clone.problem.duplicate_overhang': 'Golden Gate junctions {junctions} use the same overhang {overhang}, so parts could join in the wrong order. Give each junction a different overhang.',
+  'clone.problem.palindromic_overhang': 'The overhang {overhang} at junction {junction} reads the same on both strands, so parts can join backwards. Choose an overhang that is not palindromic.',
+  'clone.problem.overhang_invalid': 'The overhang {overhang} at junction {junction} is not valid for this enzyme. Use a sequence of the right length made of A, C, G and T.',
+  'clone.problem.primer_design_failed.forward': 'No forward primer reached the target melting temperature for {part}. Lower the target Tm, allow a longer annealing part, or choose another region.',
+  'clone.problem.primer_design_failed.reverse': 'No reverse primer reached the target melting temperature for {part}. Lower the target Tm, allow a longer annealing part, or choose another region.',
+  'clone.problem.overlap_out_of_range': 'The overlap must be between {min} and {max} bases, and you gave {value}. Enter a length in that range.',
+  'clone.problem.topo_missing_cacc': 'Directional TOPO needs the insert to start with CACC, and {part} does not. Let the app amplify the insert (it adds CACC), or add CACC to your sequence.',
+  'clone.problem.topo_site_out_of_range': 'The insertion point is not inside the vector, or the vector is not circular. Enter a position from 1 to the vector length.',
   'clone.problem.att_site_unknown': 'The att variant {variant} is not known. Choose a variant from the list.',
-  'clone.problem.att_site_not_found':
-    'A Gateway vector must be circular and have exactly two att sites, and {part} has {count}. Choose a donor or destination vector, or check that its att sites are complete.',
-  'clone.problem.att_no_route.no_chain':
-    'The att sites of the parts do not link into one chain, so no recombination path exists. Check that neighbouring parts share an att variant, for example attL1 with attR1.',
-  'clone.problem.att_no_route.ambiguous_chain':
-    'More than one chain of att sites could link the parts. Remove parts, or use different att variants, so that only one path exists.',
-  'clone.problem.att_no_route.unused_parts':
-    'Some parts take no part in any recombination path. Remove them, or check their att sites.',
-  'clone.problem.lic_overhang_mismatch':
-    'The single-stranded ends at {junction} do not match: the vector gives {expected} and the insert gives {actual}. Choose other chew-back dNTPs.',
-  'clone.problem.lic_no_stop_nucleotide':
-    'No dNTP lets the polymerase stop at the right place on {part}. Choose another region or another vector opening.',
-  'clone.problem.junction_mismatch':
-    'The built-in check found that the pieces do not fit together at {junction}. Try a different region or method.',
-  'clone.warning.vector_self_ligation.open':
-    'The two ends of the opened vector can join each other, which gives many empty colonies. Treat the vector with a phosphatase (CIP or rSAP), or open it with two enzymes that leave different ends.',
-  'clone.warning.vector_self_ligation.treated':
-    'The two ends of the opened vector could join each other, but you marked the vector as dephosphorylated, which blocks that.',
-  'clone.warning.blunt_ligation':
-    'A blunt end joins in either direction, so check the orientation of the insert in your colonies by digest or colony PCR.',
-  'clone.warning.dephosphorylated_vector_unphosphorylated_insert':
-    'The vector is dephosphorylated and the PCR insert has no 5′ phosphate, so ligase cannot seal both nicks. Phosphorylate the insert with T4 kinase, or the colonies will be few.',
-  'clone.warning.vector_stub_comigrates':
-    'The small piece you discard ({stubLength} bp) is close in size to the vector backbone ({backboneLength} bp), so they run together on a gel. Cut with a third enzyme, or dephosphorylate instead of gel-purifying.',
-  'clone.warning.both_orientations_possible':
-    'The insert can go in either direction. Every orientation is listed below; tell them apart by colony PCR or a diagnostic digest.',
-  'clone.warning.internal_site':
-    '{enzyme} cuts {part} {cuts} more times inside it, away from the ends. Check that this is what you want.',
-  'clone.warning.three_prime_overhang_end':
-    '{enzyme} leaves a 3′ overhang at an end of {part}. Such ends join poorly, so prefer enzymes that leave 5′ overhangs.',
-  'clone.warning.primer_tm_low':
-    'Primer {primer} melts at only {tm} °C, below the target. It may bind weakly; allow a longer annealing part.',
-  'clone.warning.primer_long':
-    'Primer {primer} is {length} bases long, which is costly and error-prone to order. Consider a shorter overlap or tail.',
-  'clone.warning.overlap_gc_extreme':
-    'The overlap at {junction} is {gc}% GC. Overlaps between 40% and 65% GC anneal best.',
-  'clone.warning.overlap_repeat':
-    'The overlap at {junction} appears more than once in the vector, so pieces could join at the wrong place. Choose another opening point or overlap.',
-  'clone.warning.topo_site_without_t':
-    'TA TOPO vectors open at a T overhang, and the base before your insertion point is not a T. Check the insertion point.',
-  'clone.warning.topo_directional_needs_blunt':
-    'Directional TOPO needs a blunt PCR product, but Taq adds a 3′ A. Amplify with a proofreading polymerase.',
-  'clone.warning.topo_a_overhang_lost':
-    'TA cloning needs a 3′ A on the PCR product, but a proofreading polymerase leaves blunt ends. Use Taq, or add A-tails after the PCR.',
-  'clone.warning.no_counterselection':
-    'The vector {part} has no feature named ccdB between its att sites, so the app removed the longer stretch and guessed it is the selection cassette. Name that feature ccdB in the Features view to be sure.',
-  'clone.warning.counterselection_kept':
-    'The construct still carries the ccdB killer gene from {part}. It will only grow in strains resistant to ccdB. Check that you used the right att sites and reaction.',
-  'clone.warning.insert_arc_guessed':
-    'Between the att sites of {part}, the app guessed which stretch is the insert, because no clear backbone feature separates them. Check the construct.',
-  'clone.warning.lic_overhang_short':
-    'The single-stranded end at {junction} is only {length} bases long. Ends under 10 bases anneal poorly, so the reaction may fail.',
+  'clone.problem.att_site_not_found': 'A Gateway vector must be circular and have exactly two att sites, and {part} has {count}. Choose a donor or destination vector, or check that its att sites are complete.',
+  'clone.problem.att_no_route.no_chain': 'The att sites of the parts do not link into one chain, so no recombination path exists. Check that neighbouring parts share an att variant, for example attL1 with attR1.',
+  'clone.problem.att_no_route.ambiguous_chain': 'More than one chain of att sites could link the parts. Remove parts, or use different att variants, so that only one path exists.',
+  'clone.problem.att_no_route.unused_parts': 'Some parts take no part in any recombination path. Remove them, or check their att sites.',
+  'clone.problem.lic_overhang_mismatch': 'The single-stranded ends at {junction} do not match: the vector gives {expected} and the insert gives {actual}. Choose other chew-back dNTPs.',
+  'clone.problem.lic_no_stop_nucleotide': 'No dNTP lets the polymerase stop at the right place on {part}. Choose another region or another vector opening.',
+  'clone.problem.junction_mismatch': 'The built-in check found that the pieces do not fit together at {junction}. Try a different region or method.',
+  'clone.warning.vector_self_ligation.open': 'The two ends of the opened vector can join each other, which gives many empty colonies. Treat the vector with a phosphatase (CIP or rSAP), or open it with two enzymes that leave different ends.',
+  'clone.warning.vector_self_ligation.treated': 'The two ends of the opened vector could join each other, but you marked the vector as dephosphorylated, which blocks that.',
+  'clone.warning.blunt_ligation': 'A blunt end joins in either direction, so check the orientation of the insert in your colonies by digest or colony PCR.',
+  'clone.warning.dephosphorylated_vector_unphosphorylated_insert': 'The vector is dephosphorylated and the PCR insert has no 5′ phosphate, so ligase cannot seal both nicks. Phosphorylate the insert with T4 kinase, or the colonies will be few.',
+  'clone.warning.vector_stub_comigrates': 'The small piece you discard ({stubLength} bp) is close in size to the vector backbone ({backboneLength} bp), so they run together on a gel. Cut with a third enzyme, or dephosphorylate instead of gel-purifying.',
+  'clone.warning.both_orientations_possible': 'The insert can go in either direction. Every orientation is listed below; tell them apart by colony PCR or a diagnostic digest.',
+  'clone.warning.internal_site': '{enzyme} cuts {part} {cuts} more times inside it, away from the ends. Check that this is what you want.',
+  'clone.warning.three_prime_overhang_end': '{enzyme} leaves a 3′ overhang at an end of {part}. Such ends join poorly, so prefer enzymes that leave 5′ overhangs.',
+  'clone.warning.primer_tm_low': 'Primer {primer} melts at only {tm} °C, below the target. It may bind weakly; allow a longer annealing part.',
+  'clone.warning.primer_long': 'Primer {primer} is {length} bases long, which is costly and error-prone to order. Consider a shorter overlap or tail.',
+  'clone.warning.overlap_gc_extreme': 'The overlap at {junction} is {gc}% GC. Overlaps between 40% and 65% GC anneal best.',
+  'clone.warning.overlap_repeat': 'The overlap at {junction} appears more than once in the vector, so pieces could join at the wrong place. Choose another opening point or overlap.',
+  'clone.warning.topo_site_without_t': 'TA TOPO vectors open at a T overhang, and the base before your insertion point is not a T. Check the insertion point.',
+  'clone.warning.topo_directional_needs_blunt': 'Directional TOPO needs a blunt PCR product, but Taq adds a 3′ A. Amplify with a proofreading polymerase.',
+  'clone.warning.topo_a_overhang_lost': 'TA cloning needs a 3′ A on the PCR product, but a proofreading polymerase leaves blunt ends. Use Taq, or add A-tails after the PCR.',
+  'clone.warning.no_counterselection': 'The vector {part} has no feature named ccdB between its att sites, so the app removed the longer stretch and guessed it is the selection cassette. Name that feature ccdB in the Features view to be sure.',
+  'clone.warning.counterselection_kept': 'The construct still carries the ccdB killer gene from {part}. It will only grow in strains resistant to ccdB. Check that you used the right att sites and reaction.',
+  'clone.warning.insert_arc_guessed': 'Between the att sites of {part}, the app guessed which stretch is the insert, because no clear backbone feature separates them. Check the construct.',
+  'clone.warning.lic_overhang_short': 'The single-stranded end at {junction} is only {length} bases long. Ends under 10 bases anneal poorly, so the reaction may fail.',
   'clone.running': 'Designing... the work runs in the background.',
   'clone.cancel': 'Cancel',
+  'clone.golden.overhangs': 'Overhangs, one per junction, separated by commas',
+  'clone.golden.overhangsPlaceholder': 'designed by the app; for example AATG,GCTT,CGCT',
   // ---- end cloning view ----
 } as const;
 

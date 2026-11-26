@@ -88,19 +88,27 @@ export function AlignmentGrid(props: {
   const { first, last, offset } = range;
   const xOf = (column: number) => column * charWidth - offset;
 
-  useEffect(() => {
-    setPicked(null);
-    setScrollLeft(0);
-    if (scrollRef.current) scrollRef.current.scrollLeft = 0;
-  }, [display]);
+  const scrollTo = (column: number, align: 'start' | 'center') => {
+    const clamped = Math.min(Math.max(column, 0), Math.max(0, display.length - 1));
+    const target = scrollTopFor(clamped, align, input);
+    if (scrollRef.current) scrollRef.current.scrollLeft = target;
+    setScrollLeft(target);
+  };
 
   useEffect(() => {
     if (!reveal) return;
-    const target = scrollTopFor(reveal.column, 'center', input);
-    if (scrollRef.current) scrollRef.current.scrollLeft = target;
-    setScrollLeft(target);
+    scrollTo(reveal.column, 'center');
     setPicked(reveal.column);
   }, [reveal?.nonce]);
+
+  const visibleFirst = Math.round(offset / charWidth);
+  const pageColumns = Math.max(1, Math.floor((viewWidth || FALLBACK_VIEW_W) / charWidth) - 2);
+  const goTo = (text: string) => {
+    const column = Number.parseInt(text, 10);
+    if (!Number.isFinite(column)) return;
+    scrollTo(column - 1, 'center');
+    setPicked(Math.min(Math.max(column - 1, 0), display.length - 1));
+  };
 
   const spans = (text: string) =>
     classRuns(display.classes, first, last).map((run) => (
@@ -124,7 +132,7 @@ export function AlignmentGrid(props: {
   const exportRange = (): [number, number] =>
     display.length <= MAX_IMAGE_COLUMNS
       ? [0, display.length]
-      : [first, Math.min(display.length, first + MAX_IMAGE_COLUMNS)];
+      : [visibleFirst, Math.min(display.length, visibleFirst + MAX_IMAGE_COLUMNS)];
   const imageIsPartial = display.length > MAX_IMAGE_COLUMNS;
 
   const conservation = display.conservation;
@@ -141,6 +149,37 @@ export function AlignmentGrid(props: {
             </li>
           ))}
         </ul>
+        <span class="aln-paging">
+          <button
+            type="button"
+            class="export-button"
+            disabled={visibleFirst <= 0}
+            onClick={() => scrollTo(visibleFirst - pageColumns, 'start')}
+          >
+            {t('align.page.prev')}
+          </button>
+          <button
+            type="button"
+            class="export-button"
+            disabled={visibleFirst + pageColumns >= display.length}
+            onClick={() => scrollTo(visibleFirst + pageColumns, 'start')}
+          >
+            {t('align.page.next')}
+          </button>
+          <label class="aln-goto">
+            <span class="field-label">{t('align.page.goTo')}</span>
+            <input
+              type="number"
+              min={1}
+              max={display.length}
+              placeholder={String(visibleFirst + 1)}
+              onKeyDown={(event) => {
+                if (event.key !== 'Enter') return;
+                goTo((event.currentTarget as HTMLInputElement).value);
+              }}
+            />
+          </label>
+        </span>
         <span class="aln-image">
           <ImageExportButtons
             name={props.imageName}
@@ -150,7 +189,9 @@ export function AlignmentGrid(props: {
             }}
           />
           {imageIsPartial && (
-            <span class="aln-hint">{t('align.imagePartial', { from: first + 1, to: exportRange()[1] })}</span>
+            <span class="aln-hint">
+              {t('align.imagePartial', { from: visibleFirst + 1, to: exportRange()[1] })}
+            </span>
           )}
         </span>
       </div>

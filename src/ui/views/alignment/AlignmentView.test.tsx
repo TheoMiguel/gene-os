@@ -106,6 +106,22 @@ describe('alignment view', () => {
     expect(screen.getAllByText('ref:11-30').length).toBeGreaterThan(0);
   });
 
+  it('pages through a long alignment and jumps to a column', async () => {
+    openPanel(record('ref', randomDna(3000, 4)), record('other', randomDna(3000, 4)));
+    fireEvent.click(screen.getByLabelText(/^other/));
+    fireEvent.click(screen.getByRole('button', { name: 'Align' }));
+    await waitFor(() => expect(screen.getByText('Identity')).toBeTruthy());
+    const goTo = screen.getByLabelText('Go to column') as HTMLInputElement;
+    expect(goTo.placeholder).toBe('1');
+    expect((screen.getByRole('button', { name: 'Previous page' }) as HTMLButtonElement).disabled).toBe(true);
+    fireEvent.click(screen.getByRole('button', { name: 'Next page' }));
+    await waitFor(() => expect(Number(goTo.placeholder)).toBeGreaterThan(50));
+    fireEvent.input(goTo, { target: { value: '2500' } });
+    fireEvent.keyDown(goTo, { key: 'Enter' });
+    await waitFor(() => expect(screen.getByText(/^Column 2,500/)).toBeTruthy());
+    expect(Number(goTo.placeholder)).toBeGreaterThan(2400);
+  });
+
   it('refuses to mix protein and DNA', () => {
     openPanel(record('dna', REFERENCE), record('prot', 'MKVLAAGIVGLLLAQWERTYIPASDFGHKLCVNM', 'protein'));
     fireEvent.click(screen.getByLabelText(/^prot/));

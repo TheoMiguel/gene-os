@@ -51,6 +51,7 @@ export interface CloningSetup {
   readonly goldenEnzyme: string;
   readonly goldenVectorMode: 'digest' | 'pcr';
   readonly goldenStyle: 'scar' | 'native';
+  readonly goldenOverhangs: string;
   readonly gatewayReaction: 'BP' | 'LR';
   readonly gatewayPrimers: boolean;
   readonly attLeft: string;
@@ -80,6 +81,7 @@ export const DEFAULT_CLONING_FIELDS: Omit<CloningSetup, 'inserts' | 'vector'> = 
   goldenEnzyme: GOLDEN_GATE_ENZYMES[0] ?? 'BsaI',
   goldenVectorMode: 'digest',
   goldenStyle: 'scar',
+  goldenOverhangs: '',
   gatewayReaction: 'LR',
   gatewayPrimers: true,
   attLeft: '1',
@@ -199,6 +201,15 @@ const number = (text: string): number | null | undefined => {
 
 const named = (pair: readonly [string, string]) => pair.map((s) => s.trim()).filter((s) => s !== '');
 
+/** Typed overhangs, one per junction separated by commas; a blank entry is designed by the app. */
+function overhangsOf(text: string): (string | undefined)[] | undefined {
+  if (text.trim() === '') return undefined;
+  return text.split(',').map((entry) => {
+    const overhang = entry.trim().toUpperCase();
+    return overhang === '' ? undefined : overhang;
+  });
+}
+
 function openingOf(setup: CloningSetup): VectorOpening | 'opening' | 'region' {
   if (setup.opening === 'enzymes') {
     const enzymes = named(setup.openEnzymes);
@@ -278,7 +289,8 @@ export function buildRequest(setup: CloningSetup, sources: readonly CloningSourc
         },
       };
     }
-    case 'golden_gate':
+    case 'golden_gate': {
+      const overhangs = overhangsOf(setup.goldenOverhangs);
       return {
         ok: true,
         request: {
@@ -288,9 +300,11 @@ export function buildRequest(setup: CloningSetup, sources: readonly CloningSourc
           vectorMode: setup.goldenVectorMode,
           parts: inserts,
           junctionStyle: setup.goldenStyle,
+          ...(overhangs ? { overhangs } : {}),
           ...primers,
         },
       };
+    }
     case 'gateway': {
       const left = Number(setup.attLeft);
       const right = Number(setup.attRight);

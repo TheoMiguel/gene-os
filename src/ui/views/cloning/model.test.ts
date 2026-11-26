@@ -80,6 +80,13 @@ describe('buildRequest', () => {
     expect(built.ok && built.request).toMatchObject({ opening: { remove: { start: 100, length: 5 } } });
   });
 
+  it('passes typed Golden Gate overhangs and leaves blank ones to the designer', () => {
+    const built = buildRequest(setup({ method: 'golden_gate', goldenOverhangs: 'aatg, ,GCTT' }), sources);
+    expect(built.ok && built.request).toMatchObject({ overhangs: ['AATG', undefined, 'GCTT'] });
+    const plain = buildRequest(setup({ method: 'golden_gate' }), sources);
+    expect(plain.ok && plain.request).not.toHaveProperty('overhangs');
+  });
+
   it('converts the TOPO position and refuses a missing one', () => {
     expect(buildRequest(setup({ method: 'topo' }), sources)).toMatchObject({ ok: false });
     const built = buildRequest(setup({ method: 'topo', topoSite: '10' }), sources);

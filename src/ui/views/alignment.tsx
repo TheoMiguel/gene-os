@@ -132,7 +132,7 @@ export function Panel({ doc }: { readonly doc: SeqDocument }) {
         </p>
       )}
       {state.status === 'too-large' && <TooLarge state={state} />}
-      {state.status === 'done' && <AlignmentResult done={state} />}
+      {state.status === 'done' && <AlignmentResult key={state.id} done={state} />}
     </div>
   );
 }

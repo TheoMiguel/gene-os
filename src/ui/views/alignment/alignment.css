@@ -351,7 +351,6 @@
 
 .aln-c3 {
   background: color-mix(in srgb, var(--warn) 30%, transparent);
-  color: var(--fg-muted);
 }
 
 .aln-bars {
@@ -403,4 +402,21 @@
 
 .aln-fieldset {
   border: 0;
+}
+
+.aln-paging {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.aln-goto {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.aln-goto input {
+  width: 7rem;
+  padding: 4px 6px;
 }

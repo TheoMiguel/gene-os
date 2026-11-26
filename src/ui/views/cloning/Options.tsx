@@ -288,6 +288,13 @@ function MethodFields(props: OptionProps) {
                 ]}
                 onChange={(goldenVectorMode) => onChange({ goldenVectorMode })}
               />
+              <TextField
+                id="clone-golden-overhangs"
+                label={t('clone.golden.overhangs')}
+                value={setup.goldenOverhangs}
+                placeholder={t('clone.golden.overhangsPlaceholder')}
+                onInput={(goldenOverhangs) => onChange({ goldenOverhangs })}
+              />
               <Radios
                 name="clone-golden-style"
                 legend={t('clone.golden.style')}

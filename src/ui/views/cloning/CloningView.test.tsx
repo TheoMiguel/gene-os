@@ -55,7 +55,7 @@ describe('cloning view', () => {
       'Ligation-independent',
     ];
     for (const name of names) expect(screen.getByText(new RegExp(`^${name}`))).toBeTruthy();
-    expect(screen.getByText(/Pick it for simple, cheap cloning/)).toBeTruthy();
+    expect(screen.getByText(/pick it for simple, cheap cloning/)).toBeTruthy();
   });
 
   it('designs a restriction cloning: primers with melting temperatures, fragments, a map and the junctions', async () => {

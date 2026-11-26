@@ -26,6 +26,8 @@ export type RunState =
     }
   | {
       readonly status: 'done';
+      /** Changes with every finished run, so the display starts afresh. */
+      readonly id: number;
       readonly kind: 'pair';
       readonly alignment: PairwiseAlignment;
       readonly display: AlignmentDisplay;
@@ -33,6 +35,7 @@ export type RunState =
     }
   | {
       readonly status: 'done';
+      readonly id: number;
       readonly kind: 'msa';
       readonly alignment: MultipleAlignment;
       readonly display: AlignmentDisplay;
@@ -46,6 +49,7 @@ interface PanelState {
 }
 
 const panels = new Map<string, PanelState>();
+let finishedRuns = 0;
 
 effect(() => {
   const open = new Set(workspace.documents.value.map((doc) => doc.id));
@@ -108,6 +112,7 @@ function settle(outcome: AlignOutcome, labels: readonly string[], elapsedMs: num
     }
     return {
       status: 'done',
+      id: ++finishedRuns,
       kind: 'pair',
       alignment: result.alignment,
       display: pairDisplay(result.alignment, labels),
@@ -120,6 +125,7 @@ function settle(outcome: AlignOutcome, labels: readonly string[], elapsedMs: num
   }
   return {
     status: 'done',
+    id: ++finishedRuns,
     kind: 'msa',
     alignment: result.alignment,
     display: msaDisplay(result.alignment, labels),
