@@ -21,6 +21,7 @@ export function Panel({ doc }: { readonly doc: SeqDocument }) {
 
   const onChange = (patch: Partial<CloningSetup>) => {
     setup.value = { ...setup.value, ...patch };
+    if (run.value?.kind === 'invalid' || run.value?.kind === 'failed') run.value = null;
   };
   const setInsert = (index: number, choice: SourceChoice) =>
     onChange({ inserts: current.inserts.map((c, i) => (i === index ? choice : c)) });
