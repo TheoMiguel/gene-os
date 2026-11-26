@@ -6,7 +6,7 @@ import { type CloningSetup, METHODS, resolvePart, type SourceChoice, vectorDocId
 import { MethodChooser, MethodOptions } from './cloning/Options';
 import { CloningResultView } from './cloning/Result';
 import { SourcePicker } from './cloning/Sources';
-import { cloningPanelOf, runDesign, sourcesOf } from './cloning/store';
+import { cancelDesign, cloningPanelOf, runDesign, sourcesOf } from './cloning/store';
 import './cloning/cloning.css';
 
 const PASTE: SourceChoice = { kind: 'paste', text: '', topology: 'linear' };
@@ -29,7 +29,11 @@ export function Panel({ doc }: { readonly doc: SeqDocument }) {
   const vectorRecord = 'part' in vector ? vector.part.record : null;
   const shownInserts = manyInserts ? current.inserts : current.inserts.slice(0, 1);
   const result = run.value;
-  const resultView = useMemo(() => (result ? <CloningResultView run={result} /> : null), [result]);
+  const resultView = useMemo(
+    () => (result && result.kind !== 'running' ? <CloningResultView run={result} /> : null),
+    [result],
+  );
+  const running = result?.kind === 'running';
 
   return (
     <div class="clone-view">
@@ -104,10 +108,26 @@ export function Panel({ doc }: { readonly doc: SeqDocument }) {
       </div>
 
       <div class="clone-actions clone-run">
-        <button type="button" class="primary-btn" onClick={() => runDesign(doc.id, sources)}>
+        <button
+          type="button"
+          class="primary-btn"
+          disabled={running}
+          onClick={() => runDesign(doc.id, sources)}
+        >
           {t('clone.design')}
         </button>
-        <span class="clone-hint">{t('clone.design.hint')}</span>
+        {running ? (
+          <>
+            <span class="clone-hint" role="status">
+              {t('clone.running')}
+            </span>
+            <button type="button" class="secondary" onClick={() => cancelDesign(doc.id)}>
+              {t('clone.cancel')}
+            </button>
+          </>
+        ) : (
+          <span class="clone-hint">{t('clone.design.hint')}</span>
+        )}
       </div>
 
       {resultView ?? <p class="clone-hint">{t('clone.empty')}</p>}

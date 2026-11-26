@@ -62,6 +62,7 @@ export interface AlignSource {
   readonly id: string;
   readonly name: string;
   readonly seq: string;
+  readonly protein: boolean;
   readonly selection: SelectionRange | null;
 }
 

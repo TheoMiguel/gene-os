@@ -83,7 +83,7 @@ function differenceColumnsOf(): TableColumn<DifferenceRow>[] {
       id: 'posA',
       header: t('align.diff.posA'),
       type: 'number',
-      width: 150,
+      width: 190,
       value: (r) => (r.difference.kind === 'insertion' ? r.difference.refStart : r.difference.refStart + 1),
       format: (_, r) => {
         const d = r.difference;
@@ -95,7 +95,7 @@ function differenceColumnsOf(): TableColumn<DifferenceRow>[] {
       id: 'posB',
       header: t('align.diff.posB'),
       type: 'number',
-      width: 150,
+      width: 190,
       value: (r) => (r.difference.kind === 'deletion' ? r.difference.altStart : r.difference.altStart + 1),
       format: (_, r) => {
         const d = r.difference;
@@ -114,14 +114,14 @@ function differenceColumnsOf(): TableColumn<DifferenceRow>[] {
     {
       id: 'from',
       header: t('align.diff.from'),
-      width: 150,
+      width: 200,
       value: (r) => r.difference.ref,
       format: (v) => clip(String(v ?? '')),
     },
     {
       id: 'to',
       header: t('align.diff.to'),
-      width: 150,
+      width: 210,
       value: (r) => r.difference.alt,
       format: (v) => clip(String(v ?? '')),
     },

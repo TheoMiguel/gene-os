@@ -1,5 +1,5 @@
 import { effect, type Signal, signal } from '@preact/signals';
-import { type CloningResult, designCloning } from '../../../engine/cloning';
+import type { CloningResult } from '../../../engine/cloning';
 import { type SeqDocument, workspace } from '../../../state/documents';
 import { viewOf } from '../../../state/view';
 import {
@@ -10,9 +10,11 @@ import {
   type RequestError,
   type SourceChoice,
 } from './model';
+import { startDesign } from './run';
 
 /** What the Design button produced for a document's cloning panel. */
 export type CloningRun =
+  | { readonly kind: 'running'; readonly startedAt: number }
   | { readonly kind: 'invalid'; readonly error: RequestError }
   | { readonly kind: 'failed'; readonly message: string }
   | { readonly kind: 'designed'; readonly result: CloningResult };
@@ -20,18 +22,25 @@ export type CloningRun =
 interface PanelState {
   readonly setup: Signal<CloningSetup>;
   readonly run: Signal<CloningRun | null>;
+  cancel: (() => void) | null;
 }
 
 const panels = new Map<string, PanelState>();
 
 effect(() => {
   const open = new Set(workspace.documents.value.map((doc) => doc.id));
-  for (const id of panels.keys()) if (!open.has(id)) panels.delete(id);
+  for (const [id, panel] of panels) {
+    if (open.has(id)) continue;
+    panel.cancel?.();
+    panels.delete(id);
+  }
 });
 
-/** The sources the form offers: every open document with its current selection. */
+/** The sources the form offers: every open nucleotide document with its current selection. Cloning works on DNA. */
 export function sourcesOf(documents: readonly SeqDocument[]): CloningSource[] {
-  return documents.map((doc) => ({ doc, selection: viewOf(doc.id).selection.value }));
+  return documents
+    .filter((doc) => doc.record.alphabet !== 'protein')
+    .map((doc) => ({ doc, selection: viewOf(doc.id).selection.value }));
 }
 
 const PASTE: SourceChoice = { kind: 'paste', text: '', topology: 'linear' };
@@ -67,24 +76,36 @@ export function cloningPanelOf(doc: SeqDocument, sources: readonly CloningSource
     panel = {
       setup: signal({ ...DEFAULT_CLONING_FIELDS, inserts: [insert], vector }),
       run: signal(null),
+      cancel: null,
     };
     panels.set(doc.id, panel);
   }
   return panel;
 }
 
-/** Builds the request from the form and runs the designer. Never throws. */
+/** Builds the request from the form and runs the designer off the main thread, replacing a design in progress. */
 export function runDesign(docId: string, sources: readonly CloningSource[]): void {
   const panel = panels.get(docId);
   if (!panel) return;
+  panel.cancel?.();
+  panel.cancel = null;
   const built = buildRequest(panel.setup.value, sources);
   if (!built.ok) {
     panel.run.value = { kind: 'invalid', error: built.error };
     return;
   }
-  try {
-    panel.run.value = { kind: 'designed', result: designCloning(built.request) };
-  } catch (error) {
-    panel.run.value = { kind: 'failed', message: error instanceof Error ? error.message : String(error) };
-  }
+  panel.run.value = { kind: 'running', startedAt: performance.now() };
+  panel.cancel = startDesign(built.request, (outcome) => {
+    panel.cancel = null;
+    panel.run.value = outcome;
+  });
+}
+
+/** Stops the design in progress and clears the result. */
+export function cancelDesign(docId: string): void {
+  const panel = panels.get(docId);
+  if (!panel) return;
+  panel.cancel?.();
+  panel.cancel = null;
+  panel.run.value = null;
 }

@@ -39,8 +39,14 @@ describe('pasted text', () => {
 
 describe('buildItems', () => {
   const sources = [
-    { id: 'a', name: 'Alpha', seq: 'AAAACCCCGGGG', selection: { start: 4, end: 8, strand: 1 as const } },
-    { id: 'b', name: 'Beta', seq: 'TTTT', selection: null },
+    {
+      id: 'a',
+      name: 'Alpha',
+      seq: 'AAAACCCCGGGG',
+      protein: false,
+      selection: { start: 4, end: 8, strand: 1 as const },
+    },
+    { id: 'b', name: 'Beta', seq: 'TTTT', protein: false, selection: null },
   ];
 
   it('lists the picked documents in order, then the pasted sequence', () => {

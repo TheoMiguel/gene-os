@@ -70,6 +70,7 @@ export function Panel({ doc }: { readonly doc: SeqDocument }) {
     id: d.id,
     name: d.record.name,
     seq: d.record.seq,
+    protein: d.record.alphabet === 'protein',
     selection: viewOf(d.id).selection.value,
   }));
   const current = setup.value;

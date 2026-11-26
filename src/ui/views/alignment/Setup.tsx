@@ -80,7 +80,9 @@ export function AlignSetupForm(props: SetupProps) {
                   />
                   <span class="aln-doc-name">{source.name}</span>
                   <span class="aln-hint">
-                    {t('doc.length', { length: source.seq.length.toLocaleString() })}
+                    {t(source.protein ? 'align.what.residues' : 'doc.length', {
+                      length: source.seq.length.toLocaleString(),
+                    })}
                   </span>
                 </label>
                 {on && selection && (

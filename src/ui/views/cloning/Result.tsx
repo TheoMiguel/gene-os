@@ -47,7 +47,7 @@ function Messages(props: {
 
 const primerColumns = (): TableColumn<PlannedPrimer>[] => [
   { id: 'name', header: t('clone.primer.name'), width: 150, value: (p) => p.name },
-  { id: 'seq', header: t('clone.primer.seq'), width: 380, value: (p) => p.seq },
+  { id: 'seq', header: t('clone.primer.seq'), width: 560, value: (p) => p.seq },
   { id: 'length', header: t('clone.primer.length'), type: 'number', width: 80, value: (p) => p.seq.length },
   { id: 'anneal', header: t('clone.primer.anneal'), type: 'number', width: 90, value: (p) => p.annealLength },
   { id: 'tail', header: t('clone.primer.tail'), type: 'number', width: 80, value: (p) => p.tailLength },
@@ -249,7 +249,7 @@ function FragmentSection({ fragments }: { readonly fragments: readonly PreparedF
 }
 
 /** What the Design button produced: problems and warnings in plain sentences, then primers, fragments and the construct. */
-export function CloningResultView({ run }: { readonly run: CloningRun }) {
+export function CloningResultView({ run }: { readonly run: Exclude<CloningRun, { kind: 'running' }> }) {
   if (run.kind === 'invalid') {
     return (
       <p class="clone-problem clone-standalone" role="alert">
