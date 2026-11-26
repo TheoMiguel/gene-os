@@ -7,8 +7,10 @@ import '@fontsource/jetbrains-mono/500.css';
 import './ui/styles/tokens.css';
 import './ui/styles/app.css';
 import { render } from 'preact';
+import { registerOfflineSupport } from './offline';
 import { bindThemeToDocument } from './state/settings';
 import { App } from './ui/App';
 
 bindThemeToDocument(document.documentElement);
+registerOfflineSupport();
 render(<App />, document.getElementById('app') as HTMLElement);
