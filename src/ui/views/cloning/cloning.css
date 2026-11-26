@@ -271,61 +271,10 @@
 .clone-map {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 8px;
+  height: 480px;
   max-width: 100%;
-  overflow-x: auto;
 }
 
-.clone-map-svg {
-  max-width: 100%;
-  height: auto;
-}
-
-.clone-map-ring {
-  fill: none;
-  stroke: var(--wire-stroke);
-  stroke-width: 2;
-}
-
-.clone-map-feature {
-  fill: none;
-  stroke-linecap: butt;
-}
-
-.clone-map-label line {
-  stroke: var(--fg-dim);
-  stroke-width: 1;
-}
-
-.clone-map-label text,
-.clone-map-junction text {
-  fill: var(--fg);
-  font: 400 11px var(--mono);
-}
-
-.clone-map-junction line {
-  stroke: var(--accent);
-  stroke-width: 2.5;
-}
-
-.clone-map-junction .clone-map-leader {
-  stroke: var(--accent);
-  stroke-width: 1;
-  opacity: 0.6;
-}
-
-.clone-map-junction text {
-  fill: var(--accent);
-  font-weight: 600;
-}
-
-.clone-map-title {
-  fill: var(--fg);
-  font: 600 15px var(--hero-font);
-}
-
-.clone-map-sub {
-  fill: var(--fg-muted);
-  font: 400 12px var(--mono);
+.clone-map > .seq-pane {
+  flex: 1;
 }

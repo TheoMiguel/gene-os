@@ -32,7 +32,6 @@ export const es: Dictionary = {
   'status.dismiss': 'Descartar mensaje',
 
   'doc.tabsLabel': 'Vistas de análisis',
-  'doc.placeholder': 'Esta vista llega en una fase posterior.',
   'doc.length': '{length} pb',
   'topology.linear': 'Lineal',
   'topology.circular': 'Circular',
@@ -1206,7 +1205,6 @@ export const es: Dictionary = {
   'clone.construct.open': 'Abrir la construcción como documento nuevo',
   'clone.construct.saveGenbank': 'Guardar GenBank',
   'clone.construct.saveFasta': 'Guardar FASTA',
-  'clone.map.label': 'Mapa circular de {name}, {length} pb',
   'clone.junction.title': 'Uniones ({count})',
   'clone.junction.name': 'Unión',
   'clone.junction.kind': 'Tipo',
