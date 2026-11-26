@@ -299,7 +299,7 @@ export function Chart(props: ChartProps) {
             {xTicks.map((tick) => (
               <g key={tick} transform={`translate(${x(tick).toFixed(1)},${plotH})`}>
                 <line class="chart-axis" y2={5} />
-                <text class="chart-tick" y={18} text-anchor="middle">
+                <text class="chart-tick" y={18} text-anchor={x(tick) > plotW - 24 ? 'end' : 'middle'}>
                   {formatX(tick)}
                 </text>
               </g>
