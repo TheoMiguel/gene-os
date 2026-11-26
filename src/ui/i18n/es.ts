@@ -937,4 +937,412 @@ export const es: Dictionary = {
     'Se muestran {shown} de {total} cortes, primero las enzimas más raras. Acotá los filtros para ver el resto.',
   'sv.sites.filters': 'Filtros ({count} activos)',
   'sv.seq.geneticCode': 'Código genético',
+  // ---- alignment view ----
+  'align.stale':
+    'Cambiaste las opciones después de este alineamiento. Pulsa Alinear otra vez para actualizarlo.',
+  'align.pastedName': 'Pegada',
+  'align.page.prev': 'Página anterior',
+  'align.page.next': 'Página siguiente',
+  'align.page.goTo': 'Ir a la columna',
+  'align.what.residues': '{length} aa',
+  'align.what.title': 'Qué alinear',
+  'align.what.open': 'Secuencias abiertas',
+  'align.what.region': 'Solo la región seleccionada en la vista Secuencia ({from}-{to})',
+  'align.what.paste': 'O pega una secuencia para comparar',
+  'align.what.pastePlaceholder': 'Pega letras sueltas o texto FASTA',
+  'align.what.pasteHint':
+    'Úsalo para comparar con algo que aún no está abierto. Se ignoran números y espacios.',
+  'align.what.needTwo': 'Elige al menos dos secuencias: marca otra secuencia abierta o pega una.',
+  'align.what.pair': 'Dos secuencias elegidas: alineamiento por pares. La primera es la referencia.',
+  'align.what.group': '{count} secuencias elegidas: alineamiento múltiple.',
+  'align.what.mixed':
+    'Estas secuencias mezclan proteína y ADN, que no se pueden alinear entre sí. Traduce el ADN primero o quita un tipo.',
+  'align.method.title': 'Método',
+  'align.method.global': 'Global',
+  'align.method.globalHint':
+    'Alinea ambas secuencias de punta a punta; úsalo si tienen largo parecido y se parecen en todo su largo.',
+  'align.method.local': 'Local',
+  'align.method.localHint':
+    'Encuentra solo el mejor tramo parecido e ignora el resto; úsalo si una pieza corta puede estar dentro de otra más larga, o solo se comparte un dominio.',
+  'align.method.overlap': 'Solapamiento',
+  'align.method.overlapHint':
+    'Deja que cualquier extremo sobresalga sin costo; úsalo para alinear una lectura o un fragmento con una referencia, o para unir dos piezas que se solapan en sus extremos.',
+  'align.method.msa': 'Alineamiento múltiple progresivo',
+  'align.method.msaHint':
+    'Alinea primero el par más cercano y luego suma las demás según un árbol guía; úsalo para comparar a la vez tres o más secuencias emparentadas.',
+  'align.scores.title': 'Puntaje',
+  'align.scores.match': 'Puntaje de coincidencia',
+  'align.scores.mismatch': 'Puntaje de diferencia',
+  'align.scores.matrix': 'Matriz de sustitución',
+  'align.scores.gapOpen': 'Penalidad de apertura de hueco',
+  'align.scores.gapExtend': 'Penalidad de extensión de hueco',
+  'align.scores.distance': 'Distancias del árbol guía',
+  'align.scores.distance.auto': 'Automático',
+  'align.scores.distance.alignment': 'Alinear cada par (exacto, más lento)',
+  'align.scores.distance.kmer': 'Palabras cortas compartidas (rápido)',
+  'align.scores.hint':
+    'Un campo vacío usa el valor por defecto en gris. Un hueco de largo k cuesta apertura + (k - 1) x extensión.',
+  'align.scores.invalid': 'Un puntaje no es un número válido, o una penalidad de hueco es menor que 0.',
+  'align.run': 'Alinear',
+  'align.cancel': 'Cancelar',
+  'align.running': 'Alineando {count} secuencias... {seconds} s',
+  'align.runningHint':
+    'El alineamiento corre en segundo plano, así que puedes seguir usando la aplicación. Cancélalo si tarda demasiado.',
+  'align.empty': 'Elige las secuencias y un método, y luego pulsa Alinear.',
+  'align.failed': 'No se pudo ejecutar el alineamiento: {message}',
+  'align.elapsed': 'Terminó en {seconds} s.',
+  'align.tooLarge.title': 'Este alineamiento supera el límite de tamaño',
+  'align.tooLarge.pair':
+    'Un alineamiento {mode} de estas dos secuencias necesita unas {cells} celdas de trabajo y el límite es {limit}. La memoria que usa crece con el producto de los dos largos.',
+  'align.tooLarge.msa':
+    'Un paso del alineamiento múltiple necesita unas {cells} celdas de trabajo y el límite es {limit}. Equivale a unas 10 kb por secuencia.',
+  'align.tooLarge.region':
+    'Selecciona solo la parte que te interesa en la vista Secuencia y marca "Solo la región seleccionada" arriba.',
+  'align.tooLarge.global':
+    'Prueba el método Global: acepta pares mucho más largos, hasta unas 50 kb por 50 kb, y más si las secuencias son muy parecidas.',
+  'align.tooLarge.msaAdvice':
+    'Usa menos secuencias o más cortas, o alinea cada una contra una sola referencia como par.',
+  'align.kpi.score': 'Puntaje',
+  'align.kpi.identity': 'Identidad',
+  'align.kpi.similarity': 'Similitud',
+  'align.kpi.gaps': 'Huecos',
+  'align.kpi.gapsHint':
+    'Cada tramo de columnas con hueco cuenta una vez. Columnas con hueco en total: {columns}.',
+  'align.kpi.length': 'Largo alineado',
+  'align.kpi.mismatches': 'Diferencias',
+  'align.kpi.sequences': 'Secuencias',
+  'align.kpi.meanScore': 'Puntaje medio',
+  'align.kpi.meanIdentity': 'Identidad media',
+  'align.kpi.meanSimilarity': 'Similitud media',
+  'align.kpi.meanHint': 'Promedio sobre cada par de filas.',
+  'align.kpi.gapColumns': 'Columnas con huecos',
+  'align.localCover':
+    'El alineamiento local cubre las posiciones {a} de la primera secuencia y {b} de la segunda.',
+  'align.overlapNote':
+    'Modo solapamiento: un extremo que sobresale de la otra secuencia no cuesta, así que no cuenta como edición.',
+  'align.gridLabel': 'Alineamiento: {rows} filas, {columns} columnas. Desplázate de lado con las flechas.',
+  'align.legend': 'Colores de columna',
+  'align.class.identical': 'Idéntica',
+  'align.class.similar': 'Similar',
+  'align.class.mismatch': 'Distinta',
+  'align.class.gap': 'Hueco',
+  'align.consensus': 'Consenso',
+  'align.conservation': 'Conservación',
+  'align.pickHint': 'Haz clic en una columna para ver sus residuos y posiciones.',
+  'align.column': 'Columna {column}',
+  'align.imagePartial': 'La imagen cubre las columnas {from} a {to}, la parte visible.',
+  'align.export.title': 'Exportar el alineamiento',
+  'align.export.copyFasta': 'Copiar FASTA',
+  'align.export.saveFasta': 'Guardar FASTA',
+  'align.export.saveClustal': 'Guardar texto Clustal',
+  'align.diff.title': 'Diferencias ({count})',
+  'align.diff.hint':
+    'Las posiciones cuentan desde 1 en cada secuencia. La primera secuencia es la referencia. Haz clic en una fila para ir a ese punto del alineamiento.',
+  'align.diff.none': 'Las dos secuencias son idénticas en la región alineada.',
+  'align.diff.kind': 'Tipo',
+  'align.diff.substitution': 'Sustitución',
+  'align.diff.insertion': 'Inserción',
+  'align.diff.deletion': 'Deleción',
+  'align.diff.posA': 'Posición en la primera',
+  'align.diff.posB': 'Posición en la segunda',
+  'align.diff.before': 'antes de {pos}',
+  'align.diff.between': 'entre {a} y {b}',
+  'align.diff.length': 'Largo',
+  'align.diff.from': 'La primera tiene',
+  'align.diff.to': 'La segunda tiene',
+  'align.diff.edge': 'En un extremo',
+  'align.diff.edgeYes': 'Sí',
+  'align.tree.title': 'Árbol guía',
+  'align.tree.hint':
+    'Las secuencias que se unen más a la derecha eran más parecidas. El árbol fija el orden en que se construyó el alineamiento.',
+  'align.tree.newick': 'Texto Newick del árbol guía',
+  'align.tree.copyNewick': 'Copiar Newick',
+  'align.tree.saveNewick': 'Guardar Newick',
+  // ---- end alignment view ----
+
+  // ---- cloning view ----
+  'clone.method.title': 'Método de clonación',
+  'clone.method.restriction': 'Restricción y ligación',
+  'clone.method.restrictionHint':
+    'La forma clásica: cortar vector e inserto con las mismas enzimas y unirlos con ligasa; úsalo para clonar un fragmento de forma simple y barata.',
+  'clone.method.gibson': 'Ensamblaje Gibson',
+  'clone.method.gibsonHint':
+    'Une piezas que comparten unas 30 bases de solapamiento en un solo tubo, sin dejar sitios de enzima; úsalo para unir varios fragmentos en un orden fijo.',
+  'clone.method.golden_gate': 'Golden Gate',
+  'clone.method.golden_gateHint':
+    'Usa enzimas que cortan fuera de su sitio, así muchas piezas se unen en orden sin dejar sitios de enzima; úsalo para armar una construcción con piezas estándar.',
+  'clone.method.gateway': 'Gateway',
+  'clone.method.gatewayHint':
+    'Mueve un fragmento entre vectores por recombinación en sitios att, sin cortar; úsalo si tienes clones de entrada y vectores de destino Gateway.',
+  'clone.method.topo': 'TOPO',
+  'clone.method.topoHint':
+    'Liga un producto de PCR en un vector listo en minutos, con una enzima ya unida a él; úsalo para clonar rápido un único producto de PCR.',
+  'clone.method.in_fusion': 'In-Fusion',
+  'clone.method.in_fusionHint':
+    'Como Gibson, pero con solapamientos más cortos de unas 15 bases y otra enzima; úsalo si trabajas con el kit In-Fusion.',
+  'clone.method.lic': 'Clonación independiente de ligación (LIC)',
+  'clone.method.licHint':
+    'Genera extremos largos de hebra simple con una polimerasa que consume un solo tipo de base, así inserto y vector se pegan sin ligasa; úsalo para clonación de alto rendimiento.',
+  'clone.insert.title': 'Inserto',
+  'clone.insert.titleMany': 'Insertos, en el orden de la construcción',
+  'clone.insert.hint':
+    'La forma fácil: selecciona una región en la vista Secuencia de cualquier secuencia abierta y elígela aquí. También puedes usar una secuencia entera o pegar una.',
+  'clone.insert.one': 'Origen del inserto',
+  'clone.insert.numbered': 'Inserto {index}',
+  'clone.insert.add': 'Agregar otro inserto',
+  'clone.insert.remove': 'Quitar',
+  'clone.vector.title': 'Vector',
+  'clone.vector.hint': 'El plásmido circular que recibe el inserto. Un vector pegado se lee como circular.',
+  'clone.vector.one': 'Origen del vector',
+  'clone.source.selection': 'Región seleccionada en {name} ({from}-{to})',
+  'clone.source.whole': 'Secuencia completa de {name} ({length} pb, {topology})',
+  'clone.source.noSelection': 'Región seleccionada en la vista Secuencia (aún no hay selección)',
+  'clone.source.paste': 'Pegar una secuencia',
+  'clone.source.pastePlaceholder': 'Pega letras de ADN o texto FASTA',
+  'clone.source.topology': 'Forma',
+  'clone.source.resolved': 'Se usa {name}, {length} pb.',
+  'clone.options.title': 'Opciones para {method}',
+  'clone.restriction.auto':
+    'La aplicación elige un par de enzimas que cortan el vector una vez y dejan entero el inserto. Activa el modo Avanzado en Ajustes para elegirlas tú.',
+  'clone.enzyme.first': 'Primera enzima',
+  'clone.enzyme.second': 'Segunda enzima (opcional)',
+  'clone.enzyme.auto': 'la elige la aplicación',
+  'clone.restriction.insertMode': 'El inserto',
+  'clone.restriction.amplify': 'Amplificar por PCR',
+  'clone.restriction.amplifyHint': 'Los cebadores agregan los sitios de enzima.',
+  'clone.restriction.digest': 'Cortar tal cual',
+  'clone.restriction.digestHint': 'El inserto ya tiene los sitios; sin cebadores.',
+  'clone.restriction.dephosphorylate':
+    'Los extremos del vector están desfosforilados (evita que se cierre solo)',
+  'clone.restriction.reverse': 'Colocar el inserto en orientación inversa',
+  'clone.opening.title': 'Abrir el vector',
+  'clone.opening.enzymes': 'Con enzimas',
+  'clone.opening.enzymesHint': 'Enzimas que cortan el vector una vez. Las sugerencias son las que lo hacen.',
+  'clone.opening.region': 'Quitando un tramo',
+  'clone.opening.regionHint': 'Abre el círculo en una posición, o quita las bases siguientes.',
+  'clone.opening.start': 'Posición donde abrir (desde 1)',
+  'clone.opening.length': 'Bases a quitar (0 = solo abrir)',
+  'clone.overlap': 'Largo del solapamiento (bases)',
+  'clone.golden.enzyme': 'Enzima tipo IIS',
+  'clone.golden.hint':
+    'Usa la enzima cuyos sitios flanquean tu vector de destino y que no corta dentro de tus piezas. BsaI y BsmBI son las habituales.',
+  'clone.golden.vectorMode': 'El vector',
+  'clone.golden.digest': 'Cortar tal cual',
+  'clone.golden.digestHint': 'Ya tiene dos sitios de la enzima.',
+  'clone.golden.pcr': 'Amplificar por PCR',
+  'clone.golden.pcrHint': 'Los cebadores agregan los sitios.',
+  'clone.golden.style': 'Uniones',
+  'clone.golden.scar': 'Con cicatriz',
+  'clone.golden.scarHint': 'Un saliente corto queda entre las piezas.',
+  'clone.golden.native': 'Sin cicatriz',
+  'clone.golden.nativeHint': 'El saliente son las primeras bases de la pieza siguiente.',
+  'clone.gateway.reaction': 'Reacción',
+  'clone.gateway.bp': 'BP: crear un clon de entrada',
+  'clone.gateway.bpHint': 'Un producto attB más un vector donante (attP) da un clon de entrada attL.',
+  'clone.gateway.lr': 'LR: pasar a un vector de destino',
+  'clone.gateway.lrHint': 'Un clon de entrada attL más un vector de destino (attR) da el clon de expresión.',
+  'clone.gateway.requirement':
+    'Requisito: el vector debe ser circular, tener exactamente dos sitios att y llevar entre ellos una característica llamada ccdB. La aplicación quita el tramo con ccdB. Sin ese nombre adivina, y te avisa.',
+  'clone.gateway.primers': 'Agregar los sitios attB con cebadores (el inserto no los tiene)',
+  'clone.gateway.attLeft': 'Variante att izquierda',
+  'clone.gateway.attRight': 'Variante att derecha',
+  'clone.topo.kind': 'Tipo de vector TOPO',
+  'clone.topo.directional': 'Direccional',
+  'clone.topo.directionalHint':
+    'Producto de PCR de extremos romos que empieza con CACC, así entra en una sola dirección.',
+  'clone.topo.ta': 'TA (cualquier dirección)',
+  'clone.topo.taHint': 'Producto de PCR con una A en cada extremo 3′; puede entrar en ambas direcciones.',
+  'clone.topo.site': 'Punto de inserción en el vector (el inserto va antes de esta base)',
+  'clone.topo.useCaret': 'Usar el cursor en la posición {position}',
+  'clone.topo.siteHint':
+    'Escribe la posición del sitio TOPO en tu vector, contando desde 1. También puedes hacer clic ahí en la vista Secuencia del vector y usar el botón del cursor.',
+  'clone.topo.amplify': 'Amplificar el inserto con cebadores (agrega CACC si es direccional)',
+  'clone.topo.polymerase': 'Polimerasa de la PCR',
+  'clone.topo.polymeraseAuto': 'Por defecto para este tipo',
+  'clone.topo.taq': 'Taq (deja una A en 3′)',
+  'clone.topo.proofreading': 'Con corrección de errores (extremos romos)',
+  'clone.lic.vectorDntp': 'dNTP de digestión del vector',
+  'clone.lic.insertDntp': 'dNTP de digestión del inserto',
+  'clone.lic.auto': 'La elige la aplicación',
+  'clone.primers.options': 'Diseño de cebadores',
+  'clone.primers.tm': 'Tm objetivo (°C)',
+  'clone.primers.annealMin': 'Parte de unión más corta',
+  'clone.primers.annealMax': 'Parte de unión más larga',
+  'clone.design': 'Diseñar la clonación',
+  'clone.design.hint': 'La aplicación diseña los cebadores y simula la construcción.',
+  'clone.empty': 'Elige un método, el inserto y el vector, y luego pulsa Diseñar.',
+  'clone.failed': 'El diseño se detuvo con un error inesperado: {message}',
+  'clone.tag.problem': 'Problema',
+  'clone.tag.warning': 'Revisar',
+  'clone.result.title': 'Diseño: {method}',
+  'clone.result.stopped': 'No se pudo completar el diseño',
+  'clone.opened': 'La construcción está abierta en una pestaña nueva.',
+  'clone.primers.title': 'Cebadores a pedir ({count})',
+  'clone.primers.none': 'Este método no necesita cebadores.',
+  'clone.primers.hint':
+    'Cada cebador se escribe de 5′ a 3′. La cola es la parte que agrega la unión; la parte de unión se pega al molde. La Tm es de la parte de unión.',
+  'clone.primers.label': 'Cebadores',
+  'clone.primers.copyOrder': 'Copiar lista de pedido',
+  'clone.primers.saveOrder': 'Guardar lista de pedido',
+  'clone.primer.name': 'Nombre',
+  'clone.primer.seq': 'Secuencia (5′ a 3′)',
+  'clone.primer.length': 'Largo',
+  'clone.primer.anneal': 'Unión',
+  'clone.primer.tail': 'Cola',
+  'clone.primer.tm': 'Tm (°C)',
+  'clone.primer.template': 'Molde',
+  'clone.fragments.title': 'Fragmentos a preparar ({count})',
+  'clone.fragments.hint':
+    'Lo que preparas en el laboratorio antes de la reacción: un producto de PCR, una digestión o un extremo digerido.',
+  'clone.fragment.name': 'Fragmento',
+  'clone.fragment.kind': 'Cómo prepararlo',
+  'clone.fragment.kind.pcr': 'Producto de PCR',
+  'clone.fragment.kind.digest': 'Digestión con enzimas',
+  'clone.fragment.kind.chew_back': 'Extremos digeridos',
+  'clone.fragment.kind.as_is': 'Usar tal cual',
+  'clone.fragment.length': 'Largo',
+  'clone.fragment.template': 'Molde',
+  'clone.fragment.primers': 'Cebadores',
+  'clone.fragment.dntp': 'dNTP',
+  'clone.construct.title': 'Construcción simulada',
+  'clone.construct.several': 'Los extremos permiten {count} orientaciones. Elige cuál mostrar.',
+  'clone.construct.intended': '{orientation} (prevista)',
+  'clone.construct.summary': '{name}: {length} pb, inserto {orientation}.',
+  'clone.orientation.forward': 'directo',
+  'clone.orientation.reverse': 'inverso',
+  'clone.construct.open': 'Abrir la construcción como documento nuevo',
+  'clone.construct.saveGenbank': 'Guardar GenBank',
+  'clone.construct.saveFasta': 'Guardar FASTA',
+  'clone.map.label': 'Mapa circular de {name}, {length} pb',
+  'clone.junction.title': 'Uniones ({count})',
+  'clone.junction.name': 'Unión',
+  'clone.junction.kind': 'Tipo',
+  'clone.junction.position': 'Posición',
+  'clone.junction.length': 'Largo',
+  'clone.junction.kind.sticky': 'Extremos cohesivos',
+  'clone.junction.kind.blunt': 'Extremos romos',
+  'clone.junction.kind.homology': 'Solapamiento compartido',
+  'clone.junction.kind.recombination': 'Recombinación',
+  'clone.junction.kind.ta': 'Saliente TA',
+  'clone.junction.kind.topo': 'Sitio TOPO',
+  'clone.end.blunt': 'un extremo romo ({source})',
+  'clone.end.five': 'un saliente 5′ {overhang} ({source})',
+  'clone.end.three': 'un saliente 3′ {overhang} ({source})',
+  'clone.role.vector': 'El vector',
+  'clone.role.insert': 'El inserto {index}',
+  'clone.err.closed': '{role} apunta a una secuencia que ya no está abierta. Elígela otra vez.',
+  'clone.err.no_selection':
+    '{role} está fijado a la región seleccionada, pero no hay nada seleccionado. Selecciona primero una región en la vista Secuencia, o elige una secuencia entera.',
+  'clone.err.empty_paste':
+    '{role} es una secuencia pegada, pero el cuadro no tiene letras. Pega ADN o elige otro origen.',
+  'clone.err.protein':
+    '{role} es una secuencia de proteína. La clonación trabaja con ADN; elige una secuencia de ADN.',
+  'clone.err.vector_linear':
+    '{role} es una secuencia lineal, pero un vector debe ser circular. Elige un plásmido circular.',
+  'clone.field.opening':
+    'Escribe al menos una enzima que corte el vector una vez, o cambia a quitar un tramo.',
+  'clone.field.region': 'Escribe la posición donde abrir el vector y cuántas bases quitar (0 o más).',
+  'clone.field.overlap': 'El largo del solapamiento debe ser un número de bases.',
+  'clone.field.topoSite': 'Escribe el punto de inserción en el vector como una posición de 1 o más.',
+  'clone.field.tm': 'La Tm objetivo debe ser un número.',
+  'clone.field.anneal':
+    'Los largos de unión deben ser números, el más corto de al menos 10 y no mayor que el más largo.',
+  'clone.problem.no_parts': 'No hay ningún inserto. Agrega al menos uno.',
+  'clone.problem.region_out_of_range':
+    'La región de {part} no cabe en su secuencia. Vuelve a seleccionar la región dentro de la secuencia.',
+  'clone.problem.enzyme_unknown':
+    'La enzima {enzyme} no está en la lista de enzimas. Revisa la ortografía, por ejemplo EcoRI o BamHI.',
+  'clone.problem.enzyme_not_suitable.type_iis':
+    '{enzyme} corta fuera de su propio sitio (enzima tipo IIS), así que no sirve para abrir un vector en una clonación común. Elige una enzima como EcoRI, o usa Golden Gate.',
+  'clone.problem.enzyme_not_suitable.degenerate_site':
+    '{enzyme} reconoce un sitio con bases variables, así que sus extremos no se pueden predecir. Elige una enzima con sitio fijo.',
+  'clone.problem.enzyme_not_suitable.not_type_iis':
+    '{enzyme} no es una enzima tipo IIS, y Golden Gate necesita una que corte fuera de su sitio, como BsaI o BsmBI.',
+  'clone.problem.enzyme_no_site':
+    '{enzyme} no corta {part}. Elige una enzima que lo corte exactamente una vez.',
+  'clone.problem.enzyme_cuts_insert':
+    '{enzyme} corta dentro del inserto {part} ({cuts} veces), así que el inserto quedaría troceado. Elige otra enzima, o una región sin ese sitio.',
+  'clone.problem.enzyme_cuts_vector_repeatedly':
+    '{enzyme} corta el vector {cuts} veces. Elige una enzima que lo corte solo una vez.',
+  'clone.problem.no_enzyme_pair':
+    'Ningún par de enzimas corta el vector una vez cada una y deja entero el inserto. Elige las enzimas tú (modo Avanzado en Ajustes), o usa un método que no necesite enzimas en el inserto, como Gibson.',
+  'clone.problem.incompatible_ends':
+    'Los extremos en {junction} no pueden unirse: {left} se encuentra con {right}. Elige enzimas que dejen extremos compatibles, o haz ambos extremos romos.',
+  'clone.problem.duplicate_overhang':
+    'Las uniones Golden Gate {junctions} usan el mismo saliente {overhang}, así que las piezas podrían unirse en el orden equivocado. Da a cada unión un saliente distinto.',
+  'clone.problem.palindromic_overhang':
+    'El saliente {overhang} en la unión {junction} se lee igual en ambas hebras, así que las piezas pueden unirse al revés. Elige un saliente que no sea palindrómico.',
+  'clone.problem.overhang_invalid':
+    'El saliente {overhang} en la unión {junction} no es válido para esta enzima. Usa una secuencia del largo correcto con A, C, G y T.',
+  'clone.problem.primer_design_failed.forward':
+    'Ningún cebador directo alcanzó la temperatura de fusión objetivo para {part}. Baja la Tm objetivo, permite una parte de unión más larga, o elige otra región.',
+  'clone.problem.primer_design_failed.reverse':
+    'Ningún cebador inverso alcanzó la temperatura de fusión objetivo para {part}. Baja la Tm objetivo, permite una parte de unión más larga, o elige otra región.',
+  'clone.problem.overlap_out_of_range':
+    'El solapamiento debe estar entre {min} y {max} bases, y diste {value}. Escribe un largo dentro de ese rango.',
+  'clone.problem.topo_missing_cacc':
+    'El TOPO direccional necesita que el inserto empiece con CACC, y {part} no lo hace. Deja que la aplicación amplifique el inserto (agrega CACC), o agrega CACC a tu secuencia.',
+  'clone.problem.topo_site_out_of_range':
+    'El punto de inserción no está dentro del vector, o el vector no es circular. Escribe una posición de 1 al largo del vector.',
+  'clone.problem.att_site_unknown': 'La variante att {variant} no se conoce. Elige una variante de la lista.',
+  'clone.problem.att_site_not_found':
+    'Un vector Gateway debe ser circular y tener exactamente dos sitios att, y {part} tiene {count}. Elige un vector donante o de destino, o revisa que sus sitios att estén completos.',
+  'clone.problem.att_no_route.no_chain':
+    'Los sitios att de las piezas no forman una cadena, así que no existe un camino de recombinación. Revisa que las piezas vecinas compartan una variante att, por ejemplo attL1 con attR1.',
+  'clone.problem.att_no_route.ambiguous_chain':
+    'Más de una cadena de sitios att podría unir las piezas. Quita piezas, o usa variantes att distintas, para que exista un solo camino.',
+  'clone.problem.att_no_route.unused_parts':
+    'Algunas piezas no participan en ningún camino de recombinación. Quítalas, o revisa sus sitios att.',
+  'clone.problem.lic_overhang_mismatch':
+    'Los extremos de hebra simple en {junction} no coinciden: el vector da {expected} y el inserto da {actual}. Elige otros dNTP de digestión.',
+  'clone.problem.lic_no_stop_nucleotide':
+    'Ningún dNTP permite que la polimerasa se detenga en el lugar correcto en {part}. Elige otra región u otra apertura del vector.',
+  'clone.problem.junction_mismatch':
+    'La verificación interna encontró que las piezas no encajan en {junction}. Prueba otra región u otro método.',
+  'clone.warning.vector_self_ligation.open':
+    'Los dos extremos del vector abierto pueden unirse entre sí, lo que da muchas colonias vacías. Trata el vector con una fosfatasa (CIP o rSAP), o ábrelo con dos enzimas que dejen extremos distintos.',
+  'clone.warning.vector_self_ligation.treated':
+    'Los dos extremos del vector abierto podrían unirse entre sí, pero marcaste el vector como desfosforilado, lo que lo evita.',
+  'clone.warning.blunt_ligation':
+    'Un extremo romo se une en cualquier dirección, así que revisa la orientación del inserto en tus colonias por digestión o PCR de colonia.',
+  'clone.warning.dephosphorylated_vector_unphosphorylated_insert':
+    'El vector está desfosforilado y el inserto de PCR no tiene fosfato en 5′, así que la ligasa no puede sellar ambas mellas. Fosforila el inserto con quinasa T4, o habrá pocas colonias.',
+  'clone.warning.vector_stub_comigrates':
+    'La pieza pequeña que descartas ({stubLength} pb) tiene un tamaño parecido al esqueleto del vector ({backboneLength} pb), así que corren juntas en un gel. Corta con una tercera enzima, o desfosforila en lugar de purificar en gel.',
+  'clone.warning.both_orientations_possible':
+    'El inserto puede entrar en cualquier dirección. Abajo se listan todas las orientaciones; distínguelas por PCR de colonia o una digestión de control.',
+  'clone.warning.internal_site':
+    '{enzyme} corta {part} {cuts} veces más en su interior, lejos de los extremos. Revisa que sea lo que quieres.',
+  'clone.warning.three_prime_overhang_end':
+    '{enzyme} deja un saliente 3′ en un extremo de {part}. Esos extremos se unen mal, así que prefiere enzimas que dejen salientes 5′.',
+  'clone.warning.primer_tm_low':
+    'El cebador {primer} se funde a solo {tm} °C, por debajo del objetivo. Puede unirse débilmente; permite una parte de unión más larga.',
+  'clone.warning.primer_long':
+    'El cebador {primer} tiene {length} bases, lo que es caro y propenso a errores al pedirlo. Considera un solapamiento o cola más cortos.',
+  'clone.warning.overlap_gc_extreme':
+    'El solapamiento en {junction} tiene {gc}% de GC. Los solapamientos entre 40% y 65% de GC se unen mejor.',
+  'clone.warning.overlap_repeat':
+    'El solapamiento en {junction} aparece más de una vez en el vector, así que las piezas podrían unirse en un lugar equivocado. Elige otro punto de apertura u otro solapamiento.',
+  'clone.warning.topo_site_without_t':
+    'Los vectores TOPO TA se abren en un saliente T, y la base anterior a tu punto de inserción no es una T. Revisa el punto de inserción.',
+  'clone.warning.topo_directional_needs_blunt':
+    'El TOPO direccional necesita un producto de PCR de extremos romos, pero Taq agrega una A en 3′. Amplifica con una polimerasa con corrección de errores.',
+  'clone.warning.topo_a_overhang_lost':
+    'La clonación TA necesita una A en 3′ en el producto de PCR, pero una polimerasa con corrección de errores deja extremos romos. Usa Taq, o agrega colas A después de la PCR.',
+  'clone.warning.no_counterselection':
+    'El vector {part} no tiene una característica llamada ccdB entre sus sitios att, así que la aplicación quitó el tramo más largo y supuso que es el casete de selección. Nombra esa característica ccdB en la vista Características para estar seguro.',
+  'clone.warning.counterselection_kept':
+    'La construcción aún lleva el gen letal ccdB de {part}. Solo crecerá en cepas resistentes a ccdB. Revisa que usaste los sitios att y la reacción correctos.',
+  'clone.warning.insert_arc_guessed':
+    'Entre los sitios att de {part}, la aplicación supuso qué tramo es el inserto, porque ninguna característica clara del esqueleto los separa. Revisa la construcción.',
+  'clone.warning.lic_overhang_short':
+    'El extremo de hebra simple en {junction} tiene solo {length} bases. Los extremos de menos de 10 bases se unen mal, así que la reacción puede fallar.',
+  'clone.running': 'Diseñando... el trabajo corre en segundo plano.',
+  'clone.cancel': 'Cancelar',
+  'clone.golden.overhangs': 'Salientes, uno por unión, separados por comas',
+  'clone.golden.overhangsPlaceholder': 'las diseña la aplicación; por ejemplo AATG,GCTT,CGCT',
+  'clone.pasted.insert': 'Inserto pegado',
+  'clone.pasted.vector': 'Vector pegado',
+  'clone.stale': 'Cambiaste el formulario después de este diseño. Pulsa Diseñar otra vez para actualizarlo.',
+  // ---- end cloning view ----
 };
