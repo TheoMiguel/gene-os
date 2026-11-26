@@ -3,7 +3,7 @@ import { act, cleanup, fireEvent, render, screen } from '@testing-library/preact
 import { randomDna } from '../../../tests/fixtures/restriction/fixtures';
 import { getGeneticCode, sixFrameTranslation, translateFrame } from '../../engine/translate';
 import { updateSettings } from '../../state/settings';
-import { createViewState, type Overlay, type ViewState } from '../../state/view';
+import { createViewState, type Overlay } from '../../state/view';
 import { columnOfOffset, gutterDigits } from './layout';
 import { SequenceRenderer } from './SequenceRenderer';
 import { translationRow } from './translationRow';

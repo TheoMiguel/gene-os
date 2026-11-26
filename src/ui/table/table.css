@@ -1,0 +1,167 @@
+/* Result table. It fills its parent and scrolls inside itself, never the page. */
+
+.table {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  min-width: 0;
+  color: var(--fg);
+}
+
+.table-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 0 0 8px;
+}
+
+.table-filter {
+  flex: 0 1 240px;
+  min-width: 120px;
+  padding: 6px 10px;
+  font: 400 13px var(--sans);
+  color: var(--fg);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+
+.table-filter:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.table-count {
+  font: 400 12px var(--mono);
+  color: var(--fg-muted);
+}
+
+.table-actions {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.table-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  background: var(--bg-panel);
+  font: 400 13px var(--sans);
+}
+
+.table-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.table-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  align-items: stretch;
+  background: var(--bg-solid-header);
+  border-bottom: 1px solid var(--border-bright);
+}
+
+.table-head {
+  display: flex;
+  min-width: 0;
+}
+
+.table-head.end {
+  justify-content: flex-end;
+}
+
+.table-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+  padding: 0 10px;
+  font: 600 12px var(--mono);
+  letter-spacing: 0.04em;
+  color: var(--fg-muted);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-sort:hover {
+  color: var(--accent);
+}
+
+.table-sort:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.table-head.end .table-sort {
+  justify-content: flex-end;
+}
+
+.table-arrow {
+  font-size: 9px;
+  color: var(--accent);
+}
+
+.table-body {
+  position: relative;
+}
+
+.table-layer {
+  position: sticky;
+  top: var(--table-header, 32px);
+  overflow: hidden;
+}
+
+.table-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: grid;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  cursor: default;
+}
+
+.table-row:hover {
+  background: var(--bg-hover);
+}
+
+.table-row.selected {
+  background: rgba(var(--accent-rgb), 0.18);
+}
+
+.table-row.active {
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.table-cell {
+  padding: 0 10px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-cell.end {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.table-empty {
+  padding: 16px;
+  color: var(--fg-muted);
+}
