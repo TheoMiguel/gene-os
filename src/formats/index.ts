@@ -52,38 +52,9 @@ function extensionOf(fileName: string | undefined): string {
   return dot >= 0 ? (fileName as string).slice(dot + 1).toLowerCase() : '';
 }
 
-function readText(
-  format: SequenceFormat,
-  text: string,
-  lines: readonly string[],
-  name: string,
-  warnings: Warnings,
-): readonly SeqRecord[] {
-  switch (format) {
-    case 'genbank':
-      return readGenBank(lines, warnings);
-    case 'embl':
-      return readEmbl(lines, warnings);
-    case 'fasta':
-      return readFasta(lines, warnings);
-    default:
-      return readRaw(text, name);
-  }
-}
-
 /** Runs a reader and turns any failure into a typed error result: reading never throws on bad input. */
-function run(
-  format: SequenceFormat | undefined,
-  read: (warnings: Warnings) => readonly SeqRecord[],
-): ReadResult {
+function run(format: SequenceFormat, read: (warnings: Warnings) => readonly SeqRecord[]): ReadResult {
   const warnings = new Warnings();
-  if (format === undefined) {
-    return {
-      ok: false,
-      error: { code: 'unknown_format', message: 'the file is not a sequence format GENE_OS reads' },
-      warnings: warnings.list,
-    };
-  }
   try {
     return { ok: true, format, records: read(warnings), warnings: warnings.list };
   } catch (error) {
@@ -116,14 +87,17 @@ const EMPTY: ReadResult = {
  */
 export function readSequenceFile(bytes: Uint8Array, fileName?: string): ReadResult {
   if (bytes.length === 0) return EMPTY;
-  if (isAb1(bytes)) return run('ab1', (w) => readAb1(bytes, fileName, w));
-  if (isSnapGene(bytes)) return run('snapgene', (w) => readSnapGene(bytes, fileName, w));
-  const byExtension = FORMAT_BY_EXTENSION[extensionOf(fileName)];
-  if (byExtension === 'ab1') return run('ab1', (w) => readAb1(bytes, fileName, w));
-  if (byExtension === 'snapgene') return run('snapgene', (w) => readSnapGene(bytes, fileName, w));
+  if (isAb1(bytes)) return readAs('ab1', bytes, '', [], fileName);
+  if (isSnapGene(bytes)) return readAs('snapgene', bytes, '', [], fileName);
   const text = decodeText(bytes);
-  if (text.includes('\0')) return run(undefined, () => []);
-  return readDecodedText(text, fileName, byExtension);
+  const binary = text.includes('\0');
+  if (!binary && text.trim() === '') return EMPTY;
+  const lines = binary ? [] : splitLines(text);
+  const format =
+    (binary ? undefined : formatOfText(lines)) ??
+    FORMAT_BY_EXTENSION[extensionOf(fileName)] ??
+    (!binary && looksLikeRawSequence(text) ? 'raw' : undefined);
+  return readAs(format, bytes, text, lines, fileName);
 }
 
 /**
@@ -131,20 +105,39 @@ export function readSequenceFile(bytes: Uint8Array, fileName?: string): ReadResu
  * whitespace are ignored.
  */
 export function readSequenceText(text: string): ReadResult {
-  return readDecodedText(text, undefined, undefined);
-}
-
-function readDecodedText(
-  text: string,
-  fileName: string | undefined,
-  byExtension: SequenceFormat | undefined,
-) {
   if (text.trim() === '') return EMPTY;
   const lines = splitLines(text);
-  const name = fallbackName(fileName);
-  const format =
-    formatOfText(lines) ?? byExtension ?? (looksLikeRawSequence(text) ? ('raw' as const) : undefined);
-  return run(format, (w) => readText(format as SequenceFormat, text, lines, name, w));
+  const format = formatOfText(lines) ?? (looksLikeRawSequence(text) ? 'raw' : undefined);
+  return readAs(format, new Uint8Array(), text, lines, undefined);
+}
+
+function readAs(
+  format: SequenceFormat | undefined,
+  bytes: Uint8Array,
+  text: string,
+  lines: readonly string[],
+  fileName: string | undefined,
+): ReadResult {
+  switch (format) {
+    case undefined:
+      return {
+        ok: false,
+        error: { code: 'unknown_format', message: 'the file is not a sequence format GENE_OS reads' },
+        warnings: [],
+      };
+    case 'ab1':
+      return run(format, (w) => readAb1(bytes, fileName, w));
+    case 'snapgene':
+      return run(format, (w) => readSnapGene(bytes, fileName, w));
+    case 'genbank':
+      return run(format, (w) => readGenBank(lines, w));
+    case 'embl':
+      return run(format, (w) => readEmbl(lines, w));
+    case 'fasta':
+      return run(format, (w) => readFasta(lines, w));
+    case 'raw':
+      return run(format, () => readRaw(text, fallbackName(fileName)));
+  }
 }
 
 const EXTENSION: Readonly<Record<WritableFormat, string>> = {

@@ -52,6 +52,10 @@ describe('readSequenceFile', () => {
       format: 'snapgene',
     });
     expect(readSequenceFile(fixture('310.ab1'), 'notes.txt')).toMatchObject({ ok: true, format: 'ab1' });
+    expect(readSequenceFile(fixture('TRBG361.embl'), 'exported.dna')).toMatchObject({
+      ok: true,
+      format: 'embl',
+    });
   });
 
   test('the extension decides when the content does not', () => {
