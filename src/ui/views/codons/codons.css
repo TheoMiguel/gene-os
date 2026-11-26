@@ -1,0 +1,6 @@
+/* Codons view. Layout classes shared with the Proteins view live in proteins/proteins.css. */
+
+.cv-table {
+  height: 420px;
+  min-width: 0;
+}
