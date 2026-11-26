@@ -172,3 +172,171 @@
   height: 8px;
   border-radius: 2px;
 }
+
+/* Sequence renderer */
+
+.seq-renderer {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 120px;
+  min-width: 0;
+}
+
+.seq-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  font: 400 14px / var(--seq-line, 20px) var(--mono);
+  color: var(--fg);
+  cursor: text;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.seq-viewport:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.seq-scroll {
+  position: relative;
+}
+
+.seq-layer {
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+
+.seq-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.seq-num,
+.seq-frame-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  text-align: right;
+  font-size: 12px;
+  color: var(--fg-dim);
+}
+
+.seq-frame-label {
+  color: var(--fg-muted);
+  font-size: 11px;
+}
+
+.seq-lines {
+  position: absolute;
+  top: 0;
+}
+
+.seq-line {
+  position: relative;
+  z-index: 2;
+  height: var(--seq-line);
+  white-space: pre;
+  pointer-events: none;
+}
+
+.seq-line.comp {
+  color: var(--fg-muted);
+}
+
+.seq-line.aa {
+  color: var(--cyan);
+  font-size: 12px;
+}
+
+.seq-overlay,
+.seq-selection {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  box-sizing: border-box;
+  background: color-mix(in srgb, var(--seq-color, var(--accent)) 28%, transparent);
+}
+
+.seq-overlay.feature {
+  border-bottom: 2px solid var(--seq-color);
+}
+
+.seq-overlay.restriction {
+  border-top: 2px solid var(--seq-color);
+}
+
+.seq-overlay.search {
+  background: color-mix(in srgb, var(--seq-color) 45%, transparent);
+}
+
+.seq-overlay.primer {
+  border-bottom: 2px dashed var(--seq-color);
+}
+
+.seq-selection {
+  z-index: 1;
+  background: rgba(var(--accent-rgb), 0.32);
+  border-top: 2px solid var(--accent);
+}
+
+.seq-selection.strand-reverse {
+  border-top: 0;
+  border-bottom: 2px solid var(--accent);
+}
+
+.seq-mark {
+  position: absolute;
+  z-index: 1;
+  width: 1ch;
+  height: var(--seq-line);
+}
+
+.seq-mark.start {
+  background: rgba(var(--accent-rgb), 0.3);
+}
+
+.seq-mark.stop {
+  background: color-mix(in srgb, var(--danger) 40%, transparent);
+}
+
+.seq-caret {
+  position: absolute;
+  top: 0;
+  z-index: 3;
+  width: 0;
+  border-left: 2px solid var(--accent);
+  pointer-events: none;
+}
+
+.seq-viewport:focus .seq-caret {
+  animation: seq-blink 1.1s steps(2, start) infinite;
+}
+
+@keyframes seq-blink {
+  to {
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seq-viewport:focus .seq-caret {
+    animation: none;
+  }
+}
+
+.seq-probe {
+  position: absolute;
+  visibility: hidden;
+  white-space: pre;
+  pointer-events: none;
+}
+
+.seq-empty {
+  padding: 16px;
+  color: var(--fg-muted);
+}
