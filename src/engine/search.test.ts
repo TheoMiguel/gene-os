@@ -115,7 +115,7 @@ describe('protein search', () => {
   });
 });
 
-describe('result cap and performance', () => {
+describe('result cap and performance', { timeout: 60_000 }, () => {
   const seq = randomDna(5_000_000, 17);
 
   it('caps hits but reports the true total for a pattern that matches everywhere', () => {

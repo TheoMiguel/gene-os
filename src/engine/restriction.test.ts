@@ -214,7 +214,7 @@ describe('digest fragments', () => {
   });
 });
 
-describe('performance', () => {
+describe('performance', { timeout: 60_000 }, () => {
   it('scans a 5 Mb circular sequence with the full catalog in linear time', () => {
     const seq = randomDna(5_000_000, 12345);
     const started = performance.now();

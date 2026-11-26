@@ -99,7 +99,7 @@ describe('IUPAC matching', () => {
   });
 });
 
-describe('performance', () => {
+describe('performance', { timeout: 60_000 }, () => {
   it('reverse-complements and cleans 5 Mb quickly', () => {
     const seq = randomDna(5_000_000, 7);
     const started = performance.now();

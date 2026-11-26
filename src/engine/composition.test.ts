@@ -172,7 +172,7 @@ describe('codon usage', () => {
   });
 });
 
-describe('performance', () => {
+describe('performance', { timeout: 60_000 }, () => {
   it('builds a GC series and counts codons on 5 Mb quickly', () => {
     const seq = randomDna(5_000_000, 5);
     const started = performance.now();

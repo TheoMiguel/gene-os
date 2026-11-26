@@ -24,6 +24,8 @@ const ERROR_KEYS: Readonly<Record<LoadErrorCode, MessageKey>> = {
   empty: 'error.empty',
   invalidCharacters: 'error.invalidCharacters',
   accessionNeedsNetwork: 'error.accessionNeedsNetwork',
+  unknownFormat: 'error.unknownFormat',
+  malformed: 'error.malformed',
   readFailed: 'error.readFailed',
 };
 

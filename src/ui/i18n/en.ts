@@ -28,6 +28,8 @@ export const en = {
   'error.empty': 'Nothing to load. Paste a sequence first.',
   'error.invalidCharacters': 'The text contains characters that are not DNA or RNA bases.',
   'error.accessionNeedsNetwork': 'Accession lookup uses the database search, which arrives in a later phase.',
+  'error.unknownFormat': 'The file format was not recognised. FASTA, GenBank, EMBL, SnapGene and AB1 work.',
+  'error.malformed': 'The file is damaged and could not be read to the end.',
   'error.readFailed': 'The file could not be read.',
   'status.dismiss': 'Dismiss message',
 

@@ -105,10 +105,8 @@ describe('sequence tabs', () => {
     expect(await screen.findByRole('heading', { name: 'dropped', level: 1 })).toBeTruthy();
 
     fireEvent.click(screen.getByRole('button', { name: 'New sequence' }));
-    await paste('this is not DNA');
-    expect(
-      await screen.findByText('The text contains characters that are not DNA or RNA bases.'),
-    ).toBeTruthy();
+    await paste('hello, world! 42% of notes are not sequences.');
+    expect(await screen.findByText(/format was not recognised/)).toBeTruthy();
     expect(headerTabs()).toHaveLength(1);
   });
 });

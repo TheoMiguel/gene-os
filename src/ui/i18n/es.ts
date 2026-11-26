@@ -32,6 +32,9 @@ export const es: Dictionary = {
   'error.invalidCharacters': 'El texto contiene caracteres que no son bases de ADN o ARN.',
   'error.accessionNeedsNetwork':
     'La consulta por número de acceso usa la búsqueda en bases de datos, que llega en una fase posterior.',
+  'error.unknownFormat':
+    'No se reconoció el formato del archivo. Funcionan FASTA, GenBank, EMBL, SnapGene y AB1.',
+  'error.malformed': 'El archivo está dañado y no se pudo leer hasta el final.',
   'error.readFailed': 'No se pudo leer el archivo.',
   'status.dismiss': 'Descartar mensaje',
 

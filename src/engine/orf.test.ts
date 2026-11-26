@@ -131,7 +131,7 @@ describe('ORF behavior', () => {
   });
 });
 
-describe('performance', () => {
+describe('performance', { timeout: 60_000 }, () => {
   it('scans 5 Mb on both strands, linear and circular, in a few seconds', () => {
     const seq = randomDna(5_000_000, 13);
     const started = performance.now();

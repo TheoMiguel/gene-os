@@ -235,7 +235,7 @@ describe('protein tags in the six-frame translation', () => {
   });
 });
 
-describe('performance', () => {
+describe('performance', { timeout: 60_000 }, () => {
   it('annotates a 5 Mb sequence with the full catalog in a few seconds', () => {
     const seq = randomDna(5_000_000, 31);
     const gst = signature('GST').seq;

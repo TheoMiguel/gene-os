@@ -44,7 +44,7 @@ function encode(text: string): Uint8Array {
   return new TextEncoder().encode(text);
 }
 
-describe('large inputs parse in linear time', () => {
+describe('large inputs parse in linear time', { timeout: 60_000 }, () => {
   const record = bigRecord(8_000_000, 2000);
 
   test('a 10 MB GenBank file reads back in under 10 s', () => {

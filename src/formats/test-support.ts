@@ -1,17 +1,8 @@
-/**
- * Test helpers: fixture files and Biopython goldens. Node's `fs` is loaded through a computed specifier
- * because the project has no Node type definitions; the shape used here is declared locally.
- */
+/** Test helpers: fixture files and Biopython goldens. */
 
-interface NodeFs {
-  readFileSync(path: URL): Uint8Array;
-  readdirSync(path: URL): string[];
-  mkdirSync(path: URL, options: { recursive: boolean }): void;
-  writeFileSync(path: URL, data: Uint8Array | string): void;
-}
+import * as fs from 'node:fs';
 
-const fsSpecifier = 'node:fs';
-export const fs = (await import(/* @vite-ignore */ fsSpecifier)) as NodeFs;
+export { fs };
 
 export const FIXTURES = new URL('../../tests/fixtures/formats/', import.meta.url);
 

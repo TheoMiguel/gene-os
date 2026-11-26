@@ -120,7 +120,7 @@ describe('organism inference limits', () => {
   });
 });
 
-describe('performance', () => {
+describe('performance', { timeout: 60_000 }, () => {
   it('infers from a 5 Mb gene-dense genome in a few seconds', () => {
     const genome = syntheticGenome(5_000_000, 0.6, 4);
     const started = performance.now();

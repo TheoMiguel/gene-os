@@ -1,4 +1,6 @@
 import type { SeqRecord } from '../engine/types';
+import { readSequenceFile, readSequenceText } from '../formats';
+import type { ReadResult } from '../formats/types';
 import { workspace } from './documents';
 
 /** What the user handed the new-sequence view: pasted text or a file. */
@@ -7,70 +9,76 @@ export type SequenceInput =
   | { readonly kind: 'file'; readonly file: File };
 
 /** Why an input could not become a sequence. The UI translates each code. */
-export type LoadErrorCode = 'empty' | 'invalidCharacters' | 'accessionNeedsNetwork' | 'readFailed';
+export type LoadErrorCode =
+  | 'empty'
+  | 'invalidCharacters'
+  | 'accessionNeedsNetwork'
+  | 'unknownFormat'
+  | 'malformed'
+  | 'readFailed';
 
 export type LoadResult =
-  | { readonly ok: true; readonly record: SeqRecord }
+  | {
+      readonly ok: true;
+      readonly records: readonly SeqRecord[];
+      /** Records the file holds beyond the ones opened, or 0. */
+      readonly notOpened: number;
+    }
   | { readonly ok: false; readonly error: LoadErrorCode };
 
-/** Turns an input into a record. The format readers replace the raw-DNA stub through `setSequenceLoader`. */
+/** Turns an input into records. Replaceable so tests and later phases can supply their own reader. */
 export type SequenceLoader = (input: SequenceInput) => Promise<LoadResult>;
 
-const IUPAC_DNA = /^[ACGTURYSWKMBDHVN]*$/;
-const ACCESSION = /^[A-Z]{1,6}_?\d{5,}(\.\d+)?$/i;
-let untitled = 0;
+/** A file with more records than this opens its first ones only, so one drop cannot flood the tab bar. */
+export const MAX_RECORDS_PER_INPUT = 50;
 
-/** Builds a linear DNA record from raw sequence text. FASTA header lines, digits and whitespace are ignored. */
-export function parseRawDna(text: string, name?: string): LoadResult {
-  const trimmed = text.trim();
-  if (trimmed === '') return { ok: false, error: 'empty' };
-  if (ACCESSION.test(trimmed)) return { ok: false, error: 'accessionNeedsNetwork' };
-  const lines = trimmed.split('\n');
-  const first = lines[0] ?? '';
-  const header = first.startsWith('>') ? first.slice(1).trim() : '';
-  const seq = lines
-    .filter((line) => !line.startsWith('>'))
-    .join('')
-    .replace(/[\s\d]/g, '')
-    .toUpperCase();
-  if (seq === '') return { ok: false, error: 'empty' };
-  if (!IUPAC_DNA.test(seq)) return { ok: false, error: 'invalidCharacters' };
-  untitled += 1;
-  const label = name ?? (header.split(/\s/)[0] || `seq_${String(untitled).padStart(3, '0')}`);
+const ACCESSION = /^[A-Z]{1,6}_?\d{5,}(\.\d+)?$/i;
+
+const ERROR_OF_READ: Readonly<Record<string, LoadErrorCode>> = {
+  empty: 'empty',
+  unknown_format: 'unknownFormat',
+  malformed: 'malformed',
+  no_sequence: 'invalidCharacters',
+};
+
+function toLoadResult(read: ReadResult): LoadResult {
+  if (!read.ok) return { ok: false, error: ERROR_OF_READ[read.error.code] ?? 'malformed' };
+  if (read.records.length === 0) return { ok: false, error: 'invalidCharacters' };
   return {
     ok: true,
-    record: {
-      id: `rec-${untitled}`,
-      name: label,
-      description: header,
-      alphabet: seq.includes('U') && !seq.includes('T') ? 'rna' : 'dna',
-      topology: 'linear',
-      seq,
-      features: [],
-      metadata: { sourceFormat: 'raw' },
-    },
+    records: read.records.slice(0, MAX_RECORDS_PER_INPUT),
+    notOpened: Math.max(0, read.records.length - MAX_RECORDS_PER_INPUT),
   };
 }
 
-const rawDnaLoader: SequenceLoader = async (input) => {
-  if (input.kind === 'text') return parseRawDna(input.text);
+/** Reads pasted text. A bare accession is rejected, because database lookup arrives in a later phase. */
+export function loadText(text: string): LoadResult {
+  const trimmed = text.trim();
+  if (trimmed === '') return { ok: false, error: 'empty' };
+  if (ACCESSION.test(trimmed)) return { ok: false, error: 'accessionNeedsNetwork' };
+  return toLoadResult(readSequenceText(text));
+}
+
+const fileLoader: SequenceLoader = async (input) => {
+  if (input.kind === 'text') return loadText(input.text);
   try {
-    return parseRawDna(await input.file.text(), input.file.name.replace(/\.[^.]+$/, ''));
+    const bytes = new Uint8Array(await input.file.arrayBuffer());
+    return toLoadResult(readSequenceFile(bytes, input.file.name));
   } catch {
     return { ok: false, error: 'readFailed' };
   }
 };
 
-let loader: SequenceLoader = rawDnaLoader;
+let loader: SequenceLoader = fileLoader;
 
-/** Replaces the loader, e.g. with the format-detecting readers. */
+/** Replaces the loader, e.g. with a network-backed one. */
 export function setSequenceLoader(next: SequenceLoader): void {
   loader = next;
 }
 
-/** Loads an input and, on success, opens it as a new active document. */
+/** Loads an input and opens every record it yielded, the last one active. */
 export async function openSequence(input: SequenceInput): Promise<LoadResult> {
   const result = await loader(input);
-  if (result.ok) workspace.open(result.record);
+  if (result.ok) for (const record of result.records) workspace.open(record);
   return result;
 }

@@ -1,14 +1,12 @@
+import { readFileSync } from 'node:fs';
 import { LUMINOSITIES, PALETTES } from '../../state/settings';
 
 /**
  * WCAG 2.1 AA (contrast ratio >= 4.5 for normal text) for every luminosity x palette, computed from the
  * token file itself so a ported or edited value cannot silently break contrast.
  */
-// Vitest blanks CSS imports, even `?raw`, so the file is read from disk. The project has no Node types.
-const fs = (
-  globalThis as unknown as { process: { getBuiltinModule(id: 'node:fs'): unknown } }
-).process.getBuiltinModule('node:fs') as { readFileSync(path: URL, encoding: 'utf8'): string };
-const css = fs.readFileSync(new URL('./tokens.css', import.meta.url), 'utf8');
+// Vitest blanks CSS imports, even `?raw`, so the file is read from disk.
+const css = readFileSync(new URL('./tokens.css', import.meta.url), 'utf8');
 
 function block(selector: string): Record<string, string> {
   const start = css.indexOf(`${selector} {`);

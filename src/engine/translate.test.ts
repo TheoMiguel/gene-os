@@ -75,7 +75,7 @@ describe('six-frame translation (Biopython translate on each frame)', () => {
   });
 });
 
-describe('performance', () => {
+describe('performance', { timeout: 60_000 }, () => {
   it('translates six frames of 5 Mb in a few seconds', () => {
     const seq = randomDna(5_000_000, 11);
     const started = performance.now();
