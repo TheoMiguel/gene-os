@@ -1,0 +1,723 @@
+[
+ {
+  "id": "neb-1kb",
+  "vendor": "New England Biolabs",
+  "name": "1 kb DNA Ladder",
+  "catalog": "N3232",
+  "source": "https://www.neb.com/en/products/n3232-1-kb-dna-ladder",
+  "loadNg": 500,
+  "note": "Mass values are for 0.5 ug per lane. The 517 bp and 500 bp fragments run as one band on agarose.",
+  "bands": [
+   {
+    "bp": 10002,
+    "ng": 42
+   },
+   {
+    "bp": 8001,
+    "ng": 42
+   },
+   {
+    "bp": 6001,
+    "ng": 50
+   },
+   {
+    "bp": 5001,
+    "ng": 42
+   },
+   {
+    "bp": 4001,
+    "ng": 33
+   },
+   {
+    "bp": 3001,
+    "ng": 125,
+    "reference": true
+   },
+   {
+    "bp": 2000,
+    "ng": 48
+   },
+   {
+    "bp": 1500,
+    "ng": 36
+   },
+   {
+    "bp": 1000,
+    "ng": 42
+   },
+   {
+    "bp": 517,
+    "ng": 21
+   },
+   {
+    "bp": 500,
+    "ng": 21
+   }
+  ]
+ },
+ {
+  "id": "neb-1kb-plus",
+  "vendor": "New England Biolabs",
+  "name": "1 kb Plus DNA Ladder",
+  "catalog": "N3200",
+  "source": "https://www.neb.com/en/products/n3200-1-kb-plus-dna-ladder",
+  "loadNg": 1000,
+  "note": "Mass values are for 1 ug per lane. The vendor lists the 500 bp band as a 500/517 bp doublet.",
+  "bands": [
+   {
+    "bp": 10002,
+    "ng": 40
+   },
+   {
+    "bp": 8001,
+    "ng": 40
+   },
+   {
+    "bp": 6001,
+    "ng": 48
+   },
+   {
+    "bp": 5001,
+    "ng": 40
+   },
+   {
+    "bp": 4001,
+    "ng": 32
+   },
+   {
+    "bp": 3001,
+    "ng": 120,
+    "reference": true
+   },
+   {
+    "bp": 2017,
+    "ng": 40
+   },
+   {
+    "bp": 1517,
+    "ng": 57
+   },
+   {
+    "bp": 1200,
+    "ng": 45
+   },
+   {
+    "bp": 1000,
+    "ng": 122,
+    "reference": true
+   },
+   {
+    "bp": 900,
+    "ng": 34
+   },
+   {
+    "bp": 800,
+    "ng": 31
+   },
+   {
+    "bp": 700,
+    "ng": 27
+   },
+   {
+    "bp": 600,
+    "ng": 23
+   },
+   {
+    "bp": 500,
+    "ng": 124,
+    "reference": true
+   },
+   {
+    "bp": 400,
+    "ng": 49
+   },
+   {
+    "bp": 300,
+    "ng": 37
+   },
+   {
+    "bp": 200,
+    "ng": 32
+   },
+   {
+    "bp": 100,
+    "ng": 61
+   }
+  ]
+ },
+ {
+  "id": "neb-100bp",
+  "vendor": "New England Biolabs",
+  "name": "100 bp DNA Ladder",
+  "catalog": "N3231",
+  "source": "https://www.neb.com/en/products/n3231-100-bp-dna-ladder",
+  "loadNg": 500,
+  "note": "Mass values are for 0.5 ug per lane. The vendor lists the 500 bp band as a 500/517 bp doublet.",
+  "bands": [
+   {
+    "bp": 1517,
+    "ng": 45
+   },
+   {
+    "bp": 1200,
+    "ng": 35
+   },
+   {
+    "bp": 1000,
+    "ng": 95,
+    "reference": true
+   },
+   {
+    "bp": 900,
+    "ng": 27
+   },
+   {
+    "bp": 800,
+    "ng": 24
+   },
+   {
+    "bp": 700,
+    "ng": 21
+   },
+   {
+    "bp": 600,
+    "ng": 18
+   },
+   {
+    "bp": 500,
+    "ng": 97,
+    "reference": true
+   },
+   {
+    "bp": 400,
+    "ng": 38
+   },
+   {
+    "bp": 300,
+    "ng": 29
+   },
+   {
+    "bp": 200,
+    "ng": 25
+   },
+   {
+    "bp": 100,
+    "ng": 48
+   }
+  ]
+ },
+ {
+  "id": "neb-50bp",
+  "vendor": "New England Biolabs",
+  "name": "50 bp DNA Ladder",
+  "catalog": "N3236",
+  "source": "https://www.neb.com/en/products/n3236-50-bp-dna-ladder",
+  "loadNg": 1000,
+  "note": "Mass values are for 1 ug per lane.",
+  "bands": [
+   {
+    "bp": 1350,
+    "ng": 103
+   },
+   {
+    "bp": 916,
+    "ng": 70
+   },
+   {
+    "bp": 766,
+    "ng": 58
+   },
+   {
+    "bp": 700,
+    "ng": 54
+   },
+   {
+    "bp": 650,
+    "ng": 50
+   },
+   {
+    "bp": 600,
+    "ng": 46
+   },
+   {
+    "bp": 550,
+    "ng": 42
+   },
+   {
+    "bp": 500,
+    "ng": 76,
+    "reference": true
+   },
+   {
+    "bp": 450,
+    "ng": 34
+   },
+   {
+    "bp": 400,
+    "ng": 31
+   },
+   {
+    "bp": 350,
+    "ng": 27
+   },
+   {
+    "bp": 300,
+    "ng": 46
+   },
+   {
+    "bp": 250,
+    "ng": 57
+   },
+   {
+    "bp": 200,
+    "ng": 107,
+    "reference": true
+   },
+   {
+    "bp": 150,
+    "ng": 46
+   },
+   {
+    "bp": 100,
+    "ng": 69
+   },
+   {
+    "bp": 50,
+    "ng": 84
+   }
+  ]
+ },
+ {
+  "id": "neb-lmw",
+  "vendor": "New England Biolabs",
+  "name": "Low Molecular Weight DNA Ladder",
+  "catalog": "N3233",
+  "source": "https://www.neb.com/en/products/n3233-low-molecular-weight-dna-ladder",
+  "loadNg": 500,
+  "note": "The page does not state the load the masses refer to; 0.5 ug is the recommended load and the masses add up to 499 ng.",
+  "bands": [
+   {
+    "bp": 766,
+    "ng": 42
+   },
+   {
+    "bp": 500,
+    "ng": 27
+   },
+   {
+    "bp": 350,
+    "ng": 20
+   },
+   {
+    "bp": 300,
+    "ng": 33
+   },
+   {
+    "bp": 250,
+    "ng": 27
+   },
+   {
+    "bp": 200,
+    "ng": 110,
+    "reference": true
+   },
+   {
+    "bp": 150,
+    "ng": 33
+   },
+   {
+    "bp": 100,
+    "ng": 43
+   },
+   {
+    "bp": 75,
+    "ng": 58
+   },
+   {
+    "bp": 50,
+    "ng": 63
+   },
+   {
+    "bp": 25,
+    "ng": 43
+   }
+  ]
+ },
+ {
+  "id": "thermo-generuler-1kb",
+  "vendor": "Thermo Scientific",
+  "name": "GeneRuler 1 kb DNA Ladder",
+  "catalog": "SM0311",
+  "source": "https://assets.thermofisher.com/TFS-Assets/LSG/manuals/MAN0013004_GeneRuler_1kb_DNALadder_250ug_UG.pdf",
+  "loadNg": 500,
+  "note": "Mass values are for 0.5 ug per lane (manual MAN0013004).",
+  "bands": [
+   {
+    "bp": 10000,
+    "ng": 30
+   },
+   {
+    "bp": 8000,
+    "ng": 30
+   },
+   {
+    "bp": 6000,
+    "ng": 70,
+    "reference": true
+   },
+   {
+    "bp": 5000,
+    "ng": 30
+   },
+   {
+    "bp": 4000,
+    "ng": 30
+   },
+   {
+    "bp": 3500,
+    "ng": 30
+   },
+   {
+    "bp": 3000,
+    "ng": 70,
+    "reference": true
+   },
+   {
+    "bp": 2500,
+    "ng": 25
+   },
+   {
+    "bp": 2000,
+    "ng": 25
+   },
+   {
+    "bp": 1500,
+    "ng": 25
+   },
+   {
+    "bp": 1000,
+    "ng": 60,
+    "reference": true
+   },
+   {
+    "bp": 750,
+    "ng": 25
+   },
+   {
+    "bp": 500,
+    "ng": 25
+   },
+   {
+    "bp": 250,
+    "ng": 25
+   }
+  ]
+ },
+ {
+  "id": "thermo-generuler-1kb-plus",
+  "vendor": "Thermo Scientific",
+  "name": "GeneRuler 1 kb Plus DNA Ladder",
+  "catalog": "SM1331",
+  "source": "https://assets.thermofisher.com/TFS-Assets/LSG/manuals/MAN0013047_GeneRuler_1kb_Plus_DNALadder_250ug_UG.pdf",
+  "loadNg": 500,
+  "note": "Mass values are for 0.5 ug per lane (manual MAN0013047).",
+  "bands": [
+   {
+    "bp": 20000,
+    "ng": 20
+   },
+   {
+    "bp": 10000,
+    "ng": 20
+   },
+   {
+    "bp": 7000,
+    "ng": 20
+   },
+   {
+    "bp": 5000,
+    "ng": 75,
+    "reference": true
+   },
+   {
+    "bp": 4000,
+    "ng": 20
+   },
+   {
+    "bp": 3000,
+    "ng": 20
+   },
+   {
+    "bp": 2000,
+    "ng": 20
+   },
+   {
+    "bp": 1500,
+    "ng": 80,
+    "reference": true
+   },
+   {
+    "bp": 1000,
+    "ng": 25
+   },
+   {
+    "bp": 700,
+    "ng": 25
+   },
+   {
+    "bp": 500,
+    "ng": 75,
+    "reference": true
+   },
+   {
+    "bp": 400,
+    "ng": 25
+   },
+   {
+    "bp": 300,
+    "ng": 25
+   },
+   {
+    "bp": 200,
+    "ng": 25
+   },
+   {
+    "bp": 75,
+    "ng": 25
+   }
+  ]
+ },
+ {
+  "id": "thermo-generuler-100bp-plus",
+  "vendor": "Thermo Scientific",
+  "name": "GeneRuler 100 bp Plus DNA Ladder",
+  "catalog": "SM0321",
+  "source": "https://assets.thermofisher.com/TFS-Assets/LSG/manuals/MAN0013008_GeneRuler_100bp_Plus_DNALadder_50ug_UG.pdf",
+  "loadNg": 500,
+  "note": "Mass values are for 0.5 ug per lane (manual MAN0013008).",
+  "bands": [
+   {
+    "bp": 3000,
+    "ng": 28
+   },
+   {
+    "bp": 2000,
+    "ng": 28
+   },
+   {
+    "bp": 1500,
+    "ng": 28
+   },
+   {
+    "bp": 1200,
+    "ng": 28
+   },
+   {
+    "bp": 1000,
+    "ng": 80,
+    "reference": true
+   },
+   {
+    "bp": 900,
+    "ng": 27
+   },
+   {
+    "bp": 800,
+    "ng": 27
+   },
+   {
+    "bp": 700,
+    "ng": 27
+   },
+   {
+    "bp": 600,
+    "ng": 27
+   },
+   {
+    "bp": 500,
+    "ng": 80,
+    "reference": true
+   },
+   {
+    "bp": 400,
+    "ng": 30
+   },
+   {
+    "bp": 300,
+    "ng": 30
+   },
+   {
+    "bp": 200,
+    "ng": 30
+   },
+   {
+    "bp": 100,
+    "ng": 30
+   }
+  ]
+ },
+ {
+  "id": "thermo-generuler-50bp",
+  "vendor": "Thermo Scientific",
+  "name": "GeneRuler 50 bp DNA Ladder",
+  "catalog": "SM0371",
+  "source": "https://assets.thermofisher.com/TFS-Assets/LSG/manuals/MAN0013016_GeneRuler_50bp_DNALadder_50ug_UG.pdf",
+  "loadNg": 500,
+  "note": "Mass values are for 0.5 ug per lane (manual MAN0013016).",
+  "bands": [
+   {
+    "bp": 1000,
+    "ng": 30
+   },
+   {
+    "bp": 900,
+    "ng": 30
+   },
+   {
+    "bp": 800,
+    "ng": 30
+   },
+   {
+    "bp": 700,
+    "ng": 30
+   },
+   {
+    "bp": 600,
+    "ng": 30
+   },
+   {
+    "bp": 500,
+    "ng": 75,
+    "reference": true
+   },
+   {
+    "bp": 400,
+    "ng": 30
+   },
+   {
+    "bp": 300,
+    "ng": 30
+   },
+   {
+    "bp": 250,
+    "ng": 75,
+    "reference": true
+   },
+   {
+    "bp": 200,
+    "ng": 35
+   },
+   {
+    "bp": 150,
+    "ng": 35
+   },
+   {
+    "bp": 100,
+    "ng": 35
+   },
+   {
+    "bp": 50,
+    "ng": 35
+   }
+  ]
+ },
+ {
+  "id": "thermo-generuler-ulr",
+  "vendor": "Thermo Scientific",
+  "name": "GeneRuler Ultra Low Range DNA Ladder",
+  "catalog": "SM1211",
+  "source": "https://assets.thermofisher.com/TFS-Assets/LSG/manuals/MAN0013039_GeneRuler_Ultra_LowRange_DNALadder_50ug_UG.pdf",
+  "loadNg": 500,
+  "note": "Mass values are for 0.5 ug per lane (manual MAN0013039). Made for 5% agarose or polyacrylamide gels.",
+  "bands": [
+   {
+    "bp": 300,
+    "ng": 30
+   },
+   {
+    "bp": 200,
+    "ng": 32.5
+   },
+   {
+    "bp": 150,
+    "ng": 35
+   },
+   {
+    "bp": 100,
+    "ng": 37.5
+   },
+   {
+    "bp": 75,
+    "ng": 37.5
+   },
+   {
+    "bp": 50,
+    "ng": 105,
+    "reference": true
+   },
+   {
+    "bp": 35,
+    "ng": 37.5
+   },
+   {
+    "bp": 25,
+    "ng": 37.5
+   },
+   {
+    "bp": 20,
+    "ng": 40
+   },
+   {
+    "bp": 15,
+    "ng": 47.5
+   },
+   {
+    "bp": 10,
+    "ng": 60
+   }
+  ]
+ },
+ {
+  "id": "thermo-lambda-hindiii",
+  "vendor": "Thermo Scientific",
+  "name": "Lambda DNA/HindIII Marker, 2",
+  "catalog": "SM0101",
+  "source": "https://assets.thermofisher.com/TFS-Assets/LSG/manuals/MAN0012986_Lambda_DNA_HindIII_Marker2_250ug_UG.pdf",
+  "loadNg": 500,
+  "note": "Mass values are for 0.5 ug per lane (manual MAN0012986). Heat to 65 C before loading or the cos ends join 23130 and 4361 into an extra band.",
+  "bands": [
+   {
+    "bp": 23130,
+    "ng": 238.4
+   },
+   {
+    "bp": 9416,
+    "ng": 97.1
+   },
+   {
+    "bp": 6557,
+    "ng": 67.6
+   },
+   {
+    "bp": 4361,
+    "ng": 45.0
+   },
+   {
+    "bp": 2322,
+    "ng": 23.9
+   },
+   {
+    "bp": 2027,
+    "ng": 20.9
+   },
+   {
+    "bp": 564,
+    "ng": 5.8
+   },
+   {
+    "bp": 125,
+    "ng": 1.3
+   }
+  ]
+ }
+]
