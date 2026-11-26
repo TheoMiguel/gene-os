@@ -1,4 +1,4 @@
-import { BASE_MASK, PATTERN_MASK, reverseComplement } from './dna-internal';
+import { PATTERN_MASK, reverseComplement, TEMPLATE_MASK } from './alphabet';
 import type { Amplicon, Primer, PrimerBinding, Strand, Topology } from './types';
 
 export interface BindingOptions {
@@ -48,7 +48,7 @@ export function findBindingSites(
   const text = new Uint8Array(n + 2 * pad);
   for (let i = -pad; i < n + pad; i++) {
     const inside = i >= 0 && i < n;
-    if (inside || circular) text[i + pad] = BASE_MASK[template.charCodeAt(((i % n) + n) % n) & 0xff] ?? 0;
+    if (inside || circular) text[i + pad] = TEMPLATE_MASK[template.charCodeAt(((i % n) + n) % n) & 0xff] ?? 0;
   }
   const toMask = (s: string) => Uint8Array.from(s, (c) => PATTERN_MASK[c.charCodeAt(0) & 0xff] ?? 0);
   // Primer masks read from the 3' end: strand 1 walks left from the 3' base, strand -1 walks right.

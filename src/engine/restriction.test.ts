@@ -145,6 +145,17 @@ describe('cut sites', () => {
   it('counts a palindromic site once', () => {
     expect(sitesOf('TTGAATTCTT', 'linear', ['EcoRI'])[0]?.topCuts.length).toBe(1);
   });
+
+  it('counts a degenerate palindromic site once per occurrence', () => {
+    const degenerate: Enzyme = { name: 'Degenerate', site: 'CASTG', topCut: 2, bottomCut: 3, suppliers: [] };
+    const seq = `${'T'.repeat(10)}CACTG${'T'.repeat(10)}CAGTG${'T'.repeat(10)}`;
+    expect([...scanSites(seq, 'linear', [degenerate]).sites][0]?.topCuts.length).toBe(2);
+  });
+
+  it('finds a non-palindromic site on both strands', () => {
+    const seq = `${'T'.repeat(20)}GGTCTC${'A'.repeat(30)}GAGACC${'T'.repeat(20)}`;
+    expect(sitesOf(seq, 'linear', ['BsaI'])[0]?.topCuts.length).toBe(2);
+  });
 });
 
 describe('summaries and filters', () => {

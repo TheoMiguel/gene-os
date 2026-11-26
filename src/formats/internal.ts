@@ -1,3 +1,4 @@
+import { baseMask, cleanSequence as cleanLetters } from '../engine/alphabet';
 import type { Alphabet, SeqRecord, SequenceFormat } from '../engine/types';
 import type { ReadErrorCode, ReadWarning, ReadWarningCode } from './types';
 
@@ -46,12 +47,9 @@ export function fileStem(fileName: string | undefined): string {
   return dot > 0 ? base.slice(0, dot) : base;
 }
 
-// Letters that a nucleotide sequence may hold: bases, IUPAC ambiguity codes, gap and stop.
-const NUCLEOTIDE = new Set('ACGTURYKMSWBDHVN-*');
-
 /**
  * The alphabet of an upper-case sequence. A molecule type stated by the file wins for proteins; otherwise
- * any letter outside the IUPAC nucleotide codes means protein, and U without T means RNA.
+ * any letter that is not an IUPAC nucleotide code (or gap or stop) means protein, and U without T means RNA.
  */
 export function detectAlphabet(seq: string, molType?: string): Alphabet {
   if (molType?.toLowerCase().includes('protein')) return 'protein';
@@ -61,7 +59,7 @@ export function detectAlphabet(seq: string, molType?: string): Alphabet {
     const c = seq[i] as string;
     if (c === 'T') hasT = true;
     else if (c === 'U') hasU = true;
-    else if (molType === undefined && !NUCLEOTIDE.has(c)) return 'protein';
+    else if (molType === undefined && c !== '-' && c !== '*' && baseMask(c) === 0) return 'protein';
   }
   return hasU && !hasT ? 'rna' : 'dna';
 }
@@ -71,9 +69,8 @@ export function detectAlphabet(seq: string, molType?: string): Alphabet {
  * silently; any other character that is not a letter, `*` or `-` is dropped with one warning.
  */
 export function cleanSequence(parts: readonly string[], warnings: Warnings, line?: number): string {
-  const joined = parts.join('');
-  const cleaned = joined.replace(/[\s\d]+/g, '');
-  const letters = cleaned.replace(/[^A-Za-z*-]+/g, '');
+  const cleaned = parts.join('').replace(/[\s\d]+/g, '');
+  const letters = cleanLetters(cleaned);
   if (letters.length !== cleaned.length) {
     warnings.add(
       'characters_removed',
@@ -81,7 +78,7 @@ export function cleanSequence(parts: readonly string[], warnings: Warnings, line
       line,
     );
   }
-  return letters.toUpperCase();
+  return letters;
 }
 
 /** Splits `text` into pieces of at most `size` characters. */

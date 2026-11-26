@@ -54,6 +54,29 @@ const MASK_OF = buildTable((t) => {
   t[117] = BASE_BIT.T;
 });
 
+/** Base masks of the four plain bases: the only sequence letters an IUPAC pattern letter can match. */
+export const PLAIN_BASE_MASKS: readonly number[] = [1, 2, 4, 8];
+
+/** Marks a template letter that is not a definite base (N, another IUPAC code, a gap). Only a pattern `N` accepts it. */
+const OTHER_BASE = 16;
+
+/**
+ * Char code -> mask of the template letters a pattern letter accepts: `MASK_OF`, and `N` also accepts every
+ * non-base template letter. Pair with `TEMPLATE_MASK`: `(PATTERN_MASK[p] & TEMPLATE_MASK[t]) !== 0`.
+ */
+export const PATTERN_MASK = buildTable((t) => {
+  t.set(MASK_OF);
+  for (const ch of 'Nn') t[ch.charCodeAt(0)] = (MASK_OF[ch.charCodeAt(0)] as number) | OTHER_BASE;
+});
+
+/** Char code -> the plain base mask of a template letter, or `OTHER_BASE` when it is not a definite base. */
+export const TEMPLATE_MASK = buildTable((t) => {
+  for (let i = 0; i < 256; i++) {
+    const mask = MASK_OF[i] as number;
+    t[i] = PLAIN_BASE_MASKS.includes(mask) ? mask : OTHER_BASE;
+  }
+});
+
 const BASE_CODE_OF = buildTable((t) => {
   t.fill(4);
   for (const [i, base] of [...'ACGT'].entries()) {
@@ -120,9 +143,6 @@ export function encodeBases(seq: string): Uint8Array {
   return out;
 }
 
-/** Base masks of the four plain bases: the only sequence letters an IUPAC pattern letter can match. */
-export const PLAIN_BASE_MASKS: readonly number[] = [1, 2, 4, 8];
-
 /**
  * True when a pattern letter matches a sequence letter, IUPAC-aware: the sequence letter must be a plain base
  * (A, C, G, T or U) inside the set the pattern letter stands for. `R` matches A and G; `N` matches every plain base;
@@ -138,16 +158,7 @@ export function iupacMatches(patternCode: string, seqBase: string): boolean {
  * cannot be part of a sequence, then upper-cases. Keeps letters, `*` (stop) and `-` (gap).
  */
 export function cleanSequence(raw: string): string {
-  let out = '';
-  let from = 0;
-  for (let i = 0; i <= raw.length; i++) {
-    const c = i < raw.length ? raw.charCodeAt(i) : -1;
-    const keep = (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c === 42 || c === 45;
-    if (keep) continue;
-    if (i > from) out += raw.slice(from, i);
-    from = i + 1;
-  }
-  return out.toUpperCase();
+  return raw.replace(/[^A-Za-z*-]+/g, '').toUpperCase();
 }
 
 /**
