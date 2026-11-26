@@ -69,31 +69,23 @@ export function findBindingSites(
     }
     return annealed >= minAnnealed ? annealed : 0;
   };
-  const add = (
-    strand: Strand,
-    start: number,
-    annealed: number,
-    masks: Uint8Array,
-    origin: number,
-    step: 1 | -1,
-  ) => {
+  /** Record the site annealed from `origin`, if any. Its span starts at the 5'-most template base it covers. */
+  const record = (strand: Strand, masks: Uint8Array, origin: number, step: 1 | -1) => {
+    const annealed = anneal(masks, origin, step);
+    if (!annealed) return;
     let mismatches = 0;
     for (let k = 0; k < annealed; k++) if (!hit(masks, origin, step, k)) mismatches++;
-    const s = circular ? ((start % n) + n) % n : start;
-    sites.push({ primerId: primer.id, strand, span: { start: s, end: s + annealed }, mismatches });
+    const first = (step === 1 ? origin : origin - annealed + 1) - pad;
+    const start = circular ? ((first % n) + n) % n : first;
+    sites.push({ primerId: primer.id, strand, span: { start, end: start + annealed }, mismatches });
   };
 
   // Strand 1: the primer reads like the top strand; its 3' base sits on template index `end - 1`.
-  for (let end = circular ? 0 : 1; end <= (circular ? n - 1 : n); end++) {
-    const annealed = anneal(fromThreePrime, end - 1 + pad, -1);
-    if (annealed) add(1, end - annealed, annealed, fromThreePrime, end - 1 + pad, -1);
-  }
+  for (let end = circular ? 0 : 1; end <= (circular ? n - 1 : n); end++)
+    record(1, fromThreePrime, end - 1 + pad, -1);
   // Strand -1: the primer reads like the bottom strand; its reverse complement reads like the top strand, with
   // the primer's 3' base complementary to template index `start`.
-  for (let start = 0; start < n; start++) {
-    const annealed = anneal(complementFromThreePrime, start + pad, 1);
-    if (annealed) add(-1, start, annealed, complementFromThreePrime, start + pad, 1);
-  }
+  for (let start = 0; start < n; start++) record(-1, complementFromThreePrime, start + pad, 1);
   return sites.sort((a, b) => a.span.start - b.span.start || b.strand - a.strand);
 }
 
