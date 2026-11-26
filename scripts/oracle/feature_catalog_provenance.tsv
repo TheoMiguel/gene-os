@@ -1,0 +1,74 @@
+name	record	position	strand	feature	label
+2 micron origin	LT726927.1	6667..7647	-	rep_origin	2mu ori
+6xHis tag	JF327850.1	957..974	+	misc_feature	6xHis tag
+ADH1 promoter	LT726927.1	336..739	+	regulatory	ADH1 promoter
+ADH1 terminator	LT726927.1	3931..4032	+	regulatory	ADH1 terminator
+AmpR (bla)	PX673705.1	9474..10334	-	CDS	Bla | beta-lactamase | confers ampicillin resistance
+AmpR promoter	PX673705.1	10335..10439	+	regulatory	AmpR promoter
+B0015 double terminator	KP223705.1	753..881	+	regulatory	B0015
+CMV enhancer	PX673705.1	220..599	+	regulatory	CMV enhancer
+CMV promoter	PX673705.1	600..803	+	regulatory	CMV promoter
+CYC1 terminator	OR992667.1	2489..2736	+	regulatory	CYC1 terminator
+CmR (cat)	LC760188.1	3344..4003	-	CDS	cat | chloramphenicol acetyltransferase
+EF-1 alpha promoter	LT727211.1	1948..3091	-	regulatory	hEF1 promoter
+EGFP	LT726825.1	2753..3472	+	CDS	unnamed protein product; EGFP
+FLAG tag	LT726944.1	1443..1466	+	misc_feature	FLAG epitope
+Firefly luciferase (luc+)	U47295.2	88..1740	+	CDS	luc+ | luciferase
+GAL1 promoter	OR992667.1	1..453	+	regulatory	GAL1_promoter
+GST	U13853.1	258..977	+	CDS	glutathione S-transferase
+HA tag	LT727257.1	1942..1968	+	misc_feature	HA epitope
+HIV-1 5' LTR	OL870462.1	835..1015	+	repeat_region	HIV-1_5_LTR
+HIV-1 RRE	OL870462.1	1680..1913	+	regulatory	RRE
+HSV TK polyA signal	LT726825.1	5688..5757	+	regulatory	HSV-TK polyA
+KanR (aph(3')-Ia)	OL989372.1	560..1375	-	CDS	aph(3')-Ia | aminoglycoside phosphotransferase | confers resistance to kanamycin
+Kozak sequence	PZ629150.1	575..584	+	regulatory	Kozak sequence
+Myc tag	LT726927.1	1251..1280	+	misc_feature	Myc epitope
+NOS terminator	LC943656.1	1479..1729	+	regulatory	nos terminator
+NeoR/KanR (nptII)	PX673705.1	7175..7969	+	CDS	NptII | aminoglycoside 3'-phosphotransferase II | confers resistance to neomycin
+PGK promoter	LT726944.1	2506..3013	+	regulatory	mPGK1 promoter
+PreScission site	U78874.1	918..938	+	misc_feature	GST | prescission protease recognition/cleavage region
+PuroR (pac)	PV631265.1	2901..3500	+	CDS	pac | puromycin N-acetyltransferase
+RBS (B0033)	OR829915.1	1276..1286	+	regulatory	BBa_B0033
+RBS (B0034)	OR829930.1	1276..1287	+	regulatory	BBa_B0034
+SP6 promoter	X65304.3	67..86	+	regulatory	SP6 promoter
+SV40 enhancer	OL870462.1	6652..6867	-	regulatory	SV40 enhancer
+SV40 origin	LT726825.1	4568..4643	+	rep_origin	SV40 ori
+SV40 polyA signal	OL870462.1	7601..7720	+	regulatory	polyA_signal; SV40 polyA signal
+SV40 promoter	OL870462.1	6664..6932	+	regulatory	SV40 promoter
+SpecR (aadA)	JX310868.1	1279..2289	+	CDS	aadA | AadA | spectinomycin adenyltransferase
+Synapsin promoter	HQ416701.1	1758..2227	+	regulatory	human synapsin promoter (hSyn)
+T3 promoter	AF013597.1	2834..2853	+	regulatory	T3 promoter
+T7 promoter	KP223705.1	3808..3827	+	regulatory	T7 promoter
+T7 terminator	OL989372.1	6763..6810	+	regulatory	transcription terminator for bacteriophage T7 RNA polymerase
+TEF promoter	MG680580.1	271..639	+	regulatory	TEF
+TEV site	JF327850.1	1968..1988	+	misc_feature	TEV recognition site
+TetR (tet)	J01749.1	86..1276	+	CDS	tet | tetracycline resistance protein
+Thrombin site	U13853.1	918..935	+	misc_feature	encodes thrombin recognition site
+U6 promoter	PZ629150.1	3986..4226	+	regulatory	human U6 (RNU6-1) RNA polymerase III promoter
+Ubiquitin C promoter	OL870462.1	2629..3833	+	regulatory	human ubiquitin C promoter
+V5 tag	PQ260749.1	8013..8054	+	misc_feature	V5 epitope (aa sequence)
+WPRE	OL870462.1	4616..5203	+	regulatory	WPRE
+ZeoR (Sh ble)	JF327850.1	3552..3926	+	CDS	zeocin resistance marker
+araC	LC760188.1	96..974	-	CDS	araC | L-arabinose regulatory protein
+bGH polyA signal	MZ220611.1	3457..3681	+	regulatory	bGH PA terminator
+f1 origin	OL989372.1	12..467	+	rep_origin	f1 bacteriophage origin of replication; arrow indicates direction of (+) strand 
+his operon terminator	OR829915.1	2880..2943	+	misc_feature	his operon terminator
+lac operator	X65304.3	128..144	+	misc_feature	lac operator
+lac promoter	LT726927.1	4185..4268	-	regulatory	lac promoter
+lacI	U13853.1	3318..4400	+	CDS	lacIq | lac repressor
+lacI promoter	OL989372.1	4598..4675	-	regulatory	lacI | lacI promoter
+lacUV5 promoter	LT727255.1	1534..1586	+	regulatory	lacUV5 promoter
+lacZ alpha	JX310868.1	10643..11008	+	CDS	lacZ-alpha | LacZ-alpha | contains MCS and provides blue/white screening functio
+loxP	LC943656.1	1440..1473	+	misc_recomb	loxP
+mCherry	KP223706.1	80..790	+	CDS	mcherry
+p15A origin	LC760188.1	4632..5177	-	rep_origin	p15A_ori
+pBAD promoter	OR829915.1	1080..1210	+	regulatory	pBAD
+pGEX-4T-1 MCS	U13853.1	930..966	+	misc_feature	Multiple Cloning Site (MCS); contains the unique restriction sites BamHI, EcoRI,
+pUC origin	OL989372.1	1497..2085	+	rep_origin	high-copy-number colE1/pMB1/pBR322/pUC origin of replication
+pUC/pGEM MCS	X65304.3	5..61	+	misc_feature	multiple cloning sites
+rop	J01749.1	1915..2106	+	CDS	ROP protein
+rrnB T1 terminator	JX310866.1	124..167	+	regulatory	rrnB_T1_terminator
+rrnB T2 terminator	JX310866.1	299..326	+	regulatory	rrnB_T2_terminator
+rrnB terminator	JX310866.1	1..158	+	regulatory	rrnB_terminator
+tac promoter	JX310866.1	10750..10778	+	regulatory	tac promoter
+trc promoter	M22744.1	18..263	+	regulatory	trc promoter from pKK233-2

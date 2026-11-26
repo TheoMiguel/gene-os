@@ -17,6 +17,15 @@ export type Strand = 1 | -1;
 export interface Span {
   readonly start: number;
   readonly end: number;
+  /** The true start lies before `start` (GenBank/EMBL `<`): a partial feature. */
+  readonly partialStart?: true;
+  /** The true end lies after `end` (GenBank/EMBL `>`): a partial feature. */
+  readonly partialEnd?: true;
+  /**
+   * The feature is the site between the two bases this span covers (GenBank/EMBL `12^13`), not the bases
+   * themselves. Such a span always has `end === start + 2`.
+   */
+  readonly betweenBases?: true;
 }
 
 /** A possibly discontinuous location, e.g. GenBank `join(...)` or an origin-spanning feature. */
@@ -24,6 +33,11 @@ export interface Location {
   /** Segments in biological order (5'→3' of the feature). Never empty. */
   readonly segments: readonly Span[];
   readonly strand: Strand;
+  /**
+   * How GenBank/EMBL combine the segments. Absent means `join` (one contiguous molecule); `order` lists
+   * the segments with no claim that they are joined; `bond` links residues of a protein.
+   */
+  readonly operator?: 'order' | 'bond';
 }
 
 export const FEATURE_TYPES = [
@@ -54,6 +68,8 @@ export interface Feature {
   readonly name: string;
   readonly location: Location;
   readonly origin: FeatureOrigin;
+  /** Original INSDC feature key (`mRNA`, `exon`, `source`, ...) when `type` cannot hold it, for lossless export. */
+  readonly sourceKey?: string;
   /** CSS color. Absent means the theme color for `type`. */
   readonly color?: string;
   readonly description?: string;
@@ -201,4 +217,6 @@ export interface FeatureSignature {
   /** Minimum fraction identity for a hit, 0..1. */
   readonly minIdentity: number;
   readonly description?: string;
+  /** GenBank accession.version of the record the signature was read from. */
+  readonly source?: string;
 }
