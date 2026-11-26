@@ -1,4 +1,4 @@
-import puc19Fasta from '../../tests/fixtures/restriction/pUC19_L09137.fasta?raw';
+import { PUC19, randomDna } from '../../tests/fixtures/restriction/fixtures';
 import goldenJson from '../../tests/oracle/restriction.json';
 import {
   cutSites,
@@ -21,12 +21,6 @@ interface RestrictionGolden {
 }
 const golden = goldenJson as RestrictionGolden;
 
-const PUC19 = puc19Fasta
-  .split('\n')
-  .filter((line) => !line.startsWith('>'))
-  .join('')
-  .trim()
-  .toUpperCase();
 const SEQUENCES: Record<string, string> = { pUC19: PUC19, ...golden.sequences };
 
 function enzyme(name: string): Enzyme {
@@ -222,14 +216,7 @@ describe('digest fragments', () => {
 
 describe('performance', () => {
   it('scans a 5 Mb circular sequence with the full catalog in linear time', () => {
-    let state = 12345;
-    const bases = 'ACGT';
-    const chars = new Array<string>(5_000_000);
-    for (let i = 0; i < chars.length; i++) {
-      state = (state * 1103515245 + 12345) >>> 0;
-      chars[i] = bases[state >>> 30] ?? 'A';
-    }
-    const seq = chars.join('');
+    const seq = randomDna(5_000_000, 12345);
     const started = performance.now();
     const scan = scanSites(seq, 'circular', ENZYME_CATALOG);
     const elapsed = performance.now() - started;
