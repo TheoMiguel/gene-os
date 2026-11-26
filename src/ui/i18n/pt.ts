@@ -143,6 +143,7 @@ export const pt: Dictionary = {
   'mode.defaultHint': 'Opções essenciais para as aulas e verificações rápidas.',
   'mode.advancedHint': 'Todos os parâmetros e ferramentas.',
   // ---- alignment view ----
+  'align.stale': 'Você mudou as opções depois deste alinhamento. Pressione Alinhar de novo para atualizá-lo.',
   'align.pastedName': 'Colada',
   'align.page.prev': 'Página anterior',
   'align.page.next': 'Próxima página',
@@ -545,5 +546,6 @@ export const pt: Dictionary = {
   'clone.golden.overhangsPlaceholder': 'projetadas pelo aplicativo; por exemplo AATG,GCTT,CGCT',
   'clone.pasted.insert': 'Inserto colado',
   'clone.pasted.vector': 'Vetor colado',
+  'clone.stale': 'Você mudou o formulário depois deste projeto. Pressione Projetar de novo para atualizá-lo.',
   // ---- end cloning view ----
 };

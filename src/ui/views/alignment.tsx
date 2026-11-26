@@ -135,6 +135,11 @@ export function Panel({ doc }: { readonly doc: SeqDocument }) {
         </p>
       )}
       {state.status === 'too-large' && <TooLarge state={state} />}
+      {state.status === 'done' && state.setup !== current && (
+        <p class="aln-hint" role="status">
+          {t('align.stale')}
+        </p>
+      )}
       {state.status === 'done' && <AlignmentResult key={state.id} done={state} />}
     </div>
   );

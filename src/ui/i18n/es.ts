@@ -143,6 +143,8 @@ export const es: Dictionary = {
   'mode.defaultHint': 'Opciones esenciales para la cursada y verificaciones rápidas.',
   'mode.advancedHint': 'Todos los parámetros y herramientas.',
   // ---- alignment view ----
+  'align.stale':
+    'Cambiaste las opciones después de este alineamiento. Pulsa Alinear otra vez para actualizarlo.',
   'align.pastedName': 'Pegada',
   'align.page.prev': 'Página anterior',
   'align.page.next': 'Página siguiente',
@@ -546,5 +548,6 @@ export const es: Dictionary = {
   'clone.golden.overhangsPlaceholder': 'las diseña la aplicación; por ejemplo AATG,GCTT,CGCT',
   'clone.pasted.insert': 'Inserto pegado',
   'clone.pasted.vector': 'Vector pegado',
+  'clone.stale': 'Cambiaste el formulario después de este diseño. Pulsa Diseñar otra vez para actualizarlo.',
   // ---- end cloning view ----
 };

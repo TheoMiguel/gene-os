@@ -84,6 +84,16 @@ describe('alignment view', () => {
     expect(screen.getByText(/^\(.*\);$/s).textContent).toMatch(/one:/);
   });
 
+  it('says so when the choices changed after the alignment ran', async () => {
+    openPanel(record('ref', REFERENCE));
+    fireEvent.input(screen.getByLabelText(/paste a sequence to compare/i), { target: { value: VARIANT } });
+    fireEvent.click(screen.getByRole('button', { name: 'Align' }));
+    await waitFor(() => expect(screen.getByText('Identity')).toBeTruthy());
+    expect(screen.queryByText(/You changed the choices after this alignment ran/)).toBeNull();
+    fireEvent.click(screen.getByLabelText(/^Local/));
+    expect(await screen.findByText(/You changed the choices after this alignment ran/)).toBeTruthy();
+  });
+
   it('presents a pair that is over the size limit as a limit with advice, not as a failure', async () => {
     openPanel(record('big', randomDna(12_000, 1)), record('bigger', randomDna(12_000, 2)));
     fireEvent.click(screen.getByLabelText(/^bigger/));

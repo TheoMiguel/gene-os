@@ -28,6 +28,8 @@ export type RunState =
       readonly status: 'done';
       /** Changes with every finished run, so the display starts afresh. */
       readonly id: number;
+      /** The form as it was when the run started. */
+      readonly setup: AlignSetup;
       readonly kind: 'pair';
       readonly alignment: PairwiseAlignment;
       readonly display: AlignmentDisplay;
@@ -36,6 +38,7 @@ export type RunState =
   | {
       readonly status: 'done';
       readonly id: number;
+      readonly setup: AlignSetup;
       readonly kind: 'msa';
       readonly alignment: MultipleAlignment;
       readonly display: AlignmentDisplay;
@@ -79,12 +82,13 @@ export function runAlignment(docId: string, job: AlignJob, items: readonly Align
   const panel = panels.get(docId);
   if (!panel) return;
   panel.cancel?.();
+  const setup = panel.setup.value;
   const startedAt = performance.now();
   const labels = items.map((item) => item.label);
   panel.run.value = { status: 'running', startedAt, count: items.length };
   panel.cancel = startAlignment(job, (outcome) => {
     panel.cancel = null;
-    panel.run.value = settle(outcome, labels, performance.now() - startedAt);
+    panel.run.value = settle(outcome, labels, performance.now() - startedAt, setup);
   });
 }
 
@@ -97,7 +101,12 @@ export function cancelAlignment(docId: string): void {
   panel.run.value = { status: 'idle' };
 }
 
-function settle(outcome: AlignOutcome, labels: readonly string[], elapsedMs: number): RunState {
+function settle(
+  outcome: AlignOutcome,
+  labels: readonly string[],
+  elapsedMs: number,
+  setup: AlignSetup,
+): RunState {
   if (outcome.kind === 'error') return { status: 'failed', message: outcome.message };
   if (outcome.kind === 'pair') {
     const { result } = outcome;
@@ -113,6 +122,7 @@ function settle(outcome: AlignOutcome, labels: readonly string[], elapsedMs: num
     return {
       status: 'done',
       id: ++finishedRuns,
+      setup,
       kind: 'pair',
       alignment: result.alignment,
       display: pairDisplay(result.alignment, labels),
@@ -126,6 +136,7 @@ function settle(outcome: AlignOutcome, labels: readonly string[], elapsedMs: num
   return {
     status: 'done',
     id: ++finishedRuns,
+    setup,
     kind: 'msa',
     alignment: result.alignment,
     display: msaDisplay(result.alignment, labels),

@@ -138,6 +138,7 @@ export const en = {
   'mode.defaultHint': 'Essential options for coursework and quick checks.',
   'mode.advancedHint': 'Every parameter and tool.',
   // ---- alignment view ----
+  'align.stale': 'You changed the choices after this alignment ran. Press Align again to update it.',
   'align.pastedName': 'Pasted',
   'align.page.prev': 'Previous page',
   'align.page.next': 'Next page',
@@ -536,6 +537,7 @@ export const en = {
   'clone.golden.overhangsPlaceholder': 'designed by the app; for example AATG,GCTT,CGCT',
   'clone.pasted.insert': 'Pasted insert',
   'clone.pasted.vector': 'Pasted vector',
+  'clone.stale': 'You changed the form after this design ran. Press Design again to update it.',
   // ---- end cloning view ----
 } as const;
 

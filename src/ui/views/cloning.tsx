@@ -130,6 +130,12 @@ export function Panel({ doc }: { readonly doc: SeqDocument }) {
         )}
       </div>
 
+      {result?.kind === 'designed' && result.setup !== current && (
+        <p class="clone-warn" role="status">
+          <span class="clone-tag">{t('clone.tag.warning')}</span>
+          {t('clone.stale')}
+        </p>
+      )}
       {resultView ?? <p class="clone-hint">{t('clone.empty')}</p>}
     </div>
   );

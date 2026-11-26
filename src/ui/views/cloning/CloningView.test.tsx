@@ -73,6 +73,14 @@ describe('cloning view', () => {
     expect(screen.getByRole('button', { name: 'Copy order list' })).toBeTruthy();
   });
 
+  it('says so when the form changed after the design, instead of leaving a stale result unmarked', async () => {
+    openPanel();
+    await design();
+    expect(screen.queryByText(/You changed the form after this design ran/)).toBeNull();
+    method(/^Gibson assembly/);
+    expect(await screen.findByText(/You changed the form after this design ran/)).toBeTruthy();
+  });
+
   it('opens the simulated construct as a new document', async () => {
     openPanel();
     await design();

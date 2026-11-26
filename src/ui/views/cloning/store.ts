@@ -17,7 +17,7 @@ export type CloningRun =
   | { readonly kind: 'running'; readonly startedAt: number }
   | { readonly kind: 'invalid'; readonly error: RequestError }
   | { readonly kind: 'failed'; readonly message: string }
-  | { readonly kind: 'designed'; readonly result: CloningResult };
+  | { readonly kind: 'designed'; readonly result: CloningResult; readonly setup: CloningSetup };
 
 interface PanelState {
   readonly setup: Signal<CloningSetup>;
@@ -94,10 +94,11 @@ export function runDesign(docId: string, sources: readonly CloningSource[]): voi
     panel.run.value = { kind: 'invalid', error: built.error };
     return;
   }
+  const designedFor = panel.setup.value;
   panel.run.value = { kind: 'running', startedAt: performance.now() };
   panel.cancel = startDesign(built.request, (outcome) => {
     panel.cancel = null;
-    panel.run.value = outcome;
+    panel.run.value = outcome.kind === 'designed' ? { ...outcome, setup: designedFor } : outcome;
   });
 }
 
