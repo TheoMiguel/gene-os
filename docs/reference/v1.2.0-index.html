@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GENE_OS // V1.2.0</title>
+  <link id="faviconLink" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 86.6'%3E%3Cpolygon points='50,0 25,43.3 75,43.3' fill='%2363c7b2'/%3E%3Cpolygon points='25,43.3 0,86.6 50,86.6' fill='%2363c7b2'/%3E%3Cpolygon points='75,43.3 50,86.6 100,86.6' fill='%2363c7b2'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles/fonts.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <header class="top-bar">
+    <div class="brand-cluster">
+      <button id="btnToggleSidebar" type="button" class="sidebar-toggle-btn" title="Collapse / Expand Sidebar">&laquo;</button>
+      <button id="btnThemeTriforce" type="button" class="theme-triforce-btn" title="Toggle Dark / Light Mode">
+        <svg class="triforce-mark" viewBox="0 0 100 86.6" aria-label="Triforce Theme Switch">
+          <polygon points="50,0 25,43.3 75,43.3" />
+          <polygon points="25,43.3 0,86.6 50,86.6" />
+          <polygon points="75,43.3 50,86.6 100,86.6" />
+        </svg>
+      </button>
+      <span class="brand-title-text">GENE_OS // V1.2.0</span>
+      <div class="brand-divider"></div>
+      <div class="meta-tag"><span data-i18n="meta_project">ENGINE</span><span class="val">TAURI-V2</span></div>
+    </div>
+
+    <div class="topbar-status-cluster">
+      <span class="source-pill" id="activeSourceBadge">SOURCE: LOCAL FASTA</span>
+    </div>
+  </header>
+
+  <main class="workspace" id="workspace">
+    <section class="left-column" id="leftColumn">
+      <div>
+        <h1 class="hero-title" data-i18n="hero_title">GENOMIC<br>ANALYSIS</h1>
+        <div class="hero-sub">
+          <span class="arrow">&rarr;</span>
+          <div data-i18n="hero_sub"><span class="highlight">NATIVE STREAMING ENGINE</span> // ORF Translation, Plasmid Map, Primers &amp; In Silico Cloning</div>
+        </div>
+
+        <div class="dropzone" id="dropzone">
+          <div class="dropzone-title" id="dropLabel" data-i18n="drop_title">[ SELECT FASTA FILE ]</div>
+          <div class="dropzone-sub" data-i18n="drop_sub">Click to mount via native OS dialog or drop file</div>
+          <input type="file" id="browserFileFallback" accept=".fasta,.fa,.fna,.ffn,.txt" class="hidden" />
+        </div>
+
+        <div class="control-stack">
+          <div class="control-row">
+            <div class="field">
+              <label for="minOrfAa" data-i18n="lbl_min_orf">Min ORF Length (aa)</label>
+              <input type="number" id="minOrfAa" value="80" min="15" max="5000" />
+            </div>
+            <div class="field">
+              <label for="startCodonMode" data-i18n="lbl_start_codons">Initiation Codons</label>
+              <select id="startCodonMode">
+                <option value="ATG" data-i18n="opt_atg">ATG (Standard)</option>
+                <option value="PROK">ATG / GTG / TTG</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="field">
+              <label for="windowSize" data-i18n="lbl_window">Sliding Window (bp)</label>
+              <input type="number" id="windowSize" value="1000" min="50" max="500000" step="50" />
+            </div>
+            <div class="field">
+              <label for="protFilter" data-i18n="lbl_prot_filter">Protein Family Filter</label>
+              <select id="protFilter">
+                <option value="ALL" data-i18n="cat_all">All Predicted Proteins</option>
+                <option value="Transmembrane / Transporter" data-i18n="cat_tm">Transporters / Membrane</option>
+                <option value="Ribosomal / Basic DNA-Binding" data-i18n="cat_rib">Ribosomal / Basic</option>
+                <option value="Enzyme / Catalytic Motif" data-i18n="cat_enz">Enzymatic Signatures</option>
+                <option value="Secretory / Signal Peptide" data-i18n="cat_sec">Signal Peptide / Secreted</option>
+                <option value="Hypothetical / Uncharacterized" data-i18n="cat_hyp">Uncharacterized</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="motifInput" data-i18n="lbl_motif">Custom Nucleotide Motif (IUPAC)</label>
+            <input type="text" id="motifInput" placeholder="e.g. GAATTC or CCWGG" />
+          </div>
+
+          <button id="btnRun" type="button" class="primary-btn" disabled data-i18n="btn_run">Execute Native Pipeline</button>
+
+          <div class="sys-section-title" data-i18n="sys_controls">WORKSTATION &amp; EXPORT CONTROLS</div>
+
+          <div class="control-row">
+            <div class="field">
+              <label data-i18n="lbl_lang">Language</label>
+              <div class="custom-dd" id="ddLang">
+                <button type="button" class="dd-trigger" data-dd-trigger="ddLangMenu">
+                  <span id="langCurrentLabel">EN</span>
+                  <span>&#9662;</span>
+                </button>
+                <div class="dd-menu" id="ddLangMenu">
+                  <button type="button" class="dd-item" data-lang="es">ES // Español</button>
+                  <button type="button" class="dd-item" data-lang="en">EN // English</button>
+                  <button type="button" class="dd-item" data-lang="pt">PT // Português</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label data-i18n="lbl_theme_color">Palette</label>
+              <div class="custom-dd" id="ddColor">
+                <button type="button" class="dd-trigger" data-dd-trigger="ddColorMenu">
+                  <span style="display:flex; align-items:center; gap:6px;">
+                    <span class="swatch-preview" id="paletteDot" style="background:#63c7b2;"></span>
+                    <span id="paletteLabel">TEAL</span>
+                  </span>
+                  <span>&#9662;</span>
+                </button>
+                <div class="dd-menu" id="ddColorMenu">
+                  <div class="swatch-grid" id="swatchGrid"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="control-row">
+            <div class="field">
+              <label data-i18n="lbl_bg_anim">Background</label>
+              <div class="custom-dd" id="ddAnim">
+                <button type="button" class="dd-trigger" data-dd-trigger="ddAnimMenu">
+                  <span id="animCurrentLabel">Neural Grid</span>
+                  <span>&#9662;</span>
+                </button>
+                <div class="dd-menu" id="ddAnimMenu">
+                  <button type="button" class="dd-item" data-anim="network" data-i18n="anim_network">Neural Grid</button>
+                  <button type="button" class="dd-item" data-anim="helix" data-i18n="anim_helix">DNA Rain</button>
+                  <button type="button" class="dd-item" data-anim="radar" data-i18n="anim_radar">Bio-Radar</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label data-i18n="lbl_exports">Exports</label>
+              <div class="custom-dd" id="ddExport">
+                <button type="button" class="dd-trigger" data-dd-trigger="ddExportMenu">
+                  <span data-i18n="btn_export_menu">Export Data</span>
+                  <span>&#9662;</span>
+                </button>
+                <div class="dd-menu" id="ddExportMenu">
+                  <button type="button" class="dd-item" id="btnExportGenBank" disabled>GenBank (.gb)</button>
+                  <button type="button" class="dd-item" id="btnExportJSON" disabled>JSON Report (.json)</button>
+                  <button type="button" class="dd-item" id="btnExportProteins" disabled>Proteins (.faa)</button>
+                  <button type="button" class="dd-item" id="btnExportPlasmidSvg" disabled>Plasmid Map (.svg)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <button type="button" id="btnAudioToggle" class="secondary audio-toggle-btn">
+              <span data-i18n="lbl_audio">UI Audio Telemetry</span>
+              <span class="audio-badge" id="audioStatusBadge">ON</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="left-footer">
+        <span data-i18n="footer_left">GENOME RESEARCH LAB</span>
+        <span>V1.2.0 // RUST CORE</span>
+      </div>
+    </section>
+
+    <section class="right-column">
+      <div class="bracket-box progress-wrap" id="progressWrap">
+        <div class="bracket-inner"></div>
+        <div style="display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.78rem;">
+          <span id="progressText">STREAMING DISK BLOCKS...</span>
+          <span id="progressPct">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <nav class="workspace-tabs" id="topTabs">
+        <button type="button" class="tab active" data-tab="tab-summary" data-i18n="tab_01">01 // Summary</button>
+        <button type="button" class="tab" data-tab="tab-proteins" data-i18n="tab_02">02 // Proteins (ORFs)</button>
+        <button type="button" class="tab" data-tab="tab-plasmid" data-i18n="tab_03">03 // Plasmid Map</button>
+        <button type="button" class="tab" data-tab="tab-seqview" data-i18n="tab_04">04 // Sequence</button>
+        <button type="button" class="tab" data-tab="tab-primers" data-i18n="tab_05">05 // Primers &amp; PCR</button>
+        <button type="button" class="tab" data-tab="tab-cloning" data-i18n="tab_06">06 // Digest &amp; Gel</button>
+        <button type="button" class="tab" data-tab="tab-enzymes" data-i18n="tab_07">07 // Restriction</button>
+        <button type="button" class="tab" data-tab="tab-features" data-i18n="tab_08">08 // Features</button>
+        <button type="button" class="tab" data-tab="tab-gcplot" data-i18n="tab_09">09 // %GC &amp; Skew</button>
+        <button type="button" class="tab" data-tab="tab-cpg" data-i18n="tab_10">10 // CpG Islands</button>
+        <button type="button" class="tab" data-tab="tab-motifs" data-i18n="tab_11">11 // Motifs</button>
+        <button type="button" class="tab" data-tab="tab-codons" data-i18n="tab_12">12 // Codons</button>
+        <button type="button" class="tab tab-lib" data-tab="tab-libraries" data-i18n="tab_13">13 // Libraries</button>
+      </nav>
+
+      <!-- TAB 01: SUMMARY & ORGANISM INFERENCE -->
+      <div class="tab-panel active" id="tab-summary">
+        <div class="summary-hero-grid">
+          <div class="bracket-box organism-card">
+            <div class="bracket-inner"></div>
+            <div class="organism-badge" id="orgTaxonBadge" data-i18n="org_await_badge">AWAITING SEQUENCE</div>
+            <div class="organism-title" id="orgTaxonTitle" data-i18n="org_await_title">No Sample Loaded</div>
+            <div class="organism-svg-wrap" id="organismSvgContainer"></div>
+            <div class="organism-desc" id="orgTaxonDesc" data-i18n="org_await_desc">
+              Mount a FASTA file or fetch an accession from External Libraries to infer taxonomic domain, cell envelope, viral capsid or mixed oligonucleotide composition.
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:14px; justify-content:space-between;">
+            <div class="kpi-grid">
+              <div class="bracket-box kpi-card">
+                <div class="bracket-inner"></div>
+                <div class="kpi-title" data-i18n="kpi_seq">Total Sequence</div>
+                <div class="kpi-val" id="mTotalBp">0 bp</div>
+                <div class="kpi-sub" id="mContigsCount">0 contigs | N50: 0</div>
+              </div>
+              <div class="bracket-box kpi-card">
+                <div class="bracket-inner"></div>
+                <div class="kpi-title" data-i18n="kpi_gc">%GC Content</div>
+                <div class="kpi-val" id="mGcPct">0.0%</div>
+                <div class="kpi-sub" id="mSkews">Skew: 0.000 | CpG: 0</div>
+              </div>
+              <div class="bracket-box kpi-card">
+                <div class="bracket-inner"></div>
+                <div class="kpi-title" data-i18n="kpi_orfs">Total ORFs Identified</div>
+                <div class="kpi-val" id="mOrfCount">0</div>
+                <div class="kpi-sub" id="mLongestOrf">Max: 0 aa (0 kDa)</div>
+              </div>
+              <div class="bracket-box kpi-card">
+                <div class="bracket-inner"></div>
+                <div class="kpi-title" data-i18n="kpi_features">Restriction &amp; Features</div>
+                <div class="kpi-val" id="mEnzFeatCount">0 / 0</div>
+                <div class="kpi-sub" id="mMeanKda">Mean ORF: 0.0 kDa</div>
+              </div>
+            </div>
+
+            <div class="bracket-box" style="padding: 16px 18px;">
+              <div class="bracket-inner"></div>
+              <div style="display:flex; justify-content:space-between; font-family:var(--mono); font-size:0.74rem; color:var(--fg-muted); flex-wrap:wrap; gap:6px;">
+                <span data-i18n="base_telemetry">BASE COMPOSITION TELEMETRY</span>
+                <span id="mBaseCounts">A: 0 | T: 0 | G: 0 | C: 0 | N: 0</span>
+              </div>
+              <div class="base-strip" id="baseBar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 02: PROTEINS (ORFs) -->
+      <div class="tab-panel" id="tab-proteins">
+        <div class="bracket-box schematic-stage">
+          <div class="bracket-inner"></div>
+          <div class="stage-col">
+            <div class="stage-label">01</div>
+            <div class="stage-title" data-i18n="stage_01">Sequence Map, Features &amp; 6-Frame ORFs</div>
+            <div class="viz-box">
+              <canvas id="dnaStageCanvas" style="cursor:pointer;"></canvas>
+              <div class="viz-tooltip" id="dnaVizTooltip"></div>
+            </div>
+            <div class="viz-caption">
+              <span id="dnaVizCoord" data-i18n="viz_await_dna">Awaiting FASTA stream...</span>
+              <span style="color:var(--accent);">+1/+2/+3 | -1/-2/-3</span>
+            </div>
+          </div>
+
+          <div class="translate-bridge">
+            <span>6-FRAME</span>
+            <div class="bridge-pill" data-i18n="bridge_translate">TRANSLATE</div>
+            <span>&rarr;</span>
+          </div>
+
+          <div class="stage-col">
+            <div class="stage-label">02</div>
+            <div class="stage-title" data-i18n="stage_02">Protein Synthesis &amp; Hydropathy Fold</div>
+            <div class="viz-box">
+              <canvas id="protStageCanvas" style="cursor:crosshair;"></canvas>
+              <div class="viz-tooltip" id="protVizTooltip"></div>
+            </div>
+            <div class="viz-caption">
+              <span id="protVizLabel" data-i18n="viz_await_prot">No peptide synthesized</span>
+              <span id="protVizMetrics" style="color:var(--cyan);">-- kDa | pI --</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>ORF ID / Contig</th>
+                <th>Frame</th>
+                <th>Coords (bp)</th>
+                <th>Length</th>
+                <th>Mass (kDa)</th>
+                <th>pI</th>
+                <th>GRAVY</th>
+                <th>Predicted Class / Signatures</th>
+                <th>Peptide Chain</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyProteins">
+              <tr><td colspan="9" style="color:var(--fg-muted);">Mount a FASTA file to translate ORFs and scan restriction sites.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bracket-box protein-inspector hidden" id="proteinInspector">
+          <div class="bracket-inner"></div>
+          <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; margin-bottom:6px;">
+            <span id="inspTitle" style="color:var(--accent);">SELECTED PEPTIDE</span>
+            <span id="inspStats" style="color:var(--fg-muted);"></span>
+          </div>
+          <div id="inspSignatures" style="margin-bottom:8px; color:var(--cyan);"></div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px;">
+            <button type="button" id="btnInspBlastP" class="secondary">NCBI BLASTp</button>
+            <button type="button" id="btnInspUniProt" class="secondary">Query UniProtKB</button>
+            <button type="button" id="btnInspAlphaFold" class="secondary">AlphaFold 3D DB</button>
+          </div>
+          <div style="font-size:0.7rem; color:var(--fg-muted);">RESIDUE BIOCHEMICAL PROFILE (Hydrophobic / Polar / Basic / Acidic):</div>
+          <div class="aa-bar" id="inspAaBar"></div>
+          <div id="inspSeq" style="word-break:break-all; color:var(--fg); max-height:90px; overflow-y:auto; background:var(--bg-solid-header); padding:8px; border:1px solid var(--border); margin-top:8px;"></div>
+        </div>
+      </div>
+
+      <!-- TAB 03: CIRCULAR PLASMID MAP -->
+      <div class="tab-panel" id="tab-plasmid">
+        <div class="bracket-box" style="padding:16px;">
+          <div class="bracket-inner"></div>
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <span style="font-family:var(--mono); font-size:0.74rem; color:var(--fg-muted);">CONTIG / VECTOR:</span>
+              <select id="plasmidContigSelect"></select>
+              <label style="font-family:var(--mono); font-size:0.72rem; color:var(--fg-muted); display:flex; align-items:center; gap:5px;">
+                <input type="checkbox" id="chkSingleCutters" checked /> Unique Cutters Only (1x)
+              </label>
+              <button type="button" id="btnDownloadPlasmidSvg" class="secondary">Export SVG</button>
+            </div>
+            <div style="font-family:var(--mono); font-size:0.72rem; display:flex; gap:12px;">
+              <span style="color:var(--accent);">&#9632; +ORF</span>
+              <span style="color:var(--purple);">&#9632; -ORF</span>
+              <span style="color:var(--cyan);">&#9632; Feature</span>
+              <span style="color:var(--warn);">| Restriction Site</span>
+            </div>
+          </div>
+          <div class="snap-grid" style="align-items:center;">
+            <div style="position:relative; display:flex; justify-content:center;">
+              <canvas id="plasmidCanvas" width="480" height="460" style="max-width:100%; cursor:pointer;"></canvas>
+              <div class="tooltip" id="plasmidTooltip"></div>
+            </div>
+            <div class="table-scroll" style="max-height:420px;">
+              <table>
+                <thead><tr><th>Element</th><th>Type</th><th>Coords (bp)</th><th>Strand</th></tr></thead>
+                <tbody id="tbodyPlasmidMap"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 04: SEQUENCE VIEWER -->
+      <div class="tab-panel" id="tab-seqview">
+        <div class="bracket-box" style="padding:14px;">
+          <div class="bracket-inner"></div>
+          <div class="seq-toolbar">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <span style="font-family:var(--mono); font-size:0.74rem; color:var(--fg-muted);">TRANSLATION FRAME:</span>
+              <select id="seqFrameSelect">
+                <option value="1">Frame +1 (5'&rarr;3')</option>
+                <option value="2">Frame +2 (5'&rarr;3')</option>
+                <option value="3">Frame +3 (5'&rarr;3')</option>
+                <option value="-1">Frame -1 (3'&larr;5')</option>
+                <option value="-2">Frame -2 (3'&larr;5')</option>
+                <option value="-3">Frame -3 (3'&larr;5')</option>
+                <option value="0">None (DNA Duplex Only)</option>
+              </select>
+              <input type="number" id="seqJumpInput" min="1" placeholder="Jump to bp..." style="width:125px;" />
+              <button type="button" id="btnSeqJump" class="secondary">Go</button>
+            </div>
+            <div class="seq-pager">
+              <button type="button" id="btnSeqPrev" class="secondary">&lsaquo; Prev</button>
+              <span id="seqPagerInfo">Page 0 / 0</span>
+              <button type="button" id="btnSeqNext" class="secondary">Next &rsaquo;</button>
+            </div>
+          </div>
+          <div class="ds-seq-viewer" id="dsSeqViewer">Mount a FASTA file to inspect double-stranded DNA + 6-frame translation.</div>
+        </div>
+      </div>
+
+      <!-- TAB 05: PRIMERS & PCR -->
+      <div class="tab-panel" id="tab-primers">
+        <div class="bracket-box" style="padding:16px;">
+          <div class="bracket-inner"></div>
+          <div class="snap-grid">
+            <div style="display:flex; flex-direction:column; gap:10px;">
+              <div style="font-family:var(--mono); font-size:0.78rem; color:var(--accent);">PRIMER THERMODYNAMICS (Nearest-Neighbor SantaLucia) &amp; PCR SIMULATOR</div>
+              <div class="field">
+                <label>Forward Primer (5' &rarr; 3')</label>
+                <input type="text" id="primerFwdInput" placeholder="e.g. ATGGCTAGCATGACTGGTGG" />
+              </div>
+              <div class="field">
+                <label>Reverse Primer (5' &rarr; 3')</label>
+                <input type="text" id="primerRevInput" placeholder="e.g. TCAGTGGTGGTGGTGGTGGTG" />
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button type="button" id="btnAutoPrimers" class="primary-btn">Auto-Design for Selected ORF</button>
+                <button type="button" id="btnCalcPrimers" class="secondary">Analyze &amp; Simulate PCR</button>
+              </div>
+            </div>
+            <div id="primerResultsBox" style="font-family:var(--mono); font-size:0.76rem; background:var(--bg-solid-header); border:1px solid var(--border); padding:14px; line-height:1.65;">
+              Enter custom primers or click <strong>Auto-Design for Selected ORF</strong> to calculate Tm, %GC, hairpin/dimer QC, and expected PCR amplicon length.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 06: DIGEST & GEL -->
+      <div class="tab-panel" id="tab-cloning">
+        <div class="bracket-box" style="padding:16px;">
+          <div class="bracket-inner"></div>
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
+            <span style="font-family:var(--mono); font-size:0.74rem; color:var(--fg-muted);">ENZYME 1:</span>
+            <select id="digestEnz1"></select>
+            <span style="font-family:var(--mono); font-size:0.74rem; color:var(--fg-muted);">ENZYME 2 (OPTIONAL):</span>
+            <select id="digestEnz2"><option value="">— Single Digest —</option></select>
+            <select id="digestTopology">
+              <option value="circular">Circular (Plasmid)</option>
+              <option value="linear">Linear (PCR / Genomic)</option>
+            </select>
+            <button type="button" id="btnRunDigest" class="primary-btn">Run Virtual Digest</button>
+          </div>
+          <div class="snap-grid">
+            <div class="gel-box">
+              <canvas id="gelCanvas" width="320" height="340"></canvas>
+            </div>
+            <div class="table-scroll" style="max-height:365px;">
+              <table>
+                <thead><tr><th>Fragment #</th><th>Size (bp)</th><th>Start..End</th><th>5' / 3' Ends</th></tr></thead>
+                <tbody id="tbodyDigestFrags">
+                  <tr><td colspan="4" style="color:var(--fg-muted);">Select restriction enzymes and click Run Virtual Digest.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 07: RESTRICTION SITES -->
+      <div class="tab-panel" id="tab-enzymes">
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Contig</th><th>Enzyme</th><th>Cut Position (bp)</th><th>Strand</th><th>Overhang / Ends</th></tr></thead>
+            <tbody id="tbodyEnzymes"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 08: FEATURES -->
+      <div class="tab-panel" id="tab-features">
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Contig</th><th>Feature Name</th><th>Category</th><th>Start..End</th><th>Strand</th></tr></thead>
+            <tbody id="tbodyFeatures"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 09: %GC & SKEW -->
+      <div class="tab-panel" id="tab-gcplot">
+        <div class="bracket-box canvas-wrap">
+          <div class="bracket-inner"></div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:8px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="font-family:var(--mono); font-size:0.75rem; color:var(--fg-muted);">CONTIG:</span>
+              <select id="contigSelect" style="max-width:300px;"></select>
+            </div>
+            <div style="font-family:var(--mono); font-size:0.72rem; display:flex; gap:14px;">
+              <span style="color:var(--accent);">&#9632; %GC Window</span>
+              <span style="color:var(--cyan);">&#9632; Cumulative GC Skew</span>
+              <span style="color:var(--warn);">-- Global %GC</span>
+            </div>
+          </div>
+          <canvas id="gcCanvas"></canvas>
+          <div class="tooltip" id="chartTooltip"></div>
+        </div>
+      </div>
+
+      <!-- TAB 10: CpG ISLANDS -->
+      <div class="tab-panel" id="tab-cpg">
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Contig</th><th>Start..End</th><th>Length (bp)</th><th>%GC</th><th>CpG Count</th><th>Obs/Exp Ratio</th></tr></thead>
+            <tbody id="tbodyCpg"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 11: MOTIFS -->
+      <div class="tab-panel" id="tab-motifs">
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Contig</th><th>Strand</th><th>Position (1-based)</th><th>Matched Sequence</th></tr></thead>
+            <tbody id="tbodyMotifs"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 12: CODONS -->
+      <div class="tab-panel" id="tab-codons">
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Codon</th><th>AA</th><th>Count</th><th>Share (%)</th><th>RSCU</th></tr></thead>
+            <tbody id="tbodyCodons"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 13: EXTERNAL BIO-LIBRARIES -->
+      <div class="tab-panel" id="tab-libraries">
+        <div class="lib-grid">
+          <div class="bracket-box lib-card">
+            <div class="bracket-inner"></div>
+            <div class="lib-header">
+              <span class="lib-title" data-i18n="lib_ncbi_title">NCBI GENBANK / REFSEQ &amp; EMBL-EBI (ENA)</span>
+              <span class="lib-badge">REST // FASTA STREAM</span>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <select id="libRepoSource" style="width:155px;">
+                <option value="ncbi">NCBI NuCore</option>
+                <option value="ena">EMBL-EBI (ENA)</option>
+              </select>
+              <input type="text" id="libAccessionInput" placeholder="e.g. M77789.2, L09137.2, MN908947.3" style="flex:1;" />
+              <button type="button" id="btnFetchAccession" class="primary-btn" data-i18n="btn_fetch_mount">Fetch &amp; Mount</button>
+            </div>
+            <div class="lib-chips">
+              <button type="button" class="chip-btn" data-acc="L09137.2" data-repo="ncbi">pUC19 (L09137.2)</button>
+              <button type="button" class="chip-btn" data-acc="J02459.1" data-repo="ncbi">Phage Lambda (J02459.1)</button>
+              <button type="button" class="chip-btn" data-acc="AF086833.2" data-repo="ncbi">Ebola Zaire (AF086833.2)</button>
+              <button type="button" class="chip-btn" data-acc="U00096" data-repo="ena">ENA: U00096</button>
+            </div>
+            <div class="lib-status" id="libFetchStatus" data-i18n="lib_fetch_hint">
+              Enter an NCBI GenBank/RefSeq or EMBL-EBI accession ID to retrieve its FASTA sequence and run the full GENE_OS pipeline directly.
+            </div>
+          </div>
+
+          <div class="bracket-box lib-card">
+            <div class="bracket-inner"></div>
+            <div class="lib-header">
+              <span class="lib-title" data-i18n="lib_vectors_title">CURATED VECTORS &amp; SYNTHETIC CONSTRUCTS</span>
+              <span class="lib-badge">OFFLINE READY</span>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <select id="builtinPresetSelect" style="flex:1;"></select>
+              <button type="button" id="btnLoadBuiltin" class="primary-btn" data-i18n="btn_load_preset">Load Vector</button>
+            </div>
+            <div class="lib-status" id="libPresetDesc">
+              Includes pre-mapped promoter motifs, MCS restriction sites (EcoRI, BamHI, HindIII, XhoI), and complete ORFs for immediate plasmid mapping and virtual gel digestion.
+            </div>
+          </div>
+
+          <div class="bracket-box lib-card" style="grid-column: 1 / -1;">
+            <div class="bracket-inner"></div>
+            <div class="lib-header">
+              <span class="lib-title" data-i18n="lib_uniprot_title">UNIPROTKB PROTEIN KNOWLEDGEBASE &amp; HOMOLOG SEARCH</span>
+              <span class="lib-badge">REST.UNIPROT.ORG</span>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <input type="text" id="uniprotQueryInput" placeholder="Search protein, gene, EC number or organism (e.g. PETase, RecA Escherichia, P04637)" style="flex:1; min-width:240px;" />
+              <button type="button" id="btnSearchUniProt" class="primary-btn" data-i18n="btn_search_uniprot">Search UniProtKB</button>
+              <button type="button" id="btnQuerySelectedOrfUniProt" class="secondary" data-i18n="btn_query_sel_orf">Match Active ORF Class</button>
+            </div>
+            <div class="table-scroll" style="max-height:220px;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>UniProt ID</th>
+                    <th>Entry Name</th>
+                    <th>Protein Description</th>
+                    <th>Organism</th>
+                    <th>Length</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="tbodyUniProt">
+                  <tr><td colspan="6" style="color:var(--fg-muted);">Query UniProtKB above to inspect reviewed Swiss-Prot / TrEMBL entries and cross-reference sequences.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="bracket-box lib-card" style="grid-column: 1 / -1;">
+            <div class="bracket-inner"></div>
+            <div class="lib-header">
+              <span class="lib-title" data-i18n="lib_suites_title">CROSS-PLATFORM ALIGNMENT, 3D STRUCTURE &amp; LITERATURE SUITES</span>
+              <span class="lib-badge">DEEP-LINK BRIDGE</span>
+            </div>
+            <div class="ext-launchers">
+              <button type="button" id="btnExtBlastN" class="secondary">NCBI BLASTn (Nucleotide)</button>
+              <button type="button" id="btnExtBlastP" class="secondary">NCBI BLASTp (Active ORF)</button>
+              <button type="button" id="btnExtAlphaFold" class="secondary">AlphaFold Protein DB</button>
+              <button type="button" id="btnExtRcsbPdb" class="secondary">RCSB PDB 3D Structures</button>
+              <button type="button" id="btnExtKegg" class="secondary">KEGG Pathway &amp; Genes</button>
+              <button type="button" id="btnExtPubMed" class="secondary">PubMed Literature Search</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
