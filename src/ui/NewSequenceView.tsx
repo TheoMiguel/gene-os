@@ -1,10 +1,12 @@
 import type { ComponentChildren } from 'preact';
 import { useState } from 'preact/hooks';
-import { loadInputs, openFilesFromPicker } from './actions';
+import { fetchSequence, guessService, looksLikeIdentifier, NetError, SERVICE_NAMES } from '../net';
+import { workspace } from '../state/documents';
+import { loadInputs, notice, openFilesFromPicker, sfx } from './actions';
 import { t } from './i18n';
-
-/** Example names for the preset list; the records arrive with the offline library (spec 6.2). */
-const PRESET_NAMES = ['pUC19', 'pET-28a(+)', 'pBR322', 'Lambda phage', 'EGFP'] as const;
+import { DatabaseSearch } from './views/libraries/DatabaseSearch';
+import { ExamplePresets } from './views/libraries/ExamplePresets';
+import { netErrorMessage } from './views/libraries/lookup';
 
 function Card({
   title,
@@ -36,9 +38,32 @@ function Card({
 /** The "+" view: paste, open or drop a sequence, presets and database search (spec 3.3, 3.5). */
 export function NewSequenceView() {
   const [text, setText] = useState('');
+  const [lookup, setLookup] = useState<{ id: string; service: string } | { error: NetError } | null>(null);
+
+  /** A bare accession is fetched from its database; the answer opens as a document. */
+  const fetchAccession = async (id: string) => {
+    const service = guessService(id);
+    setLookup({ id, service: SERVICE_NAMES[service] });
+    try {
+      workspace.open(await fetchSequence(service, id));
+      notice.value = null;
+      sfx('loaded');
+      setText('');
+      setLookup(null);
+    } catch (error) {
+      sfx('error');
+      setLookup({ error: error instanceof NetError ? error : new NetError(service, 'unreachable') });
+    }
+  };
 
   const submit = async (event: Event) => {
     event.preventDefault();
+    const trimmed = text.trim();
+    if (looksLikeIdentifier(trimmed)) {
+      await fetchAccession(trimmed);
+      return;
+    }
+    setLookup(null);
     if (await loadInputs([{ kind: 'text', text }])) setText('');
   };
 
@@ -90,32 +115,26 @@ export function NewSequenceView() {
                 <span>{t('newSeq.formats')}</span>
               </span>
             </div>
+            <div role="status" aria-live="polite">
+              {lookup && 'id' in lookup && <p class="lib-status">{t('lib.paste.fetching', lookup)}</p>}
+              {lookup && 'error' in lookup && (
+                <p class="lib-status lib-error">{netErrorMessage(lookup.error)}</p>
+              )}
+            </div>
           </form>
         </Card>
 
-        <Card title={t('newSeq.presetsTitle')} badge={{ text: t('newSeq.badgeOffline'), tone: 'accent' }}>
-          <div class="lib-chips">
-            {PRESET_NAMES.map((name) => (
-              <button key={name} type="button" class="chip-btn" disabled>
-                {name}
-              </button>
-            ))}
-          </div>
+        <Card
+          title={t('newSeq.presetsTitle')}
+          badge={{ text: t('newSeq.badgeOffline'), tone: 'accent' }}
+          wide
+        >
+          <ExamplePresets variant="chips" />
           <p class="lib-status">{t('newSeq.presetsNote')}</p>
         </Card>
 
-        <Card title={t('newSeq.dbTitle')} badge={{ text: t('newSeq.badgeNetwork'), tone: 'cyan' }}>
-          <form class="db-form" onSubmit={(event) => event.preventDefault()}>
-            <label class="field-label" for="db-query">
-              {t('newSeq.dbLabel')}
-            </label>
-            <div class="db-row">
-              <input id="db-query" type="search" placeholder={t('newSeq.dbPlaceholder')} disabled />
-              <button type="submit" class="secondary" disabled>
-                {t('newSeq.dbSearch')}
-              </button>
-            </div>
-          </form>
+        <Card title={t('newSeq.dbTitle')} badge={{ text: t('newSeq.badgeNetwork'), tone: 'cyan' }} wide>
+          <DatabaseSearch compact />
           <p class="lib-status">{t('newSeq.dbNote')}</p>
         </Card>
       </div>
