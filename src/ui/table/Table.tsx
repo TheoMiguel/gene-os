@@ -36,6 +36,11 @@ export interface TableProps<Row> {
   readonly onRowClick?: (row: Row, index: number) => void;
   /** Called with the selected indexes of `rows`, ascending, whenever the selection changes. */
   readonly onSelectionChange?: (indexes: readonly number[]) => void;
+  /**
+   * Indexes of `rows` another part of the screen points at. They are marked, and the first one scrolls into view
+   * whenever this set is replaced.
+   */
+  readonly highlighted?: ReadonlySet<number>;
 }
 
 const EXPORT_LABELS = {
@@ -74,6 +79,14 @@ export function Table<Row>(props: TableProps<Row>) {
     setActive(0);
     anchor.current = 0;
   }, [rows]);
+
+  const { highlighted } = props;
+  useEffect(() => {
+    if (!highlighted || highlighted.size === 0) return;
+    const position = order.findIndex((index) => highlighted.has(index));
+    if (position >= 0) scroll.scrollToItem(position, 'nearest');
+    // Only a new highlight scrolls; sorting and filtering must leave the user's scroll alone.
+  }, [highlighted]);
 
   const select = (next: ReadonlySet<number>) => {
     setSelected(next);
@@ -167,7 +180,7 @@ export function Table<Row>(props: TableProps<Row>) {
       <div
         key={index}
         id={rowId(position)}
-        class={`table-row${isSelected ? ' selected' : ''}${position === active ? ' active' : ''}`}
+        class={`table-row${isSelected ? ' selected' : ''}${position === active ? ' active' : ''}${highlighted?.has(index) ? ' highlighted' : ''}`}
         role="row"
         aria-rowindex={position + 2}
         aria-selected={isSelected}

@@ -144,6 +144,15 @@
   background: rgba(var(--accent-rgb), 0.18);
 }
 
+.table-row.highlighted {
+  background: rgba(var(--accent-rgb), 0.12);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.table-row.highlighted.selected {
+  background: rgba(var(--accent-rgb), 0.24);
+}
+
 .table-row.active {
   box-shadow: inset 2px 0 0 var(--accent);
 }
