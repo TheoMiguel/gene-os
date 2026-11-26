@@ -35,7 +35,7 @@ export function parseRegion(start: string, end: string, length: number, circular
   return { start: from - 1, end: to };
 }
 
-const dg = (value: number) => value.toFixed(1);
+const dg = (value: number) => (Math.abs(value) < 0.05 ? '0.0' : value.toFixed(1));
 
 /**
  * Automatic design: the user picks a region (the selection in the Sequence view, or typed coordinates), sets the
@@ -88,7 +88,7 @@ export function DesignSection(props: DesignSectionProps) {
         id: 'product',
         header: t('primers.designProduct'),
         type: 'number',
-        width: 100,
+        width: 130,
         value: (row) => row.productSize,
       },
       {

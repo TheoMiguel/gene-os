@@ -294,10 +294,10 @@ export function GelFigure({ lanes, ladder, agarose, selected, onSelect, svgRef }
         stroke="#22363f"
         stroke-width="1"
       />
-      <text class="gel-caption" x="16" y="20">
+      <text class="gel-caption" x="16" y="16">
         {caption}
       </text>
-      <text class="gel-caption" x={width - 16} y="20" text-anchor="end">
+      <text class="gel-caption" x="16" y="30">
         {t('gel.agaroseCaption', { percent: agarose.toFixed(1) })}
       </text>
       {lanesSvg}

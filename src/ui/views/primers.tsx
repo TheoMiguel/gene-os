@@ -139,12 +139,7 @@ export function Panel({ doc }: { readonly doc: SeqDocument }) {
             type="button"
             class="secondary"
             onClick={() =>
-              setPrimers(
-                HAIRPIN_EXAMPLE,
-                forwardSeq || HAIRPIN_EXAMPLE,
-                t('primers.hairpinName'),
-                reverseName,
-              )
+              setPrimers(HAIRPIN_EXAMPLE, state.reverse.value, t('primers.hairpinName'), reverseName)
             }
           >
             {t('primers.exampleHairpin')}
