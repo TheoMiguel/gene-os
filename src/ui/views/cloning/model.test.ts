@@ -1,7 +1,6 @@
 import { EGFP, PUC19_RECORD, templateWith } from '../../../../tests/fixtures/cloning/records';
 import { designCloning } from '../../../engine/cloning';
 import type { SeqDocument } from '../../../state/documents';
-import { angleOf, arcPath, spreadAngles } from './mapGeometry';
 import {
   buildRequest,
   type CloningSetup,
@@ -140,34 +139,5 @@ describe('helpers', () => {
       templateId: 't',
     };
     expect(orderList([primer, { ...primer, name: 'a-R', seq: 'TTTT' }])).toBe('a-F\tACGT\na-R\tTTTT\n');
-  });
-});
-
-describe('map geometry', () => {
-  it('puts position 0 at the top and a quarter turn at the right', () => {
-    expect(angleOf(0, 100)).toBeCloseTo(-Math.PI / 2);
-    expect(angleOf(25, 100)).toBeCloseTo(0);
-  });
-
-  it('draws a full-turn arc as two halves and a short arc as one', () => {
-    expect(arcPath(0, 0, 10, 0, Math.PI * 2).match(/A/g)).toHaveLength(2);
-    expect(arcPath(0, 0, 10, 0, 1).match(/A/g)).toHaveLength(1);
-  });
-
-  it('spreads crowded labels apart and keeps the order', () => {
-    const spread = spreadAngles([1, 1.01, 1.02, 3], 0.2);
-    const sorted = [...spread].sort((a, b) => a - b);
-    for (let i = 1; i < sorted.length; i++)
-      expect((sorted[i] as number) - (sorted[i - 1] as number)).toBeGreaterThan(0.19);
-    expect(spread[0]).toBeLessThan(spread[1] as number);
-    expect(spread[1]).toBeLessThan(spread[2] as number);
-  });
-
-  it('spreads labels that sit on both sides of the top of the circle', () => {
-    const tau = Math.PI * 2;
-    const spread = spreadAngles([tau - 0.02, 0.0, 0.02], 0.3);
-    const wrapped = spread.map((a) => ((a % tau) + tau) % tau).sort((a, b) => a - b);
-    const gaps = wrapped.map((a, i) => ((wrapped[(i + 1) % 3] as number) - a + tau) % tau);
-    for (const gap of gaps) expect(gap).toBeGreaterThan(0.29);
   });
 });

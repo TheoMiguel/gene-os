@@ -1,6 +1,6 @@
-import { effect, type Signal, signal } from '@preact/signals';
+import { type Signal, signal } from '@preact/signals';
 import type { Frame } from '../../../engine/translate';
-import { workspace } from '../../../state/documents';
+import { perDocument } from '../../../state/perDocument';
 import type { SiteDisplay } from './mapModel';
 import { DEFAULT_FILTER, type RestrictionFilter } from './restrictionRows';
 
@@ -38,34 +38,23 @@ export interface SequencePrefs {
   readonly filtersOpen: Signal<boolean | null>;
 }
 
-const prefsByDocument = new Map<string, SequencePrefs>();
-
-/** The sequence view settings of a document. The same object on every call. */
-export function prefsOf(docId: string): SequencePrefs {
-  let prefs = prefsByDocument.get(docId);
-  if (!prefs) {
-    prefs = {
-      mapKind: signal<MapKind>('auto'),
-      siteDisplay: signal<SiteDisplay>('unique'),
-      readMode: signal<ReadMode>('text'),
-      frame: signal<Frame>(1),
-      geneticCode: signal(1),
-      lineFit: signal<LineFit>('auto'),
-      focus: signal<PaneFocus>('all'),
-      split: signal({ col: 0.44, row: 0.46 }),
-      picked: signal<ReadonlySet<string>>(new Set()),
-      pick: signal<Pick | null>(null),
-      filter: signal<RestrictionFilter>(DEFAULT_FILTER),
-      filtersOpen: signal<boolean | null>(null),
-    };
-    prefsByDocument.set(docId, prefs);
-  }
-  return prefs;
+/** Fresh sequence view settings, for a map that belongs to no open document. */
+export function createPrefs(): SequencePrefs {
+  return {
+    mapKind: signal<MapKind>('auto'),
+    siteDisplay: signal<SiteDisplay>('unique'),
+    readMode: signal<ReadMode>('text'),
+    frame: signal<Frame>(1),
+    geneticCode: signal(1),
+    lineFit: signal<LineFit>('auto'),
+    focus: signal<PaneFocus>('all'),
+    split: signal({ col: 0.44, row: 0.46 }),
+    picked: signal<ReadonlySet<string>>(new Set()),
+    pick: signal<Pick | null>(null),
+    filter: signal<RestrictionFilter>(DEFAULT_FILTER),
+    filtersOpen: signal<boolean | null>(null),
+  };
 }
 
-let knownIds = new Set<string>();
-effect(() => {
-  const open = new Set(workspace.documents.value.map((doc) => doc.id));
-  for (const id of knownIds) if (!open.has(id)) prefsByDocument.delete(id);
-  knownIds = open;
-});
+/** The sequence view settings of a document. The same object on every call. */
+export const prefsOf = perDocument(createPrefs);

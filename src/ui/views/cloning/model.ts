@@ -3,6 +3,7 @@ import {
   ATT_SITES,
   type CloningMethod,
   type CloningRequest,
+  type Construct,
   type Dntp,
   type GatewayInsert,
   GOLDEN_GATE_ENZYMES,
@@ -11,8 +12,9 @@ import {
   type VectorOpening,
 } from '../../../engine/cloning';
 import { cutCount, isClassicEnzyme } from '../../../engine/cloning/enzymes';
+import { circularLocation, linearLocation } from '../../../engine/location';
 import { ENZYME_CATALOG } from '../../../engine/restriction';
-import type { SeqRecord, Topology } from '../../../engine/types';
+import type { Feature, SeqRecord, Topology } from '../../../engine/types';
 import type { SeqDocument } from '../../../state/documents';
 import type { SelectionRange } from '../../../state/view';
 import { t } from '../../i18n';
@@ -386,4 +388,32 @@ export function orderList(primers: readonly PlannedPrimer[]): string {
 /** Where a pasted or chosen vector sits: the vector document for the insertion-point shortcut. */
 export function vectorDocId(setup: CloningSetup): string | null {
   return setup.vector.kind === 'paste' ? null : setup.vector.docId;
+}
+
+/** The colour of a junction mark on the map, apart from every feature type's colour. */
+const JUNCTION_COLOR = '#ff8a5c';
+
+/**
+ * The construct's junctions as map features, so the plasmid map draws and labels them with the rest. A junction of
+ * length 0 marks the single base after the join.
+ */
+export function junctionFeatures(construct: Construct): Feature[] {
+  const { seq, topology } = construct.record;
+  const n = seq.length;
+  if (n === 0) return [];
+  return construct.junctions.map((junction, i) => {
+    const length = Math.min(Math.max(junction.length, 1), n);
+    const start = Math.min(Math.max(junction.position, 0), topology === 'circular' ? n - 1 : n - length);
+    return {
+      id: `junction:${i}`,
+      type: 'misc_feature',
+      name: junction.label,
+      origin: 'user',
+      color: JUNCTION_COLOR,
+      location:
+        topology === 'circular'
+          ? circularLocation(start, length, n, 1)
+          : linearLocation(start, start + length, 1),
+    };
+  });
 }

@@ -6,7 +6,7 @@ import {
   type PrimerPair,
 } from '../../../engine/primers';
 import type { PrimerConditions, Span } from '../../../engine/types';
-import { perDocument } from '../gel/documentState';
+import { perDocument } from '../../../state/perDocument';
 import { createGelSettingsStore } from '../gel/GelPanel';
 
 /** The design constraints as the user edits them, one number per control. */

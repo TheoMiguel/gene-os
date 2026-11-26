@@ -1,7 +1,9 @@
 import { useMemo } from 'preact/hooks';
 import { useAnalysis } from '../../state/analysis';
 import type { SeqDocument } from '../../state/documents';
+import { viewOf } from '../../state/view';
 import { t } from '../i18n';
+import { useElementSize } from '../viz/useContainerSize';
 import { selectMapSites } from './sequence/mapModel';
 import { PlasmidMap } from './sequence/PlasmidMap';
 import { RestrictionPane } from './sequence/RestrictionPane';
@@ -9,7 +11,6 @@ import { Segmented } from './sequence/Segmented';
 import { SequencePane } from './sequence/SequencePane';
 import { Splitter } from './sequence/Splitter';
 import { type PaneFocus, prefsOf } from './sequence/state';
-import { useElementSize } from './sequence/useElementSize';
 import './sequence/sequence.css';
 
 /** Below this width the three panes cannot sit side by side, so one pane at a time fills the area. */
@@ -51,7 +52,15 @@ export function Panel({ doc }: { readonly doc: SeqDocument }) {
   );
 
   const split = prefs.split.value;
-  const map = <PlasmidMap doc={doc} sites={chosen} recognition={recognition} />;
+  const map = (
+    <PlasmidMap
+      record={doc.record}
+      view={viewOf(doc.id)}
+      prefs={prefs}
+      sites={chosen}
+      recognition={recognition}
+    />
+  );
   const text = <SequencePane doc={doc} scan={scan} shown={shown} />;
   const sites = <RestrictionPane doc={doc} analysis={analysis} roomy={root.height >= ROOMY_HEIGHT} />;
 

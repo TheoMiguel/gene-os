@@ -26,6 +26,7 @@ interface PanelState {
 }
 
 const panels = new Map<string, PanelState>();
+const created = signal(0);
 
 effect(() => {
   const open = new Set(workspace.documents.value.map((doc) => doc.id));
@@ -79,8 +80,23 @@ export function cloningPanelOf(doc: SeqDocument, sources: readonly CloningSource
       cancel: null,
     };
     panels.set(doc.id, panel);
+    created.value = created.peek() + 1;
   }
   return panel;
+}
+
+/** The form of a document's cloning panel, or undefined when the user never opened it. Reading in an effect tracks new panels too. */
+export function findCloningSetup(docId: string): Signal<CloningSetup> | undefined {
+  void created.value;
+  return panels.get(docId)?.setup;
+}
+
+/** Gives a document a cloning panel with the form a project file or session stored, and no result. */
+export function restoreCloningSetup(docId: string, setup: CloningSetup): void {
+  const old = panels.get(docId);
+  old?.cancel?.();
+  panels.set(docId, { setup: signal(setup), run: signal(null), cancel: null });
+  created.value = created.peek() + 1;
 }
 
 /** Builds the request from the form and runs the designer off the main thread, replacing a design in progress. */

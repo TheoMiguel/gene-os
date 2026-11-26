@@ -3,19 +3,23 @@ import type {
   CloningDesign,
   CloningProblem,
   CloningWarning,
+  Construct,
   JunctionInfo,
   PlannedPrimer,
   PreparedFragment,
 } from '../../../engine/cloning';
 import { workspace } from '../../../state/documents';
+import { createViewState } from '../../../state/view';
 import { notice } from '../../actions';
 import { copyText, downloadSequence, downloadText, reportCopy, reportSave } from '../../export';
 import { t } from '../../i18n';
 import { Table, type TableColumn } from '../../table';
-import { ConstructMap } from './ConstructMap';
+import { PlasmidMap } from '../sequence/PlasmidMap';
+import { createPrefs } from '../sequence/state';
 import { problemText, requestErrorText, warningText } from './messages';
-import { orderList } from './model';
+import { junctionFeatures, orderList } from './model';
 import type { CloningRun } from './store';
+import '../sequence/sequence.css';
 
 const TABLE_CHROME = 32 + 54;
 const ROW = 28;
@@ -148,6 +152,30 @@ function PrimerSection({ primers }: { readonly primers: readonly PlannedPrimer[]
   );
 }
 
+/** The Sequence view's plasmid map for a simulated construct: its features, junction marks and primer bindings. */
+function ConstructMap({ construct }: { readonly construct: Construct }) {
+  const map = useMemo(() => {
+    const record = {
+      ...construct.record,
+      features: [...construct.record.features, ...junctionFeatures(construct)],
+    };
+    return { record, view: createViewState(() => record.seq.length), prefs: createPrefs() };
+  }, [construct]);
+  return (
+    <div class="clone-map">
+      <PlasmidMap
+        record={map.record}
+        view={map.view}
+        prefs={map.prefs}
+        sites={null}
+        recognition={NO_RECOGNITION}
+      />
+    </div>
+  );
+}
+
+const NO_RECOGNITION: ReadonlyMap<string, string> = new Map();
+
 function ConstructSection({ design }: { readonly design: CloningDesign }) {
   const [chosen, setChosen] = useState(0);
   const construct = design.constructs[chosen] ?? design.constructs[0];
@@ -195,7 +223,7 @@ function ConstructSection({ design }: { readonly design: CloningDesign }) {
           orientation: orientation(construct.orientation),
         })}
       </p>
-      <ConstructMap construct={construct} name={record.name} />
+      <ConstructMap construct={construct} />
       <div class="clone-actions">
         <button type="button" class="primary-btn" onClick={open}>
           {t('clone.construct.open')}

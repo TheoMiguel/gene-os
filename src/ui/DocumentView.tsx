@@ -13,6 +13,7 @@ const subPanelId = (docId: string) => `${docId}-panel`;
 export function DocumentView({ doc }: PanelProps) {
   const { record } = doc;
   const Panel = PANELS[doc.activeTab];
+  const protein = record.alphabet === 'protein';
 
   const select = (tab: AnalysisTab) => {
     if (tab !== doc.activeTab) sfx('tab');
@@ -32,8 +33,8 @@ export function DocumentView({ doc }: PanelProps) {
       <div class="doc-head">
         <h1 class="doc-title">{record.name}</h1>
         <span class="doc-meta">
-          {t('doc.length', { length: record.seq.length.toLocaleString() })} ·{' '}
-          {t(`topology.${record.topology}`)} · {t(`alphabet.${record.alphabet}`)}
+          {t(protein ? 'align.what.residues' : 'doc.length', { length: record.seq.length.toLocaleString() })}
+          {protein ? '' : ` · ${t(`topology.${record.topology}`)}`} · {t(`alphabet.${record.alphabet}`)}
         </span>
       </div>
       <div class="workspace-tabs" role="tablist" aria-label={t('doc.tabsLabel')} onKeyDown={onKeyDown}>

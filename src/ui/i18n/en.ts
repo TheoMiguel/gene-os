@@ -28,7 +28,6 @@ export const en = {
   'status.dismiss': 'Dismiss message',
 
   'doc.tabsLabel': 'Analysis views',
-  'doc.placeholder': 'This view arrives in a later phase.',
   'doc.length': '{length} bp',
   'topology.linear': 'Linear',
   'topology.circular': 'Circular',
@@ -1186,7 +1185,6 @@ export const en = {
   'clone.construct.open': 'Open construct as a new document',
   'clone.construct.saveGenbank': 'Save GenBank',
   'clone.construct.saveFasta': 'Save FASTA',
-  'clone.map.label': 'Circular map of {name}, {length} bp',
   'clone.junction.title': 'Junctions ({count})',
   'clone.junction.name': 'Junction',
   'clone.junction.kind': 'Kind',

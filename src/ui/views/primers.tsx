@@ -14,6 +14,7 @@ import { Specificity } from './primers/Specificity';
 import { COLONY_PCR_PAIR, HAIRPIN_EXAMPLE, standardPrimer } from './primers/standardPrimers';
 import { primersGelOf, primersStateOf } from './primers/state';
 import { usePrimerScan } from './primers/useScan';
+import './primers/persist';
 import './primers/primers.css';
 
 const isUsable = (seq: string) => seq.length > 0 && invalidCharacters(seq).length === 0;

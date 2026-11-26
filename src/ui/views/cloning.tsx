@@ -8,6 +8,7 @@ import { CloningResultView } from './cloning/Result';
 import { SourcePicker } from './cloning/Sources';
 import { cancelDesign, cloningPanelOf, runDesign, sourcesOf } from './cloning/store';
 import './cloning/cloning.css';
+import './cloning/persist';
 
 const PASTE: SourceChoice = { kind: 'paste', text: '', topology: 'linear' };
 

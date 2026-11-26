@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
-import type { SeqDocument } from '../../../state/documents';
-import { viewOf } from '../../../state/view';
+import type { SeqRecord } from '../../../engine/types';
+import type { ViewState } from '../../../state/view';
 import { ImageExportButtons } from '../../export/ImageExportButtons';
 import { t } from '../../i18n';
+import { useElementSize } from '../../viz/useContainerSize';
 import { CircularOverlay, CircularStatic } from './CircularContent';
 import { buildCircularScene } from './circularMap';
 import { LinearOverlay, LinearStatic } from './LinearContent';
@@ -22,8 +23,7 @@ import {
 } from './mapZoom';
 import { PaneFrame } from './PaneFrame';
 import { activePick, pickItem } from './pick';
-import { type MapKind, prefsOf } from './state';
-import { useElementSize } from './useElementSize';
+import type { MapKind, SequencePrefs } from './state';
 
 const DRAG_THRESHOLD = 4;
 const ZOOM_STEP = 1.6;
@@ -41,10 +41,15 @@ const DISPLAY_KEYS = {
   all: 'sv.map.sitesAll',
 } as const;
 
+const NO_SITES: ChosenSites = { sites: [], hidden: 0 };
+
 interface MapProps {
-  readonly doc: SeqDocument;
-  /** The cuts to draw, chosen by the view from the scan, the display setting and the picked enzymes. */
-  readonly sites: ChosenSites;
+  readonly record: SeqRecord;
+  /** The selection and caret the map draws and a click sets. A document's own state keeps every pane in step. */
+  readonly view: ViewState;
+  readonly prefs: SequencePrefs;
+  /** The cuts to draw, chosen by the view from the scan, the display setting and the picked enzymes. Null draws none and hides the sites control. */
+  readonly sites: ChosenSites | null;
   /** Recognition sequence of each enzyme, for the tooltip. */
   readonly recognition: ReadonlyMap<string, string>;
 }
@@ -62,11 +67,9 @@ interface Drag {
  * features in lanes, restriction ticks, primer arrows, a base-pair scale, collision-free labels, hover tooltips,
  * zoom and pan, and SVG and PNG export. A click selects the element in every pane.
  */
-export function PlasmidMap({ doc, sites: chosen, recognition }: MapProps) {
-  const { record } = doc;
+export function PlasmidMap({ record, view, prefs, sites, recognition }: MapProps) {
+  const chosen = sites ?? NO_SITES;
   const length = record.seq.length;
-  const view = viewOf(doc.id);
-  const prefs = prefsOf(doc.id);
   const shape = prefs.mapKind.value;
   const circular = shape === 'auto' ? record.topology === 'circular' : shape === 'circular';
   const display = prefs.siteDisplay.value;
@@ -272,21 +275,23 @@ export function PlasmidMap({ doc, sites: chosen, recognition }: MapProps) {
             ))}
           </select>
         </label>
-        <label class="tool inline">
-          <span class="field-label">{t('sv.map.sites')}</span>
-          <select
-            value={display}
-            onChange={(event) => {
-              prefs.siteDisplay.value = (event.currentTarget as HTMLSelectElement).value as SiteDisplay;
-            }}
-          >
-            {SITE_DISPLAYS.map((option) => (
-              <option key={option} value={option}>
-                {t(DISPLAY_KEYS[option])}
-              </option>
-            ))}
-          </select>
-        </label>
+        {sites && (
+          <label class="tool inline">
+            <span class="field-label">{t('sv.map.sites')}</span>
+            <select
+              value={display}
+              onChange={(event) => {
+                prefs.siteDisplay.value = (event.currentTarget as HTMLSelectElement).value as SiteDisplay;
+              }}
+            >
+              {SITE_DISPLAYS.map((option) => (
+                <option key={option} value={option}>
+                  {t(DISPLAY_KEYS[option])}
+                </option>
+              ))}
+            </select>
+          </label>
+        )}
         <span class="tool-group">
           <button
             type="button"

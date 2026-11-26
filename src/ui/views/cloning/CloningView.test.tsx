@@ -68,7 +68,10 @@ describe('cloning view', () => {
         .filter((r) => r.classList.contains('table-row')),
     ).toHaveLength(2);
     expect(screen.getByText(/Primers to order \(2\)/)).toBeTruthy();
-    expect(screen.getByRole('img', { name: /Circular map of/ })).toBeTruthy();
+    const map = screen.getByRole('application', { name: /^Map of .*, Circular\./ });
+    expect(map.querySelectorAll('[data-id^="f:junction:"]').length).toBeGreaterThanOrEqual(2);
+    expect(map.querySelectorAll('[data-id^="p:primer:"]').length).toBeGreaterThanOrEqual(2);
+    expect(map.querySelector('[data-id^="f:"]:not([data-id^="f:junction:"])')).not.toBeNull();
     expect(screen.getByText(/Junctions \(2\)/)).toBeTruthy();
     expect(screen.getByRole('button', { name: 'Copy order list' })).toBeTruthy();
   });
@@ -101,7 +104,10 @@ describe('cloning view', () => {
     await design();
     expect(screen.queryByRole('alert')).toBeNull();
     expect(screen.getByText(/Primers to order \(2\)/)).toBeTruthy();
-    expect(screen.getByRole('img', { name: /Circular map of/ })).toBeTruthy();
+    const map = screen.getByRole('application', { name: /^Map of .*, Circular\./ });
+    expect(map.querySelectorAll('[data-id^="f:junction:"]').length).toBeGreaterThanOrEqual(2);
+    expect(map.querySelectorAll('[data-id^="p:primer:"]').length).toBeGreaterThanOrEqual(2);
+    expect(map.querySelector('[data-id^="f:"]:not([data-id^="f:junction:"])')).not.toBeNull();
   });
 
   it('says what a Gateway vector must look like when the vector is not one', async () => {
