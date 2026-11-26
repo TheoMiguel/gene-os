@@ -1,10 +1,13 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { readSequenceFile } from '../../formats';
-import { PRESETS } from './index';
+import { PRESETS, type PresetInfo } from './index';
 
 const dir = fileURLToPath(new URL('.', import.meta.url));
-const bytesOf = (file: string) => new Uint8Array(readFileSync(`${dir}${file}`));
+const bytesOf = (preset: PresetInfo) =>
+  preset.encoded
+    ? new Uint8Array(Buffer.from(readFileSync(`${dir}${preset.encoded}`, 'utf8'), 'base64'))
+    : new Uint8Array(readFileSync(`${dir}${preset.file}`));
 
 describe('example sequences', () => {
   it('lists the sequences a student meets, each with a public source', () => {
@@ -21,7 +24,7 @@ describe('example sequences', () => {
   it.each(PRESETS.map((preset) => [preset.name, preset] as const))(
     '%s reads through the format readers and matches its manifest',
     (_name, preset) => {
-      const read = readSequenceFile(bytesOf(preset.file), preset.file);
+      const read = readSequenceFile(bytesOf(preset), preset.file);
       expect(read.ok).toBe(true);
       if (!read.ok) return;
       const record = read.records[0];

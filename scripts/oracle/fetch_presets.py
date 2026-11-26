@@ -9,6 +9,7 @@ from a citable public source is not listed here: pET-28a(+) and pETDuet-1 have n
 manifest.json records the accession, the source URL, the region and the size of every preset.
 """
 
+import base64
 import hashlib
 import io
 import json
@@ -74,7 +75,8 @@ def main():
         print(f"{preset_id}: {accession} {len(record.seq)} bp, {len(record.features)} features")
 
     ab1 = urllib.request.urlopen(AB1_URL, timeout=120).read()
-    (OUT / "sanger-16s-read.ab1").write_bytes(ab1)
+    # Vite imports a text file in any build and test setup; a binary one needs a plugin. The reader decodes it.
+    (OUT / "sanger-16s-read.ab1.b64.txt").write_text(base64.b64encode(ab1).decode() + "\n")
     trace = SeqIO.read(io.BytesIO(ab1), "abi")
     manifest.append(
         {
@@ -82,6 +84,7 @@ def main():
             "name": "Sanger read (16S rRNA)",
             "format": "ab1",
             "file": "sanger-16s-read.ab1",
+            "encoded": "sanger-16s-read.ab1.b64.txt",
             "accession": None,
             "region": None,
             "source": f"Biopython test suite, Tests/Abi/3100.ab1 at commit {BIOPYTHON_COMMIT}",

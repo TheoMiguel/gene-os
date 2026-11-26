@@ -7,7 +7,10 @@ export interface PresetInfo {
   readonly id: string;
   readonly name: string;
   readonly format: 'genbank' | 'ab1';
+  /** Name the reader sees, so its extension names the format. */
   readonly file: string;
+  /** A binary record is stored as base64 text in this file, which every build and test setup can import. */
+  readonly encoded?: string;
   /** Accession and version of the public record, absent for a trace file. */
   readonly accession: string | null;
   /** `start..stop` of the part of the record that was fetched, 1-based, or null for the whole record. */
@@ -42,8 +45,8 @@ const LOADERS: Readonly<Record<string, Loader>> = {
   'pgex-4t-1': fromText(() => import('./pgex-4t-1.gb?raw')),
   'petduet-1-gfp': fromText(() => import('./petduet-1-gfp.gb?raw')),
   'sanger-read': async () => {
-    const { default: url } = await import('./sanger-16s-read.ab1?inline');
-    return new Uint8Array(await (await fetch(url)).arrayBuffer());
+    const { default: base64 } = await import('./sanger-16s-read.ab1.b64.txt?raw');
+    return Uint8Array.from(atob(base64.trim()), (char) => char.charCodeAt(0));
   },
 };
 

@@ -1,5 +1,7 @@
+import { SessionPersistence } from '../project/SessionPersistence';
 import { workspace } from '../state/documents';
 import { sfx, showNewSequence } from './actions';
+import { ExportMenu } from './ExportMenu';
 import { t } from './i18n';
 import { Logo } from './Logo';
 import { eventTabIndex, nextTabIndex } from './tablist';
@@ -120,6 +122,8 @@ export function Header({
           +
         </button>
       </div>
+      <ExportMenu />
+      <SessionPersistence />
       <button
         type="button"
         id="gear-button"

@@ -124,6 +124,7 @@
     "name": "Sanger read (16S rRNA)",
     "format": "ab1",
     "file": "sanger-16s-read.ab1",
+    "encoded": "sanger-16s-read.ab1.b64.txt",
     "accession": null,
     "region": null,
     "source": "Biopython test suite, Tests/Abi/3100.ab1 at commit 86e9ea56dbd67f51565fc9566e4f87a888f94454",
