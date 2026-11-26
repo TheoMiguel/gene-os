@@ -1,5 +1,4 @@
-import type { ComponentType } from 'preact';
-import { ANALYSIS_TABS, type AnalysisTab, type SeqDocument, workspace } from '../state/documents';
+import { ANALYSIS_TABS, type AnalysisTab, workspace } from '../state/documents';
 import { sfx } from './actions';
 import { docTabId, WORKSPACE_PANEL_ID } from './Header';
 import { t } from './i18n';
