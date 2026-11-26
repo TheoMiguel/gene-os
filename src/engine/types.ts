@@ -203,4 +203,6 @@ export interface FeatureSignature {
   /** Minimum fraction identity for a hit, 0..1. */
   readonly minIdentity: number;
   readonly description?: string;
+  /** GenBank accession.version of the record the signature was read from. */
+  readonly source?: string;
 }
