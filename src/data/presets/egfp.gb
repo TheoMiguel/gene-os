@@ -1,0 +1,69 @@
+LOCUS       CVU55762                 720 bp    DNA     linear   SYN 22-AUG-2003
+DEFINITION  Cloning vector pEGFP-N1, complete sequence, enhanced green
+            fluorescent protein (egfp) and neomycin phosphotransferase genes,
+            complete cds.
+ACCESSION   U55762 REGION: 679..1398
+VERSION     U55762.1
+KEYWORDS    .
+SOURCE      Cloning vector pEGFP-N1
+  ORGANISM  Cloning vector pEGFP-N1
+            other sequences; artificial sequences; vectors.
+REFERENCE   1  (bases 1 to 720)
+  AUTHORS   Cormack,B.P., Valdivia,R.H. and Falkow,S.
+  TITLE     FACS-optimized mutants of the green fluorescent protein (GFP)
+  JOURNAL   Gene 173 (1 SPEC NO), 33-38 (1996)
+   PUBMED   8707053
+REFERENCE   2  (bases 1 to 720)
+  AUTHORS   Kitts,P.A.
+  TITLE     pEGFP-N1 complete sequence
+  JOURNAL   Unpublished
+REFERENCE   3  (bases 1 to 720)
+  AUTHORS   Kitts,P.A.
+  TITLE     Direct Submission
+  JOURNAL   Submitted (17-APR-1996) Paul A. Kitts, CLONTECH Laboratories, Inc.,
+            1020 East Meadow Circle, Palo Alto, CA 94303-4230, USA
+COMMENT     This vector can be obtained from CLONTECH Laboratories, Inc., 1020
+            East  Meadow Circle, Palo Alto, CA 94303-4230, USA. To place an
+            order call  (415) 424-8222 or (800) 662-2566, extension 1.
+            International customers,  please contact your local distributor.
+            For technical information, call  (415) 424-8222 or (800) 662-2566,
+            extension 3.
+            This sequence has been compiled from information in the sequence
+            databases,  published literature and other sources, together with
+            partial sequences  obtained by CLONTECH. If you suspect there is an
+            error in this sequence,  please contact CLONTECH's Technical
+            Service Department at (415) 424-8222 or  (800) 662-2566, extension
+            3 or E-mail TECH@CLONTECH.COM.
+FEATURES             Location/Qualifiers
+     source          1..720
+                     /organism="Cloning vector pEGFP-N1"
+                     /mol_type="genomic DNA"
+                     /db_xref="taxon:47945"
+     gene            1..720
+                     /gene="egfp"
+     CDS             1..720
+                     /gene="egfp"
+                     /codon_start=1
+                     /transl_table=11
+                     /product="enhanced green fluorescent protein"
+                     /protein_id="AAB02574.1"
+                     /translation="MVSKGEELFTGVVPILVELDGDVNGHKFSVSGEGEGDATYGKLT
+                     LKFICTTGKLPVPWPTLVTTLTYGVQCFSRYPDHMKQHDFFKSAMPEGYVQERTIFFK
+                     DDGNYKTRAEVKFEGDTLVNRIELKGIDFKEDGNILGHKLEYNYNSHNVYIMADKQKN
+                     GIKVNFKIRHNIEDGSVQLADHYQQNTPIGDGPVLLPDNHYLSTQSALSKDPNEKRDH
+                     MVLLEFVTAAGITLGMDELYK"
+ORIGIN      
+        1 atggtgagca agggcgagga gctgttcacc ggggtggtgc ccatcctggt cgagctggac
+       61 ggcgacgtaa acggccacaa gttcagcgtg tccggcgagg gcgagggcga tgccacctac
+      121 ggcaagctga ccctgaagtt catctgcacc accggcaagc tgcccgtgcc ctggcccacc
+      181 ctcgtgacca ccctgaccta cggcgtgcag tgcttcagcc gctaccccga ccacatgaag
+      241 cagcacgact tcttcaagtc cgccatgccc gaaggctacg tccaggagcg caccatcttc
+      301 ttcaaggacg acggcaacta caagacccgc gccgaggtga agttcgaggg cgacaccctg
+      361 gtgaaccgca tcgagctgaa gggcatcgac ttcaaggagg acggcaacat cctggggcac
+      421 aagctggagt acaactacaa cagccacaac gtctatatca tggccgacaa gcagaagaac
+      481 ggcatcaagg tgaacttcaa gatccgccac aacatcgagg acggcagcgt gcagctcgcc
+      541 gaccactacc agcagaacac ccccatcggc gacggccccg tgctgctgcc cgacaaccac
+      601 tacctgagca cccagtccgc cctgagcaaa gaccccaacg agaagcgcga tcacatggtc
+      661 ctgctggagt tcgtgaccgc cgccgggatc actctcggca tggacgagct gtacaagtaa
+//
+

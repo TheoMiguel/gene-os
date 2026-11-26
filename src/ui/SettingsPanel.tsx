@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'preact/hooks';
+import { ClearSessionControl } from '../project/ClearSessionControl';
 import {
   BACKGROUNDS,
   LANGUAGES,
@@ -189,6 +190,7 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
         <p class="settings-hint">
           {t(settings.value.mode === 'advanced' ? 'mode.advancedHint' : 'mode.defaultHint')}
         </p>
+        <ClearSessionControl />
       </div>
     </div>
   );

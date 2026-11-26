@@ -1,0 +1,325 @@
+/* Primers & PCR view. The page never scrolls; the panel scrolls inside itself. */
+
+.primers-view {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+.primers-card {
+  padding: 14px 16px;
+  min-width: 0;
+}
+.primers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 14px;
+  align-items: start;
+}
+.primers-analysis,
+.primers-specificity,
+.primers-design,
+.primers-pcr {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.primers-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0 10px;
+}
+.primers-actions-inline {
+  display: inline-flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.primers-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.primers-entry-title {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  font-weight: 500;
+}
+.primers-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.primers-field input,
+.primers-field select {
+  min-width: 0;
+}
+.primers-seq-input {
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.primers-seq-input::placeholder {
+  text-transform: none;
+  letter-spacing: 0;
+}
+.primers-seq-input[aria-invalid="true"] {
+  border-color: var(--danger);
+}
+.primers-count {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: var(--fg-muted);
+}
+.primers-seq-input[aria-invalid="true"] + .primers-count {
+  color: var(--danger);
+}
+.primers-hint {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--fg-muted);
+  line-height: 1.5;
+}
+.primers-error {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--danger);
+}
+.primers-advanced,
+.primers-conditions,
+.primers-constraints {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 14px;
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+}
+.primers-advanced {
+  border-style: dashed;
+}
+.primers-advanced .primers-conditions {
+  border: 0;
+  padding: 0;
+}
+.primers-conditions legend,
+.primers-constraints legend {
+  padding: 0 6px;
+}
+.primers-conditions .primers-field,
+.primers-constraints .primers-field {
+  width: 118px;
+}
+.primers-region .primers-field {
+  max-width: 220px;
+}
+.primers-region-actions {
+  justify-content: flex-end;
+}
+
+.primers-result {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  min-width: 0;
+}
+.primers-result-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.primers-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+}
+.primers-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+}
+.primers-kpi strong {
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+.primers-kpi-note {
+  font-size: 0.62rem;
+  color: var(--fg-muted);
+  font-family: var(--mono);
+}
+.primers-tm-other {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--fg-muted);
+}
+.primers-overall {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.primers-overall-text {
+  font-size: 0.78rem;
+}
+
+.primers-verdict {
+  display: inline-block;
+  padding: 2px 9px;
+  border: 1px solid currentColor;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.primers-verdict-good {
+  color: var(--accent);
+}
+.primers-verdict-caution {
+  color: var(--warn);
+}
+.primers-verdict-redesign {
+  color: var(--danger);
+}
+
+.primers-findings {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+}
+.primers-finding {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+.primers-finding-tag {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  height: fit-content;
+  border: 1px solid currentColor;
+}
+.primers-finding-warn .primers-finding-tag {
+  color: var(--warn);
+}
+.primers-finding-bad .primers-finding-tag {
+  color: var(--danger);
+}
+.primers-fix {
+  color: var(--fg-muted);
+  font-size: 0.72rem;
+}
+.primers-ok {
+  font-size: 0.76rem;
+  color: var(--accent);
+}
+.primers-drawing {
+  margin: 4px 0;
+  padding: 6px 8px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  background: var(--bg-solid-header);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.25;
+  white-space: pre;
+}
+.primers-alignment {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.primers-table-frame {
+  height: 240px;
+  min-width: 0;
+}
+.primers-pairs-frame {
+  height: 210px;
+}
+.primers-sequence {
+  height: 230px;
+  min-width: 0;
+  border: 1px solid var(--border);
+  background: var(--bg-solid-header);
+}
+.primers-colony {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.primers-product {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.primers-product-seq {
+  display: block;
+  width: 100%;
+  resize: vertical;
+  max-height: 110px;
+  overflow: auto;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  background: var(--bg-solid-header);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  word-break: break-all;
+  user-select: all;
+}
+.primers-product-seq:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.primers-why {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-bright);
+  background: var(--bg-card);
+  overflow-x: auto;
+}
+.primers-why-table {
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  min-width: 640px;
+}
+.primers-why-table th,
+.primers-why-table td {
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  text-align: left;
+  vertical-align: top;
+}
+.primers-why-table thead th {
+  color: var(--fg-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.62rem;
+  letter-spacing: 0.05em;
+}

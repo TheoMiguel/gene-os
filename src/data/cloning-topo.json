@@ -1,0 +1,6 @@
+{
+  "source": "Thermo Fisher TOPO TA Cloning and pENTR/D-TOPO user guides: TA vectors carry single 3' T overhangs and take PCR products that end in a 3' A (added by Taq, not by proofreading polymerases). Directional TOPO vectors carry a 5' GTGG overhang that pairs with CACC at the 5' end of the forward primer of a blunt product.",
+  "taOverhang": "A",
+  "directionalOverhang": "GTGG",
+  "forwardPrefix": "CACC"
+}

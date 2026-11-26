@@ -134,7 +134,7 @@ export const updateSettings = store.update;
 /** True when the user picked the advanced interface mode (spec 1.4). */
 export const advancedMode = computed(() => settings.value.mode === 'advanced');
 
-/** Reads the interface mode inside a component; later tabs show extra parameters when it is true. */
+/** Reads the interface mode inside a component; views show their extra parameters when it is true. */
 export function useAdvanced(): boolean {
   return advancedMode.value;
 }

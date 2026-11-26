@@ -1,0 +1,134 @@
+/* Export menu and comparison dialog (view: data). */
+.export-menu {
+  position: relative;
+  flex-shrink: 0;
+}
+.export-menu-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  color: var(--fg);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+.export-menu-btn:hover,
+.export-menu-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.export-menu-btn svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+}
+.export-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 60;
+  width: 380px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 90px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  background: var(--bg-solid-header);
+  border: 1px solid var(--accent);
+  box-shadow: 0 16px 38px var(--shadow);
+}
+.export-doc-name {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  color: var(--accent);
+  overflow-wrap: anywhere;
+}
+.export-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 0;
+  border-top: 1px solid var(--border);
+  padding: 10px 0 0;
+  margin: 0;
+  min-width: 0;
+}
+.export-group > legend {
+  padding: 0 6px 0 0;
+}
+.export-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.export-row input[type="text"],
+.export-row select {
+  flex: 1;
+  min-width: 0;
+}
+.export-image {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+}
+.export-hint {
+  font-size: 0.72rem;
+  color: var(--fg-muted);
+}
+.export-panel .export-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.compare-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: grid;
+  place-items: center;
+}
+.compare-backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--backdrop);
+}
+.compare-dialog {
+  position: relative;
+  width: 440px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 24px);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  background: var(--bg-solid-header);
+  border: 1px solid var(--accent);
+  box-shadow: 0 16px 38px var(--shadow);
+}
+.compare-dialog select {
+  width: 100%;
+}
+.compare-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.compare-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}

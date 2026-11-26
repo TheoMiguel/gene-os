@@ -1,0 +1,280 @@
+/* Cloning view. Colors come from the theme tokens in tokens.css. */
+
+.clone-view {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.clone-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 14px;
+}
+
+.clone-card {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.clone-hint {
+  font: 400 0.72rem var(--mono);
+  color: var(--fg-muted);
+}
+
+.clone-requirement {
+  border-left: 2px solid var(--warn);
+  padding-left: 8px;
+  color: var(--fg);
+}
+
+.clone-warning {
+  font: 500 0.74rem var(--mono);
+  color: var(--danger);
+}
+
+.clone-methods {
+  border: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 8px;
+}
+
+.clone-choice {
+  display: block;
+  padding: 8px 10px;
+  border: 1px solid var(--border-bright);
+  background: var(--bg-card);
+  cursor: pointer;
+  font: 400 0.74rem var(--mono);
+}
+
+.clone-choice strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.clone-choice p {
+  color: var(--fg-muted);
+}
+
+.clone-choice:hover {
+  border-color: var(--accent);
+}
+
+.clone-choice.selected {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.clone-choice.selected strong {
+  color: var(--accent);
+}
+
+.clone-choice:has(:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.clone-source {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.clone-source-row {
+  display: flex;
+  gap: 8px;
+}
+
+.clone-source-row select {
+  flex: 1;
+  min-width: 0;
+}
+
+.clone-paste {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.clone-paste textarea {
+  min-height: 4.5rem;
+}
+
+.clone-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.clone-add {
+  align-self: flex-start;
+}
+
+.clone-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.clone-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.clone-pair {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+  align-items: end;
+}
+
+.clone-radios {
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.clone-check {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font: 400 0.76rem var(--mono);
+  cursor: pointer;
+}
+
+.clone-check input {
+  padding: 0;
+}
+
+.clone-primers {
+  border: 1px solid var(--border);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+}
+
+.clone-primers legend {
+  grid-column: 1 / -1;
+}
+
+.clone-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.clone-run {
+  padding: 2px 0;
+}
+
+.clone-result {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+
+.clone-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.clone-messages {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.clone-problem,
+.clone-warn {
+  padding: 8px 10px;
+  border: 1px solid var(--border-bright);
+  border-left-width: 4px;
+  background: var(--bg-card);
+  font: 400 0.76rem / 1.45 var(--mono);
+}
+
+.clone-problem {
+  border-left-color: var(--danger);
+}
+
+.clone-warn {
+  border-left-color: var(--warn);
+}
+
+.clone-standalone {
+  display: block;
+}
+
+.clone-tag {
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.68rem;
+}
+
+.clone-problem .clone-tag {
+  color: var(--danger);
+}
+
+.clone-warn .clone-tag {
+  color: var(--warn);
+}
+
+.clone-orientations {
+  border: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.clone-orientation {
+  padding: 5px 10px;
+  border: 1px solid var(--border-bright);
+  font: 500 0.72rem var(--mono);
+  cursor: pointer;
+}
+
+.clone-orientation.selected {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.clone-orientation:has(:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.clone-table {
+  min-height: 120px;
+}
+
+.clone-map {
+  display: flex;
+  flex-direction: column;
+  height: 480px;
+  max-width: 100%;
+}
+
+.clone-map > .seq-pane {
+  flex: 1;
+}

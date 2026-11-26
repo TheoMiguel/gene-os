@@ -1,0 +1,226 @@
+/* Features view. */
+
+.features-view {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+  gap: 14px;
+  height: 100%;
+  min-height: 0;
+}
+
+.features-main,
+.features-side {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  min-height: 0;
+  padding: 14px 16px;
+}
+
+.features-side {
+  overflow-y: auto;
+}
+
+.features-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+}
+
+.section-title {
+  font: 500 0.95rem var(--sans);
+}
+
+.features-count {
+  flex: 1;
+  font: 400 0.72rem var(--mono);
+  color: var(--fg-muted);
+}
+
+.features-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 14px;
+}
+
+.features-table {
+  flex: 1;
+  min-height: 260px;
+}
+
+.features-view :is(.empty-state, .note) {
+  font: 400 0.72rem / 1.45 var(--mono);
+  color: var(--fg-muted);
+}
+
+.features-view .form-error {
+  font: 500 0.74rem var(--mono);
+  color: var(--danger);
+}
+
+.features-view .field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+
+.features-view .field.inline {
+  flex: 0 0 auto;
+}
+
+.features-view .field-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.feature-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.editor-title {
+  font: 500 0.82rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+
+.editor-name {
+  font: 500 0.95rem var(--sans);
+  overflow-wrap: anywhere;
+}
+
+.editor-span {
+  font: 400 0.74rem var(--mono);
+  color: var(--fg-muted);
+}
+
+.editor-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.feature-editor textarea {
+  resize: vertical;
+}
+
+.features-view [aria-invalid="true"] {
+  border-color: var(--danger);
+}
+
+.features-view button.mini {
+  padding: 7px 8px;
+}
+
+.features-view button.danger {
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.features-view .confirm {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font: 400 0.74rem var(--mono);
+}
+
+.color-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+}
+
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.swatch.on {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.swatch:focus-visible,
+.features-view :is(input, select, textarea, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.swatch-default {
+  padding-right: 8px;
+  font-size: 0.68rem;
+}
+
+.swatch-chip {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--border-bright);
+  flex: none;
+}
+
+.color-free {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.color-free input[type="color"] {
+  width: 36px;
+  height: 30px;
+  padding: 2px;
+}
+
+.color-hex {
+  width: 90px;
+}
+
+.color-contrast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 400 0.72rem var(--mono);
+}
+
+.color-contrast.low {
+  color: var(--danger);
+}
+
+@media (max-width: 900px) {
+  .features-view {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: minmax(360px, auto);
+    overflow-y: auto;
+  }
+}
+
+.color-free-label {
+  font: 400 0.65rem var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-muted);
+}

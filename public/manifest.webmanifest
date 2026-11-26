@@ -1,0 +1,14 @@
+{
+  "name": "GENE_OS",
+  "short_name": "GENE_OS",
+  "description": "Molecular biology workstation: restriction analysis, primers, PCR, cloning and plasmid maps, offline and without an account.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#060c10",
+  "theme_color": "#63c7b2",
+  "icons": [
+    { "src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ]
+}

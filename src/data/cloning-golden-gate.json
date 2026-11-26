@@ -1,0 +1,10 @@
+{
+  "source": "Type IIS enzymes of the Golden Gate method: Engler C, Kandzia R, Marillonnet S (2008) PLoS ONE 3:e3647 (BsaI); Engler C et al. (2009) PLoS ONE 4:e5553 (BsaI, BpiI/BbsI); Weber E et al. (2011) PLoS ONE 6:e16765 (BsaI, BpiI); SapI and BsmBI/Esp3I are the other enzymes in common use. Cut offsets come from the REBASE catalog in enzymes.json.",
+  "enzymes": ["BsaI", "BsmBI", "BbsI", "SapI", "Esp3I"],
+  "clamp": "GTAGTA",
+  "overhangRules": {
+    "minHammingDistance": 2,
+    "maxHomopolymer": 3,
+    "note": "No published high-fidelity overhang table is bundled: the table in Pryor JM et al. (2020) PLoS ONE 15:e0238592 could not be verified offline. Overhangs are generated and checked for uniqueness, palindromes, reverse-complement collisions, homopolymers and pairwise distance."
+  }
+}

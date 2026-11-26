@@ -1,0 +1,110 @@
+/* Libraries view and the database panel (view: data). */
+.libraries-panel {
+  height: 100%;
+  overflow-y: auto;
+  padding-right: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.libraries-panel .lib-card {
+  flex: none;
+}
+
+.preset-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.preset-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 8px;
+}
+.preset-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  color: var(--fg);
+  padding: 9px 10px;
+  cursor: pointer;
+}
+.preset-card:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+.preset-name {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.preset-meta {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  color: var(--fg-muted);
+}
+.preset-desc {
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+.preset-source {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  color: var(--fg-muted);
+  margin-top: auto;
+  overflow-wrap: anywhere;
+}
+
+.db-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.db-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+.db-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.db-state:empty {
+  display: none;
+}
+.lib-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  border-color: var(--danger);
+  color: var(--fg);
+}
+.db-results {
+  height: 320px;
+  min-height: 0;
+  border: 1px solid var(--border);
+}
+.db-results.compact {
+  height: 220px;
+}
+.db-open-row {
+  display: flex;
+  justify-content: flex-end;
+}
+.db-modes .seg-group {
+  display: flex;
+}

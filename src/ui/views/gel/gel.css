@@ -1,0 +1,156 @@
+/* The virtual gel: a dark photograph in every theme, so its colors are fixed rather than theme tokens. */
+
+.gel-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  min-width: 0;
+}
+.gel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.gel-title {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.gel-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 22px;
+  align-items: flex-end;
+}
+.gel-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.gel-field select {
+  max-width: 260px;
+}
+.gel-agarose {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gel-agarose input[type="range"] {
+  width: 150px;
+  padding: 0;
+  accent-color: var(--accent);
+}
+.gel-agarose output {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  min-width: 4.5em;
+}
+.gel-suggested {
+  font-size: 0.65rem;
+  color: var(--fg-muted);
+  font-family: var(--mono);
+}
+.gel-figure {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+}
+.gel-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--border);
+  background: var(--gel-bg);
+}
+
+.gel-caption,
+.gel-lane-label,
+.gel-size,
+.gel-tip-text {
+  font-family: var(--mono);
+}
+.gel-caption {
+  font-size: 10.5px;
+  fill: #9fb6c4;
+}
+.gel-lane-label {
+  font-size: 9.5px;
+  fill: #c5d3dc;
+}
+.gel-size {
+  font-size: 9.5px;
+  fill: #a9bcc8;
+}
+.gel-well {
+  fill: #02060a;
+  stroke: #1c2c35;
+  stroke-width: 1;
+}
+.gel-well-rim {
+  fill: #2c444f;
+  opacity: 0.55;
+}
+.gel-band {
+  cursor: pointer;
+  outline: none;
+}
+.gel-band:hover .gel-hit,
+.gel-band:focus-visible .gel-hit {
+  stroke: rgba(var(--accent-rgb), 0.9);
+  stroke-width: 1.2;
+  rx: 3;
+}
+.gel-selected {
+  stroke: #ffffff;
+  stroke-width: 1.4;
+  stroke-dasharray: 3 2;
+}
+.gel-tip {
+  fill: #0b141a;
+  stroke: #5f8196;
+  stroke-width: 1;
+}
+.gel-tip-text {
+  font-size: 10.5px;
+  fill: #e4eef4;
+}
+
+.gel-warnings {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.gel-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 7px 10px;
+  border: 1px solid var(--warn);
+  background: rgba(217, 167, 91, 0.1);
+  color: var(--fg);
+  font-size: 0.74rem;
+  line-height: 1.45;
+}
+.gel-warning strong {
+  color: var(--warn);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.gel-warning button {
+  padding: 3px 8px;
+  font-size: 0.68rem;
+}
+.gel-empty {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--fg-muted);
+}
